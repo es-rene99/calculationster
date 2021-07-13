@@ -1,3 +1,5 @@
+// TODO should organize the randomOperations code into it's own module, class or object.
+
 function getRandomDigit() {
   return Math.floor(Math.random() * 10);
 }
@@ -57,3 +59,23 @@ function askProblem() {
     );
   }
 }
+
+const uiHandler = {
+  populateContent() {
+  },
+  activateEventListeners() {
+    const gameStartBtn = document.getElementById('game__start-btn');
+    gameStartBtn.onclick = () => {
+      gameStartBtn.classList.toggle('hidden-element');
+      // TODO should generate in the ui the following HTML based on the randomOperations fun.
+      // like this
+      // <div class="operation__item">
+      //     <p class="operation__question"></p>
+      //     <p class="operation__answer"></p>
+      //   </div>
+    };
+  },
+};
+
+// TODO need to create an init fun that will execute the main funs.
+uiHandler.activateEventListeners();
