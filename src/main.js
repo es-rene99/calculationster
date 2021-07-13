@@ -57,5 +57,3 @@ function askProblem() {
     );
   }
 }
-
-askProblem();
