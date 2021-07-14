@@ -1,6 +1,20 @@
+/*
+Returns a random single digit number [0-9]
+*/
 function getRandomDigit() {
   return Math.floor(Math.random() * 10);
 }
+
+/*
+Returns a random integer in a range including the lower bound but excluding the upper bound.
+*/
+
+function getRandomInt(min, max) {
+  const minInt = Math.ceil(min);
+  const maxInt = Math.floor(max);
+  return Math.floor(Math.random() * (maxInt - minInt) + minInt);
+}
+
 
 // create random operators
 
@@ -43,9 +57,13 @@ function getCorrectResult(mathOne, mathTwo, operatorValue) {
 let winAnswers = 0;
 
 function askProblem() {
-  const firstNumber = getRandomDigit();
-  const secondNumber = getRandomDigit();
+  let firstNumber = getRandomInt(1, 10);
+  const secondNumber = getRandomInt(1, 10);
   const operator = getRandomOperator();
+  if (operator === '/') {
+    firstNumber *= secondNumber;
+  }
+
   const answer = Number(prompt(`What is ${firstNumber} ${operator} ${secondNumber} equal to?`));
   const correctAnswer = getCorrectResult(firstNumber, secondNumber, operator);
   if (answer === correctAnswer) {
