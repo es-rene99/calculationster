@@ -44,11 +44,14 @@ function getCorrectResult(mathOne, mathTwo, operatorValue) {
 
 let winAnswers = 0;
 
-function askProblem() {
-  const firstNumber = getRandomDigit();
-  const secondNumber = getRandomDigit();
-  const operator = getRandomOperator();
-  const answer = Number(prompt(`What is ${firstNumber} ${operator} ${secondNumber} equal to?`));
+
+const firstNumber = getRandomDigit();
+const secondNumber = getRandomDigit();
+const operator = getRandomOperator();
+
+
+function checkIfAnswerIsCorrect() {
+  const answer = parseInt(document.getElementById('answer').value);
   const correctAnswer = getCorrectResult(firstNumber, secondNumber, operator);
   if (answer === correctAnswer) {
     winAnswers += 1;
@@ -60,6 +63,25 @@ function askProblem() {
   }
 }
 
+// display the problem, add input field and a button to check the result
+
+function displayProblem() {
+  const question = document.getElementsByClassName('operation__question')[0];
+  question.textContent = `${firstNumber} ${operator} ${secondNumber}`;
+  const operationItem = document.getElementsByClassName('operation__item')[0];
+  question.textContent = `${firstNumber} ${operator} ${secondNumber}`;
+  const answerInputWrapper = document.createElement('p');
+  const answerInput = document.createElement('input');
+  answerInput.id = "answer";
+  operationItem.appendChild(answerInputWrapper);
+  answerInputWrapper.appendChild(answerInput);
+  const submitButton = document.createElement('button');
+  submitButton.id = 'submit';
+  submitButton.textContent = "submit";
+  operationItem.appendChild(submitButton);
+  submitButton.addEventListener('click', checkIfAnswerIsCorrect);
+}
+
 const uiHandler = {
   populateContent() {
   },
@@ -67,15 +89,13 @@ const uiHandler = {
     const gameStartBtn = document.getElementById('game__start-btn');
     gameStartBtn.onclick = () => {
       gameStartBtn.classList.toggle('hidden-element');
-      // TODO should generate in the ui the following HTML based on the randomOperations fun.
-      // like this
-      // <div class="operation__item">
-      //     <p class="operation__question"></p>
-      //     <p class="operation__answer"></p>
-      //   </div>
+      displayProblem();
     };
   },
 };
 
 // TODO need to create an init fun that will execute the main funs.
 uiHandler.activateEventListeners();
+
+
+// TODO: one problem at a time, when click on submit replace old one and create another one if answer is correct
