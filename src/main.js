@@ -1,10 +1,13 @@
 /*
-I'm leaving this here because other people have been using it but getRandomDigit should not be used.
+Returns a random digit [0-9]
+I'm leaving this here because other people have been using it but
+I feel like getRandomDigit shouldn't be used for generating operands because it returns 0.
 */
 
 function getRandomDigit() {
   return Math.floor(Math.random() * 10);
 }
+
 /*
 Returns a random integer in a range including the lower bound but excluding the upper bound.
 */
@@ -15,7 +18,9 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (maxInt - minInt) + minInt);
 }
 
-// basic math operands
+/*
+ basic math operands
+*/
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -90,11 +95,11 @@ function makeSimpleProblemString(numDigits, operator, numTerms = 2) {
     operands.push(getRandomInt(1, 10 ** numDigits));
   }
   /*
-  By setting the first operand equal to the sum of the current set of operands,
-  we prevent negative numbers
-  and also make sure that answers are uniformly distributed.
+  When doing subtraction, we set the first operand equal to the sum of the current set of operands,
+  which prevents negative numbers
+  and also makes sure that answers are uniformly distributed.
   For division, a very similar step prevents non-integer results.
-  In both cases the first operand becomes the solution.
+  In both cases the first operand actually ends up becoming the answer.
   */
   if (operator === '-') {
     operands[0] = operands.reduce(add);
@@ -114,6 +119,7 @@ function askProblem() {
   const level = Math.floor((winAnswers / 10)) + 1;
   let operator;
   let numDigits;
+  // Sets numTerms equal to two for levels 1-6, then numTerms increments once per level
   const numTerms = Math.max(2, level - 4);
   if (level < 5) {
     operator = ['+', '-', '*', '/'][level - 1];
