@@ -1,4 +1,3 @@
-
 /*
 Returns a random digit [0-9]
 I'm leaving this here because other people have been using it but
@@ -156,7 +155,6 @@ function checkIfAnswerIsCorrect() {
   }
 }
 
-
 // display the problem, add input field and a button to check the result
 
 function displayProblem() {
@@ -185,6 +183,25 @@ const uiHandler = {
     };
   },
 };
+
+function startGame() {
+  let minute = 4;
+  let sec = 59;
+  const timeInterval = setInterval(() => {
+    document.getElementById('gameTimer').innerHTML = `${minute}:${sec}`;
+    if (sec <= 0) {
+      minute -= 1;
+      sec = 59;
+      if (minute <= 0) {
+        minute = 0;
+        const stop = clearInterval(timeInterval);
+        document.getElementById('gameTimer').innerHTML = "Time's up!";
+      }
+    }
+    sec -= 1;
+  }, 1000);
+}
+startGame();
 
 // TODO need to create an init fun that will execute the main funs.
 uiHandler.activateEventListeners();
