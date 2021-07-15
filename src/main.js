@@ -1,6 +1,9 @@
 /*
-Returns a random single digit number [0-9]
+Returns a random digit [0-9]
+I'm leaving this here because other people have been using it but
+I feel like getRandomDigit shouldn't be used for generating operands because it returns 0.
 */
+
 function getRandomDigit() {
   return Math.floor(Math.random() * 10);
 }
@@ -15,25 +18,18 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (maxInt - minInt) + minInt);
 }
 
-
-// create random operators
-
-function getRandomOperator() {
-  const operators = ['+', '-', '*', '/'];
-  const randomOperator = operators[Math.floor(Math.random() * operators.length)];
-  return randomOperator;
-}
-
-// tracker for ammount of correct answers
-
-let correctResult;
-
-// basic math operands
+/*
+ basic math operands
+*/
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
+
+/*
+Solve a single operation
+*/
 
 function getCorrectResult(mathOne, mathTwo, operatorValue) {
   switch (operatorValue) {
@@ -54,24 +50,93 @@ function getCorrectResult(mathOne, mathTwo, operatorValue) {
   }
 }
 
+/*
+Returns a random operator
+*/
+
+function getRandomOperator() {
+  const operators = ['+', '-', '*', '/'];
+  const randomOperator = operators[Math.floor(Math.random() * operators.length)];
+  return randomOperator;
+}
+
+/*
+This function solves an expression you put into it in string form!
+It handles the limited PEMDAS stuff that we need it to as well.
+*/
+
+function solveExpression(expressionString) {
+  const expressionArray = expressionString.split(' ');
+  while (expressionArray.length > 1) {
+    // We must find the next instance of multiplication or division to perform
+    let nextOperatorIndex = expressionArray.findIndex((o) => ['*', '/'].includes(o));
+    // If there is no more multiplication or division we can move on to addition or subtraction
+    if (nextOperatorIndex === -1) {
+      nextOperatorIndex = expressionArray.findIndex((o) => ['+', '-'].includes(o));
+    }
+    const operator = expressionArray[nextOperatorIndex];
+    const operandOne = Number(expressionArray[nextOperatorIndex - 1]);
+    const operandTwo = Number(expressionArray[nextOperatorIndex + 1]);
+    const resultOfNextOperation = getCorrectResult(operandOne, operandTwo, operator);
+    expressionArray.splice(nextOperatorIndex - 1, 3, resultOfNextOperation);
+  }
+  return expressionArray[0];
+}
+
+/*
+Make a simple problem string with some number of n digit operands and a single repeated operator
+For subtraction, avoids negatives.
+For division, avoids fractions.
+*/
+
+function makeSimpleProblemString(numDigits, operator, numTerms = 2) {
+  const operands = [];
+  for (let i = 0; i < numTerms; i += 1) {
+    operands.push(getRandomInt(1, 10 ** numDigits));
+  }
+  /*
+  When doing subtraction, we set the first operand equal to the sum of the current set of operands,
+  which prevents negative numbers
+  and also makes sure that answers are uniformly distributed.
+  For division, a very similar step prevents non-integer results.
+  In both cases the first operand actually ends up becoming the answer.
+  */
+  if (operator === '-') {
+    operands[0] = operands.reduce(add);
+  } else if (operator === '/') {
+    operands[0] = operands.reduce(multiply);
+  }
+  return operands.join(` ${operator} `);
+}
+
+/*
+So far we are tracking the number correct in this variable, winAnswers.
+*/
+
 let winAnswers = 0;
 
 function askProblem() {
-  let firstNumber = getRandomInt(1, 10);
-  const secondNumber = getRandomInt(1, 10);
-  const operator = getRandomOperator();
-  if (operator === '/') {
-    firstNumber *= secondNumber;
+  const level = Math.floor((winAnswers / 10)) + 1;
+  let operator;
+  let numDigits;
+  // Sets numTerms equal to two for levels 1-6, then numTerms increments once per level
+  const numTerms = Math.max(2, level - 4);
+  if (level < 5) {
+    operator = ['+', '-', '*', '/'][level - 1];
+    numDigits = 1;
+  } else {
+    operator = getRandomOperator();
+    numDigits = 2;
   }
-
-  const answer = Number(prompt(`What is ${firstNumber} ${operator} ${secondNumber} equal to?`));
-  const correctAnswer = getCorrectResult(firstNumber, secondNumber, operator);
-  if (answer === correctAnswer) {
+  const problem = makeSimpleProblemString(numDigits, operator, numTerms);
+  const userAnswer = Number(prompt(`What is ${problem} equal to?`));
+  const correctAnswer = solveExpression(problem);
+  if (userAnswer === correctAnswer) {
     winAnswers += 1;
-    console.log(`${answer} was the correct answer!\nGood job! Correct answers: ${winAnswers}`);
+    console.log(`${userAnswer} was the correct answer!\nGood job! Correct answers: ${winAnswers}`);
   } else {
     console.log(
-      `Ouch! ${answer} was not the correct answer.\n Try again! (correct : ${correctAnswer})`,
+      `Ouch! ${userAnswer} was not the correct answer.\n Try again! (correct : ${correctAnswer})`,
     );
   }
 }
