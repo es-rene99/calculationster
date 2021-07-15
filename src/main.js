@@ -115,12 +115,16 @@ So far we are tracking the number correct in this variable, winAnswers.
 */
 
 let winAnswers = 0;
+let problem;
+let correctAnswer;
 
 function askProblem() {
   const level = Math.floor((winAnswers / 10)) + 1;
   let operator;
   let numDigits;
   // Sets numTerms equal to two for levels 1-6, then numTerms increments once per level
+
+  // further function for separation
   const numTerms = Math.max(2, level - 4);
   if (level < 5) {
     operator = ['+', '-', '*', '/'][level - 1];
@@ -129,11 +133,21 @@ function askProblem() {
     operator = getRandomOperator();
     numDigits = 2;
   }
-  const problem = makeSimpleProblemString(numDigits, operator, numTerms);
-  const userAnswer = Number(prompt(`What is ${problem} equal to?`));
-  const correctAnswer = solveExpression(problem);
+  problem = makeSimpleProblemString(numDigits, operator, numTerms);
+
+  const question = document.getElementsByClassName('operation__question')[0];
+  question.textContent = problem;
+  console.log(level);
+}
+
+function checkIfAnswerIsCorrect() {
+  const userInputField = document.getElementById('answer');
+  const userAnswer = parseInt(userInputField.value);
+  correctAnswer = solveExpression(problem);
   if (userAnswer === correctAnswer) {
     winAnswers += 1;
+    userInputField.value = '';
+    askProblem();
     console.log(`${userAnswer} was the correct answer!\nGood job! Correct answers: ${winAnswers}`);
   } else {
     console.log(
@@ -142,11 +156,10 @@ function askProblem() {
   }
 }
 
+
 // display the problem, add input field and a button to check the result
 
 function displayProblem() {
-  const question = document.getElementsByClassName('operation__question')[0];
-  question.textContent = `${firstNumber} ${operator} ${secondNumber}`;
   const operationItem = document.getElementsByClassName('operation__item')[0];
   const answerInputWrapper = document.createElement('p');
   const answerInput = document.createElement('input');
@@ -168,6 +181,7 @@ const uiHandler = {
     gameStartBtn.onclick = () => {
       gameStartBtn.classList.toggle('hidden-element');
       displayProblem();
+      askProblem();
     };
   },
 };
