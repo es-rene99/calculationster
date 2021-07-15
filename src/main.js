@@ -137,7 +137,6 @@ function askProblem() {
 
   const question = document.getElementsByClassName('operation__question')[0];
   question.textContent = problem;
-  console.log(level);
 }
 
 function checkIfAnswerIsCorrect() {
