@@ -125,6 +125,7 @@ function askProblem() {
   // Sets numTerms equal to two for levels 1-6, then numTerms increments once per level
 
   // further function for separation
+
   const numTerms = Math.max(2, level - 4);
   if (level < 5) {
     operator = ['+', '-', '*', '/'][level - 1];
