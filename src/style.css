@@ -1,3 +1,21 @@
 .hidden-element {
   display: none;
 }
+
+.game__timer {
+  float: right;
+  display: flex;
+  margin-right: 2%;
+  font-size: 1rem;
+  font-family: "Londrina Outline", cursive;
+  color: #000;
+  margin-top: 1%;
+  padding: 0 1rem;
+  border: 2px solid #000;
+  background-color: #faebd7;
+  align-items: center;
+}
+.timer__title {
+  font-size: 1rem;
+  margin-right: 5%;
+}
