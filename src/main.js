@@ -140,7 +140,7 @@ function askProblem() {
 }
 
 const timer = {
-  sec: 299,
+  sec: 30,
   startTimer() {
     const timeInterval = setInterval(() => {
       const minText = `${Math.floor(this.sec / 60)}`;
@@ -155,10 +155,13 @@ const timer = {
   },
   timerAnswerHandling(typeOfAnswer) {
     if (typeOfAnswer === 'correct') {
-      this.sec += 30;
+      this.sec += 5;
     } else if (typeOfAnswer === 'wrong') {
       this.sec -= 5;
     }
+  },
+  levelupHandling() {
+    this.sec += 20;
   },
 
 };
@@ -169,6 +172,9 @@ function checkIfAnswerIsCorrect() {
   correctAnswer = solveExpression(problem);
   if (userAnswer === correctAnswer) {
     winAnswers += 1;
+    if (winAnswers % 10 === 0) {
+      timer.levelupHandling();
+    }
     userInputField.value = '';
     askProblem();
     console.log(`${userAnswer} was the correct answer!\nGood job! Correct answers: ${winAnswers}`);
