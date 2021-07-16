@@ -140,19 +140,15 @@ function askProblem() {
 }
 
 const timer = {
-  minute: 4,
-  sec: 59,
+  sec: 299,
   startTimer() {
     const timeInterval = setInterval(() => {
-      document.getElementById('gameTimer').innerHTML = `${this.minute}:${this.sec}`;
+      const minText = `${Math.floor(this.sec / 60)}`;
+      const secText = `0${this.sec % 60}`.slice(-2);
+      document.getElementById('gameTimer').innerHTML = `${minText}:${secText}`;
       if (this.sec <= 0) {
-        this.minute -= 1;
-        this.sec = 59;
-        if (this.minute <= 0) {
-          this.minute = 0;
-          clearInterval(timeInterval);
-          document.getElementById('gameTimer').innerHTML = "Time's up!";
-        }
+        clearInterval(timeInterval);
+        document.getElementById('gameTimer').innerHTML = "Time's up!";
       }
       this.sec -= 1;
     }, 1000);
