@@ -89,7 +89,7 @@ For subtraction, avoids negatives.
 For division, avoids fractions.
 */
 
-function makeSimpleProblemString(numDigits, operator, numTerms = 2) {
+function makeSimpleExpression(numDigits, operator, numTerms = 2) {
   const operands = [];
   for (let i = 0; i < numTerms; i += 1) {
     operands.push(getRandomInt(1, 10 ** numDigits));
@@ -107,6 +107,48 @@ function makeSimpleProblemString(numDigits, operator, numTerms = 2) {
     operands[0] = operands.reduce(multiply);
   }
   return operands.join(` ${operator} `);
+}
+
+/*
+Input a expression as a string, a new operand, and a new operator to add to the expression.
+Output an expression with one more term.
+Avoids negative and fractional results at all points during evaluation of new expression.
+*/
+
+function addTermToExpression(expression, operand, operator) {
+  const expressionArray = expression.split(' ');
+  const expressionSolution = solveExpression(expression);
+  if (['+', '*'].includes(operator)) {
+    expressionArray.unshift(operand, operator);
+  } else if (operator === '-') {
+    if (operand >= expressionSolution) {
+      expressionArray.unshift(operand + expressionSolution, operator);
+    } else {
+      expressionArray.push(operator, operand);
+    }
+  } else {
+    // If we're here we are adding a division operator
+    expressionArray.unshift(expressionArray[0] * operand, operator);
+  }
+  return expressionArray.join(' ');
+}
+
+/*
+Generate a random expression with numTerms many terms
+And where each term is at most numdigits many digits
+*/
+
+function makeRandomExpression(numTerms, numDigits) {
+  if (numTerms < 2) {
+    return 'Expression must have at least two terms!';
+  }
+  let expression = makeSimpleExpression(numDigits, getRandomOperator());
+  for (let i = 2; i < numTerms; i += 1) {
+    const nextOperand = getRandomInt(1, 10 ** numDigits);
+    const nextOperator = getRandomOperator();
+    expression = addTermToExpression(expression, nextOperand, nextOperator);
+  }
+  return expression;
 }
 
 /*
@@ -129,12 +171,12 @@ function askProblem() {
   if (level < 5) {
     operator = ['+', '-', '*', '/'][level - 1];
     numDigits = 1;
+    problem = makeSimpleExpression(numDigits, operator);
   } else {
     operator = getRandomOperator();
     numDigits = 2;
+    problem = makeRandomExpression(numTerms, numDigits);
   }
-  problem = makeSimpleProblemString(numDigits, operator, numTerms);
-
   const question = document.getElementsByClassName('operation__question')[0];
   question.textContent = problem;
 }
