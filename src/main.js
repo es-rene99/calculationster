@@ -156,7 +156,6 @@ function checkIfAnswerIsCorrect() {
 }
 
 // display the problem, add input field and a button to check the result
-
 function displayProblem() {
   const operationItem = document.getElementsByClassName('operation__item')[0];
   const answerInputWrapper = document.createElement('p');
@@ -171,37 +170,46 @@ function displayProblem() {
   submitButton.addEventListener('click', checkIfAnswerIsCorrect);
 }
 
+const timer = {
+  startTimer() {
+    let minute = 4;
+    let sec = 59;
+    const timeInterval = setInterval(() => {
+      document.getElementById('gameTimer').innerHTML = `${minute}:${sec}`;
+      if (sec <= 0) {
+        minute -= 1;
+        sec = 59;
+        if (minute <= 0) {
+          minute = 0;
+          clearInterval(timeInterval);
+          document.getElementById('gameTimer').innerHTML = "Time's up!";
+        }
+      }
+      sec -= 1;
+    }, 1000);
+  },
+
+};
+
 const uiHandler = {
-  populateContent() {
+  gameStartBtn: document.getElementById('game__start-btn'),
+  gameTimer: document.getElementById('game__timer'),
+  toggleHiddenElement(element) {
+    element.classList.toggle('hidden-element');
   },
   activateEventListeners() {
-    const gameStartBtn = document.getElementById('game__start-btn');
-    gameStartBtn.onclick = () => {
-      gameStartBtn.classList.toggle('hidden-element');
+    this.gameStartBtn.onclick = () => {
+      timer.startTimer();
+      this.toggleHiddenElement(this.gameStartBtn);
+      this.toggleHiddenElement(this.gameTimer);
       displayProblem();
       askProblem();
     };
   },
 };
 
-function startGame() {
-  let minute = 4;
-  let sec = 59;
-  const timeInterval = setInterval(() => {
-    document.getElementById('gameTimer').innerHTML = `${minute}:${sec}`;
-    if (sec <= 0) {
-      minute -= 1;
-      sec = 59;
-      if (minute <= 0) {
-        minute = 0;
-        const stop = clearInterval(timeInterval);
-        document.getElementById('gameTimer').innerHTML = "Time's up!";
-      }
-    }
-    sec -= 1;
-  }, 1000);
+// * This fun contains the funs executed when the game starts
+function main() {
+  uiHandler.activateEventListeners();
 }
-startGame();
-
-// TODO need to create an init fun that will execute the main funs.
-uiHandler.activateEventListeners();
+main();
