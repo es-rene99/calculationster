@@ -181,16 +181,48 @@ function askProblem() {
   question.textContent = problem;
 }
 
+const timer = {
+  sec: 30,
+  startTimer() {
+    const timeInterval = setInterval(() => {
+      const minText = `${Math.floor(this.sec / 60)}`;
+      const secText = `0${this.sec % 60}`.slice(-2);
+      document.getElementById('gameTimer').innerHTML = `${minText}:${secText}`;
+      if (this.sec <= 0) {
+        clearInterval(timeInterval);
+        document.getElementById('gameTimer').innerHTML = "Time's up!";
+      }
+      this.sec -= 1;
+    }, 1000);
+  },
+  timerAnswerHandling(typeOfAnswer) {
+    if (typeOfAnswer === 'correct') {
+      this.sec += 5;
+    } else if (typeOfAnswer === 'wrong') {
+      this.sec -= 5;
+    }
+  },
+  levelupHandling() {
+    this.sec += 20;
+  },
+
+};
+
 function checkIfAnswerIsCorrect() {
   const userInputField = document.getElementById('answer');
   const userAnswer = parseInt(userInputField.value);
   correctAnswer = solveExpression(problem);
   if (userAnswer === correctAnswer) {
     winAnswers += 1;
+    if (winAnswers % 10 === 0) {
+      timer.levelupHandling();
+    }
     userInputField.value = '';
     askProblem();
     console.log(`${userAnswer} was the correct answer!\nGood job! Correct answers: ${winAnswers}`);
+    timer.timerAnswerHandling('correct');
   } else {
+    timer.timerAnswerHandling('wrong');
     console.log(
       `Ouch! ${userAnswer} was not the correct answer.\n Try again! (correct : ${correctAnswer})`,
     );
@@ -198,7 +230,6 @@ function checkIfAnswerIsCorrect() {
 }
 
 // display the problem, add input field and a button to check the result
-
 function displayProblem() {
   const operationItem = document.getElementsByClassName('operation__item')[0];
   const answerInputWrapper = document.createElement('p');
@@ -214,36 +245,24 @@ function displayProblem() {
 }
 
 const uiHandler = {
-  populateContent() {
+  gameStartBtn: document.getElementById('game__start-btn'),
+  gameTimer: document.getElementById('game__timer'),
+  toggleHiddenElement(element) {
+    element.classList.toggle('hidden-element');
   },
   activateEventListeners() {
-    const gameStartBtn = document.getElementById('game__start-btn');
-    gameStartBtn.onclick = () => {
-      gameStartBtn.classList.toggle('hidden-element');
+    this.gameStartBtn.onclick = () => {
+      timer.startTimer();
+      this.toggleHiddenElement(this.gameStartBtn);
+      this.toggleHiddenElement(this.gameTimer);
       displayProblem();
       askProblem();
     };
   },
 };
 
-function startGame() {
-  let minute = 4;
-  let sec = 59;
-  const timeInterval = setInterval(() => {
-    document.getElementById('gameTimer').innerHTML = `${minute}:${sec}`;
-    if (sec <= 0) {
-      minute -= 1;
-      sec = 59;
-      if (minute <= 0) {
-        minute = 0;
-        const stop = clearInterval(timeInterval);
-        document.getElementById('gameTimer').innerHTML = "Time's up!";
-      }
-    }
-    sec -= 1;
-  }, 1000);
+// * This fun contains the funs executed when the game starts
+function main() {
+  uiHandler.activateEventListeners();
 }
-startGame();
-
-// TODO need to create an init fun that will execute the main funs.
-uiHandler.activateEventListeners();
+main();
