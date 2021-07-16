@@ -139,6 +139,34 @@ function askProblem() {
   question.textContent = problem;
 }
 
+const timer = {
+  minute: 4,
+  sec: 59,
+  startTimer() {
+    const timeInterval = setInterval(() => {
+      document.getElementById('gameTimer').innerHTML = `${this.minute}:${this.sec}`;
+      if (this.sec <= 0) {
+        this.minute -= 1;
+        this.sec = 59;
+        if (this.minute <= 0) {
+          this.minute = 0;
+          clearInterval(timeInterval);
+          document.getElementById('gameTimer').innerHTML = "Time's up!";
+        }
+      }
+      this.sec -= 1;
+    }, 1000);
+  },
+  timerAnswerHandling(typeOfAnswer) {
+    if (typeOfAnswer === 'correct') {
+      this.sec += 30;
+    } else if (typeOfAnswer === 'wrong') {
+      this.sec -= 5;
+    }
+  },
+
+};
+
 function checkIfAnswerIsCorrect() {
   const userInputField = document.getElementById('answer');
   const userAnswer = parseInt(userInputField.value);
@@ -148,7 +176,9 @@ function checkIfAnswerIsCorrect() {
     userInputField.value = '';
     askProblem();
     console.log(`${userAnswer} was the correct answer!\nGood job! Correct answers: ${winAnswers}`);
+    timer.timerAnswerHandling('correct');
   } else {
+    timer.timerAnswerHandling('wrong');
     console.log(
       `Ouch! ${userAnswer} was not the correct answer.\n Try again! (correct : ${correctAnswer})`,
     );
@@ -169,27 +199,6 @@ function displayProblem() {
   operationItem.appendChild(submitButton);
   submitButton.addEventListener('click', checkIfAnswerIsCorrect);
 }
-
-const timer = {
-  startTimer() {
-    let minute = 4;
-    let sec = 59;
-    const timeInterval = setInterval(() => {
-      document.getElementById('gameTimer').innerHTML = `${minute}:${sec}`;
-      if (sec <= 0) {
-        minute -= 1;
-        sec = 59;
-        if (minute <= 0) {
-          minute = 0;
-          clearInterval(timeInterval);
-          document.getElementById('gameTimer').innerHTML = "Time's up!";
-        }
-      }
-      sec -= 1;
-    }, 1000);
-  },
-
-};
 
 const uiHandler = {
   gameStartBtn: document.getElementById('game__start-btn'),
