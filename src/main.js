@@ -61,26 +61,40 @@ function getRandomOperator() {
 }
 
 /*
-This function solves an expression you put into it in string form!
-It handles the limited PEMDAS stuff that we need it to as well.
+This function takes an expression string as an input
+Returns an expression string with all multiplication and division resolved.
 */
 
-function solveExpression(expressionString) {
+function resolveMultAndDiv(expressionString) {
   const expressionArray = expressionString.split(' ');
-  while (expressionArray.length > 1) {
-    // We must find the next instance of multiplication or division to perform
-    let nextOperatorIndex = expressionArray.findIndex((o) => ['*', '/'].includes(o));
-    // If there is no more multiplication or division we can move on to addition or subtraction
-    if (nextOperatorIndex === -1) {
-      nextOperatorIndex = expressionArray.findIndex((o) => ['+', '-'].includes(o));
-    }
+  let nextOperatorIndex = expressionArray.findIndex((o) => ['*', '/'].includes(o));
+  while (nextOperatorIndex !== -1) {
     const operator = expressionArray[nextOperatorIndex];
     const operandOne = Number(expressionArray[nextOperatorIndex - 1]);
     const operandTwo = Number(expressionArray[nextOperatorIndex + 1]);
     const resultOfNextOperation = getCorrectResult(operandOne, operandTwo, operator);
     expressionArray.splice(nextOperatorIndex - 1, 3, resultOfNextOperation);
+    nextOperatorIndex = expressionArray.findIndex((o) => ['*', '/'].includes(o));
   }
-  return expressionArray[0];
+  return expressionArray.join(' ');
+}
+
+/*
+This function solves an expression you put into it in string form!
+It handles the limited PEMDAS stuff that we need it to as well.
+*/
+
+function solveExpression(expressionString) {
+  const expressionResolvedMultAndDiv = resolveMultAndDiv(expressionString);
+  const expressionArray = expressionResolvedMultAndDiv.split(' ');
+  while (expressionArray.length > 1) {
+    const operator = expressionArray[1];
+    const operandOne = Number(expressionArray[0]);
+    const operandTwo = Number(expressionArray[2]);
+    const resultOfNextOperation = getCorrectResult(operandOne, operandTwo, operator);
+    expressionArray.splice(0, 3, resultOfNextOperation);
+  }
+  return parseInt(expressionArray[0], 10);
 }
 
 /*
@@ -118,17 +132,20 @@ Avoids negative and fractional results at all points during evaluation of new ex
 function addTermToExpression(expression, operand, operator) {
   const expressionArray = expression.split(' ');
   const expressionSolution = solveExpression(expression);
+  const expressionArrayResolvedMultAndDiv = resolveMultAndDiv(expression).split(' ');
   if (['+', '*'].includes(operator)) {
     expressionArray.unshift(operand, operator);
   } else if (operator === '-') {
     if (operand >= expressionSolution) {
-      expressionArray.unshift(operand + expressionSolution, operator);
+      const newTerm = operand + Number(expressionArrayResolvedMultAndDiv[0]);
+      expressionArray.unshift(newTerm, operator);
     } else {
       expressionArray.push(operator, operand);
     }
   } else {
     // If we're here we are adding a division operator
     expressionArray.unshift(expressionArray[0] * operand, operator);
+    expressionArray[2] = operand;
   }
   return expressionArray.join(' ');
 }
