@@ -4,6 +4,7 @@ Contains the constant uiElements, TODO still need to refactor
 const predefinedUIElements = {
   gameStartBtn: document.getElementById('game__start-btn'),
   gameTimer: document.getElementById('game__timer'),
+  gameWrapper: document.getElementById('game-wrapper'),
   operationPanel: document.getElementById('operation__panel'),
   operationQuestion: document.getElementById('operation__question'),
 };
@@ -279,7 +280,7 @@ const uiHandler = {
       timer.startTimer();
       this.toggleHiddenElement(predefinedUIElements.gameStartBtn);
       this.toggleHiddenElement(predefinedUIElements.gameTimer);
-      this.toggleHiddenElement(predefinedUIElements.operationPanel);
+      this.toggleHiddenElement(predefinedUIElements.gameWrapper);
       displayProblem();
       askProblem();
     };
