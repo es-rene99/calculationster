@@ -16,6 +16,16 @@
   margin-right: 5%;
 }
 
+.game__start-btn {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  cursor: pointer;
+}
+
+/* * This classes should be at bottom to take priority: */
+
 .hidden-element {
   display: none;
 }
