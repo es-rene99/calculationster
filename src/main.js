@@ -1,4 +1,14 @@
 /*
+Contains the constant uiElements, TODO still need to refactor
+*/
+const predefinedUIElements = {
+  gameStartBtn: document.getElementById('game__start-btn'),
+  gameTimer: document.getElementById('game__timer'),
+  operationPanel: document.getElementById('operation__panel'),
+  operationQuestion: document.getElementById('operation__question'),
+};
+
+/*
 Returns a random digit [0-9]
 I'm leaving this here because other people have been using it but
 I feel like getRandomDigit shouldn't be used for generating operands because it returns 0.
@@ -194,8 +204,7 @@ function askProblem() {
     numDigits = 2;
     problem = makeRandomExpression(numTerms, numDigits);
   }
-  const question = document.getElementsByClassName('operation__question')[0];
-  question.textContent = problem;
+  predefinedUIElements.operationQuestion.textContent = problem;
 }
 
 const timer = {
@@ -248,30 +257,29 @@ function checkIfAnswerIsCorrect() {
 
 // display the problem, add input field and a button to check the result
 function displayProblem() {
-  const operationItem = document.getElementsByClassName('operation__item')[0];
+  const { operationPanel } = predefinedUIElements;
   const answerInputWrapper = document.createElement('p');
   const answerInput = document.createElement('input');
   answerInput.id = 'answer';
-  operationItem.appendChild(answerInputWrapper);
+  operationPanel.appendChild(answerInputWrapper);
   answerInputWrapper.appendChild(answerInput);
   const submitButton = document.createElement('button');
   submitButton.id = 'submit';
   submitButton.textContent = 'submit';
-  operationItem.appendChild(submitButton);
+  operationPanel.appendChild(submitButton);
   submitButton.addEventListener('click', checkIfAnswerIsCorrect);
 }
 
 const uiHandler = {
-  gameStartBtn: document.getElementById('game__start-btn'),
-  gameTimer: document.getElementById('game__timer'),
   toggleHiddenElement(element) {
     element.classList.toggle('hidden-element');
   },
   activateEventListeners() {
-    this.gameStartBtn.onclick = () => {
+    predefinedUIElements.gameStartBtn.onclick = () => {
       timer.startTimer();
-      this.toggleHiddenElement(this.gameStartBtn);
-      this.toggleHiddenElement(this.gameTimer);
+      this.toggleHiddenElement(predefinedUIElements.gameStartBtn);
+      this.toggleHiddenElement(predefinedUIElements.gameTimer);
+      this.toggleHiddenElement(predefinedUIElements.operationPanel);
       displayProblem();
       askProblem();
     };
