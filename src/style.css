@@ -1,3 +1,17 @@
+.title-screen {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  cursor: pointer;
+}
+
+.title-screen__title {
+  position: absolute;
+  top: -390%;
+  left: -210%;
+}
+
 .game__timer {
   float: right;
   display: flex;
@@ -17,10 +31,6 @@
 }
 
 .game__start-btn {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
   cursor: pointer;
 }
 
