@@ -198,6 +198,43 @@ function askProblem() {
   question.textContent = problem;
 }
 
+/*
+This is a constructor from https://www.w3schools.com/graphics/game_sound.asp for handling gamne sounds.
+*/
+
+class Sound {
+  constructor(src, loop = false) {
+    this.sound = document.createElement('audio');
+    this.sound.src = src;
+    this.sound.setAttribute('preload', 'auto');
+    this.sound.setAttribute('controls', 'none');
+    this.sound.setAttribute('playbackRate', '1');
+    this.sound.setAttribute('loop', loop);
+    this.sound.style.display = 'none';
+    document.body.appendChild(this.sound);
+    this.play = () => this.sound.play();
+    this.stop = () => this.sound.pause();
+  }
+}
+
+/*
+Here's an object to handle our audio stuff
+*/
+
+const audioHandler = {
+  bgm: new Sound('../assets/sounds/bgm-loop.mp3', true),
+  startBGM() {
+    this.bgm.play();
+  },
+  speedUp() {
+    const currentSpeed = Number(this.bgm.sound.playbackRate);
+    this.bgm.sound.playbackRate = currentSpeed + 0.2;
+  },
+  resetSpeed() {
+    this.bgm.sound.playbackRate = 1;
+  },
+};
+
 const timer = {
   sec: 30,
   startTimer() {
@@ -210,6 +247,11 @@ const timer = {
         document.getElementById('gameTimer').innerHTML = "Time's up!";
       }
       this.sec -= 1;
+      if (this.sec <= 5) {
+        audioHandler.speedUp();
+      } else {
+        audioHandler.resetSpeed();
+      }
     }, 1000);
   },
   timerAnswerHandling(typeOfAnswer) {
@@ -222,7 +264,6 @@ const timer = {
   levelupHandling() {
     this.sec += 20;
   },
-
 };
 
 function checkIfAnswerIsCorrect() {
@@ -270,6 +311,7 @@ const uiHandler = {
   activateEventListeners() {
     this.gameStartBtn.onclick = () => {
       timer.startTimer();
+      audioHandler.startBGM();
       this.toggleHiddenElement(this.gameStartBtn);
       this.toggleHiddenElement(this.gameTimer);
       displayProblem();
