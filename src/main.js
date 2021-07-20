@@ -4,8 +4,8 @@ I'm leaving this here because other people have been using it but
 I feel like getRandomDigit shouldn't be used for generating operands because it returns 0.
 */
 
-function getRandomDigit() {
-  return Math.floor(Math.random() * 10);
+function getRandomDigit(num) {
+  return Math.floor(Math.random() * num);
 }
 
 /*
@@ -175,9 +175,78 @@ So far we are tracking the number correct in this variable, winAnswers.
 let winAnswers = 0;
 let problem;
 let correctAnswer;
+let level;
+
+// functions for monsters and monster growth
+
+const monsters = [
+  {
+    type: 'dragon',
+    growth1: 'assets/monster/Dragon/2.png',
+    alt1: 'worm',
+    growth2: 'assets/monster/Dragon/3.png',
+    alt2: 'snake',
+    growth3: 'assets/monster/Dragon/4.png',
+    alt3: 'lizard man',
+    growth4: 'assets/monster/Dragon/5.png',
+    alt4: 'dragon',
+  },
+  {
+    type: 'flying',
+    growth1: 'assets/monster/Flying/02.png',
+    alt1: 'bat',
+    growth2: 'assets/monster/Flying/03.png',
+    alt2: 'gargoyle',
+    growth3: 'assets/monster/Flying/04.png',
+    alt3: 'imp',
+    growth4: 'assets/monster/Flying/05.png',
+    alt4: 'vampire',
+  },
+  {
+    type: 'ghost',
+    growth1: 'assets/monster/Ghost/02.png',
+    alt1: 'cloud',
+    growth2: 'assets/monster/Ghost/03.png',
+    alt2: 'small ghost',
+    growth3: 'assets/monster/Ghost/04.png',
+    alt3: 'big ghost',
+    growth4: 'assets/monster/Ghost/05.png',
+    alt4: 'pumpkin ghost',
+  },
+  {
+    type: 'humanoid',
+    growth1: 'assets/monster/Humanoid/02.png',
+    alt1: 'baby cyclope',
+    growth2: 'assets/monster/Humanoid/03.png',
+    alt2: 'sad zombie',
+    growth3: 'assets/monster/Humanoid/04.png',
+    alt3: 'grumpy ogre',
+    growth4: 'assets/monster/Humanoid/05.png',
+    alt4: 'dark knight',
+  }];
+
+const monsterSelected = monsters[getRandomDigit(monsters.length)];
+
+function createMonsterImg(src, alt) {
+  const monster = document.getElementById('monster');
+  monster.src = src;
+  monster.alt = alt;
+}
+
+function monsterGrowth() {
+  if (level === 2) {
+    createMonsterImg(monsterSelected.growth1, monsterSelected.alt1);
+  } else if (level === 4) {
+    createMonsterImg(monsterSelected.growth2, monsterSelected.alt2);
+  } else if (level === 6) {
+    createMonsterImg(monsterSelected.growth3, monsterSelected.alt3);
+  } else if (level === 8) {
+    createMonsterImg(monsterSelected.growth4, monsterSelected.alt4);
+  }
+}
 
 function askProblem() {
-  const level = Math.floor((winAnswers / 10)) + 1;
+  level = Math.floor((winAnswers / 10)) + 1;
   let operator;
   let numDigits;
   // Sets numTerms equal to two for levels 1-6, then numTerms increments once per level
@@ -236,6 +305,7 @@ function checkIfAnswerIsCorrect() {
     }
     userInputField.value = '';
     askProblem();
+    monsterGrowth(level);
     console.log(`${userAnswer} was the correct answer!\nGood job! Correct answers: ${winAnswers}`);
     timer.timerAnswerHandling('correct');
   } else {
@@ -274,6 +344,7 @@ const uiHandler = {
       this.toggleHiddenElement(this.gameTimer);
       displayProblem();
       askProblem();
+      createMonsterImg('assets/monster/Starter/01.png', 'egg');
     };
   },
 };
