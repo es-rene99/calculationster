@@ -226,6 +226,9 @@ const audioHandler = {
   startBGM() {
     this.bgm.play();
   },
+  stopBGM() {
+    this.bgm.stop();
+  },
   speedUp() {
     const currentSpeed = Number(this.bgm.sound.playbackRate);
     this.bgm.sound.playbackRate = currentSpeed + 0.2;
@@ -245,6 +248,7 @@ const timer = {
       if (this.sec <= 0) {
         clearInterval(timeInterval);
         document.getElementById('gameTimer').innerHTML = "Time's up!";
+        audioHandler.stopBGM();
       }
       this.sec -= 1;
       if (this.sec <= 5) {
