@@ -1,6 +1,13 @@
+/* * This is to extend the 3 grids heights */
+html,
+body,
+main {
+  min-height: 100vh;
+}
+
 .app-wrapper {
   display: grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: 30% 40% 30%;
 }
 
 .title-screen {
@@ -15,6 +22,23 @@
   position: absolute;
   top: -390%;
   left: -210%;
+}
+
+.main__game {
+  background-color: #000066;
+  color: white;
+}
+
+.left-sidebar,
+.right-sidebar {
+  background-color: #309;
+  color: white;
+  text-align: center;
+}
+
+.game-left-panel__title {
+  margin-top: 2rem;
+  font-size: 3.1rem;
 }
 
 .game__timer {
