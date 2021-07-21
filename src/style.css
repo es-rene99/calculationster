@@ -19,3 +19,29 @@
 .hidden-element {
   display: none;
 }
+
+.gameover____div {
+  border: 2px solid rgb(254,228,197);
+  border-radius: 20px;
+  background: rgb(254,228,197);
+  width: 400px;
+  height: 400px;
+  text-align: center;
+  margin-left: 39%;
+  margin-top: 10%;
+}
+
+.gameover____image {
+  width: 80px;
+  margin-top: 40px;
+}
+
+.gameover____button {
+  background-color: rgb(249,153,0);
+  border-radius: 20px;
+  border: 10px solid rgb(249,153,0);
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  box-shadow: 1px 1px 10px;
+}

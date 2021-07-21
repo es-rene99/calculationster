@@ -353,6 +353,34 @@ const timer = {
         document.getElementById('gameTimer').innerHTML = "Time's up!";
         audioHandler.gameOver();
       }
+
+      if (this.sec <= 0) {
+        document.getElementById("main__game").innerHTML = ""
+        const div = document.createElement("div")
+        div.classList.add("gameover____div")
+        const text = document.createElement("h1")
+        const points = document.createElement("p")
+        const losingText = document.createElement("p")
+        const image = document.createElement("img")
+        image.setAttribute("src", "./assets/DeadSkeleton/Skeleton/SkeletonDead.gif")
+        image.classList.add("gameover____image")
+        text.classList.add("gameover____message")
+        const newContent = document.createTextNode("Game Over")
+        const result = document.getElementById("game____overdiv")
+        const leaderBoard = document.createElement("button")
+        leaderBoard.classList.add("gameover____button")
+        leaderBoard.innerHTML = "Go to leaderboard"
+        points.innerHTML = "Score: " + `${winAnswers}`
+        losingText.innerHTML = "You will get better."
+        div.appendChild(image)
+        div.appendChild(text)
+        div.appendChild(points)
+        div.appendChild(losingText)
+        text.appendChild(newContent)
+        result.appendChild(div)
+        div.appendChild(leaderBoard)
+      }
+
       this.sec -= 1;
       if (this.sec <= 5 && this.sec > 0) {
         audioHandler.startTimeWarning();
@@ -360,6 +388,7 @@ const timer = {
         audioHandler.stopTimeWarning();
       }
     }, 1000);
+
   },
   timerAnswerHandling(typeOfAnswer) {
     if (typeOfAnswer === 'correct') {
@@ -396,6 +425,7 @@ function checkIfAnswerIsCorrect() {
     );
   }
 }
+
 
 // display the problem, add input field and a button to check the result
 function displayProblem() {
