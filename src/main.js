@@ -8,6 +8,7 @@ const predefinedUIElements = {
   gameWrapper: document.getElementById('game-wrapper'),
   operationPanel: document.getElementById('operation__panel'),
   operationQuestion: document.getElementById('operation__question'),
+  gameLeftPanel: document.getElementById('game-left-panel'),
 };
 
 /*
@@ -433,6 +434,7 @@ const uiHandler = {
       this.toggleHiddenElement(predefinedUIElements.gameTimer);
       this.toggleHiddenElement(predefinedUIElements.gameWrapper);
       this.toggleHiddenElement(predefinedUIElements.titleScreen);
+      this.toggleHiddenElement(predefinedUIElements.gameLeftPanel);
       audioHandler.startBGM();
       displayProblem();
       askProblem();
