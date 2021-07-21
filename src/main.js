@@ -267,6 +267,80 @@ function askProblem() {
   question.textContent = problem;
 }
 
+/*
+This is a constructor from https://www.w3schools.com/graphics/game_sound.asp for handling gamne sounds.
+*/
+
+class Sound {
+  constructor(src, loop = false) {
+    this.sound = document.createElement('audio');
+    this.sound.src = src;
+    this.sound.setAttribute('preload', 'auto');
+    this.sound.setAttribute('controls', 'none');
+    this.sound.setAttribute('playbackRate', '1');
+    if (loop) {
+      this.sound.setAttribute('loop', loop);
+    }
+    this.sound.style.display = 'none';
+    document.body.appendChild(this.sound);
+    this.play = () => this.sound.play();
+    this.stop = () => this.sound.pause();
+  }
+}
+
+/*
+Here's an object to handle our audio stuff
+*/
+
+const audioHandler = {
+  init() {
+    this.noises = {
+      button: new Sound('../assets/sounds/noises/button-input.mp3'),
+      correct: new Sound('../assets/sounds/noises/correct.mp3'),
+      gameOver: new Sound('../assets/sounds/noises/game-over.mp3'),
+      incorrect: new Sound('../assets/sounds/noises/incorrect.mp3'),
+      reward: new Sound('../assets/sounds/noises/reward.mp3'),
+    };
+    this.loops = {
+      gamePlayBGM: new Sound('../assets/sounds/bgm-loop.mp3', true),
+      gameOverBGM: new Sound('../assets/sounds/game-over-loop.mp3', true),
+      timeWarning: new Sound('../assets/sounds/time-warning-loop.mp3', true),
+    };
+    this.bgm = this.loops.gamePlayBGM;
+  },
+  startBGM() {
+    this.bgm.play();
+  },
+  stopBGM() {
+    this.bgm.stop();
+  },
+  changeBGM(bgmTrack) {
+    this.bgm.stop();
+    this.bgm = this.loops[bgmTrack];
+  },
+  speedUp() {
+    const currentSpeed = Number(this.bgm.sound.playbackRate);
+    this.bgm.sound.playbackRate = currentSpeed + 0.2;
+  },
+  resetSpeed() {
+    this.bgm.sound.playbackRate = 1;
+  },
+  playNoise(noiseName) {
+    this.noises[noiseName].play();
+  },
+  startTimeWarning() {
+    this.loops.timeWarning.play();
+  },
+  stopTimeWarning() {
+    this.loops.timeWarning.stop();
+  },
+  gameOver() {
+    this.changeBGM('gameOverBGM');
+    this.loops.timeWarning.stop();
+    this.startBGM();
+  },
+};
+
 const timer = {
   sec: 30,
   startTimer() {
@@ -277,8 +351,14 @@ const timer = {
       if (this.sec <= 0) {
         clearInterval(timeInterval);
         document.getElementById('gameTimer').innerHTML = "Time's up!";
+        audioHandler.gameOver();
       }
       this.sec -= 1;
+      if (this.sec <= 5 && this.sec > 0) {
+        audioHandler.startTimeWarning();
+      } else {
+        audioHandler.stopTimeWarning();
+      }
     }, 1000);
   },
   timerAnswerHandling(typeOfAnswer) {
@@ -291,7 +371,6 @@ const timer = {
   levelupHandling() {
     this.sec += 20;
   },
-
 };
 
 function checkIfAnswerIsCorrect() {
@@ -299,6 +378,7 @@ function checkIfAnswerIsCorrect() {
   const userAnswer = parseInt(userInputField.value);
   correctAnswer = solveExpression(problem);
   if (userAnswer === correctAnswer) {
+    audioHandler.playNoise('correct');
     winAnswers += 1;
     if (winAnswers % 10 === 0) {
       timer.levelupHandling();
@@ -309,6 +389,7 @@ function checkIfAnswerIsCorrect() {
     console.log(`${userAnswer} was the correct answer!\nGood job! Correct answers: ${winAnswers}`);
     timer.timerAnswerHandling('correct');
   } else {
+    audioHandler.playNoise('incorrect');
     timer.timerAnswerHandling('wrong');
     console.log(
       `Ouch! ${userAnswer} was not the correct answer.\n Try again! (correct : ${correctAnswer})`,
@@ -340,6 +421,7 @@ const uiHandler = {
   activateEventListeners() {
     this.gameStartBtn.onclick = () => {
       timer.startTimer();
+      audioHandler.startBGM();
       this.toggleHiddenElement(this.gameStartBtn);
       this.toggleHiddenElement(this.gameTimer);
       displayProblem();
@@ -351,6 +433,7 @@ const uiHandler = {
 
 // * This fun contains the funs executed when the game starts
 function main() {
+  audioHandler.init();
   uiHandler.activateEventListeners();
 }
 main();
