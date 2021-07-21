@@ -1,3 +1,8 @@
+.app-wrapper {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+
 .title-screen {
   display: block;
   position: absolute;
