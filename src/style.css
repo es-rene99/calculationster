@@ -39,6 +39,14 @@
   cursor: pointer;
 }
 
+.operation__panel {
+  text-align: center;
+}
+
+.enter-answer-btn {
+  cursor: pointer;
+}
+
 /* * This classes should be at bottom to take priority: */
 
 .hidden-element {

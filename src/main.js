@@ -412,16 +412,18 @@ function checkIfAnswerIsCorrect() {
 // display the problem, add input field and a button to check the result
 function displayProblem() {
   const { operationPanel } = predefinedUIElements;
-  const answerInputWrapper = document.createElement('p');
+  const answerInputWrapper = document.createElement('div');
+  answerInputWrapper.classList.add('answer-input-wrapper');
   const answerInput = document.createElement('input');
   answerInput.id = 'answer';
-  operationPanel.appendChild(answerInputWrapper);
+  const enterAnswerBtn = document.createElement('button');
+  enterAnswerBtn.id = 'enter-answer-btn';
+  enterAnswerBtn.classList.add('enter-answer-btn');
+  enterAnswerBtn.textContent = 'Enter';
   answerInputWrapper.appendChild(answerInput);
-  const submitButton = document.createElement('button');
-  submitButton.id = 'submit';
-  submitButton.textContent = 'submit';
-  operationPanel.appendChild(submitButton);
-  submitButton.addEventListener('click', checkIfAnswerIsCorrect);
+  answerInputWrapper.appendChild(enterAnswerBtn);
+  operationPanel.appendChild(answerInputWrapper);
+  enterAnswerBtn.addEventListener('click', checkIfAnswerIsCorrect);
 }
 
 const uiHandler = {
