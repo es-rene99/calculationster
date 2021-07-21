@@ -343,62 +343,95 @@ const audioHandler = {
 
 const timer = {
   sec: 30,
+  timeDisplay: document.getElementById('gameTimer'),
+  animationContainer: document.getElementById('timer-animation-container'),
+  updateDisplay(text) {
+    this.timeDisplay.innerHTML = text;
+  },
+  updateTime() {
+    const minText = `0${Math.floor(this.sec / 60)}`.slice(-2);
+    const secText = `0${this.sec % 60}`.slice(-2);
+    this.updateDisplay(`${minText}:${secText}`);
+  },
+  gainSeconds(secondsGained) {
+    this.sec += secondsGained;
+    const animatedText = document.createElement('div');
+    animatedText.innerHTML = `+${secondsGained}`;
+    animatedText.classList.add('timer-added-seconds');
+    animatedText.onanimationend = () => {
+      animatedText.remove();
+    };
+    this.animationContainer.appendChild(animatedText);
+    this.updateTime();
+  },
+  loseSeconds(secondsLost) {
+    this.sec -= secondsLost;
+    const animatedText = document.createElement('div');
+    animatedText.innerHTML = `-${secondsLost}`;
+    animatedText.classList.add('timer-lost-seconds');
+    animatedText.onanimationend = () => {
+      animatedText.remove();
+    };
+    this.animationContainer.appendChild(animatedText);
+    this.updateTime();
+    const timerDiv = document.getElementById('game__timer');
+    timerDiv.style.animationPlayState = 'running';
+    setTimeout(() => {
+      timerDiv.style.animationPlayState = 'paused';
+    }, 500);
+  },
+  gameOver() {
+    this.updateDisplay('Time\'s up!');
+    audioHandler.gameOver();
+    document.getElementById('main__game').innerHTML = '';
+    const div = document.createElement('div');
+    div.classList.add('gameover____div');
+    const text = document.createElement('h1');
+    const points = document.createElement('p');
+    const losingText = document.createElement('p');
+    const image = document.createElement('img');
+    image.setAttribute('src', './assets/DeadSkeleton/Skeleton/SkeletonDead.gif');
+    image.classList.add('gameover____image');
+    text.classList.add('gameover____message');
+    const newContent = document.createTextNode('Game Over');
+    const result = document.getElementById('game____overdiv');
+    const leaderBoard = document.createElement('button');
+    leaderBoard.classList.add('gameover____button');
+    leaderBoard.innerHTML = 'Go to leaderboard';
+    points.innerHTML = `Score: ${winAnswers}`;
+    losingText.innerHTML = 'You will get better.';
+    div.appendChild(image);
+    div.appendChild(text);
+    div.appendChild(points);
+    div.appendChild(losingText);
+    text.appendChild(newContent);
+    result.appendChild(div);
+    div.appendChild(leaderBoard);
+  },
   startTimer() {
     const timeInterval = setInterval(() => {
-      const minText = `${Math.floor(this.sec / 60)}`;
-      const secText = `0${this.sec % 60}`.slice(-2);
-      document.getElementById('gameTimer').innerHTML = `${minText}:${secText}`;
       if (this.sec <= 0) {
         clearInterval(timeInterval);
-        document.getElementById('gameTimer').innerHTML = "Time's up!";
-        audioHandler.gameOver();
+        this.gameOver();
       }
-
-      if (this.sec <= 0) {
-        document.getElementById("main__game").innerHTML = ""
-        const div = document.createElement("div")
-        div.classList.add("gameover____div")
-        const text = document.createElement("h1")
-        const points = document.createElement("p")
-        const losingText = document.createElement("p")
-        const image = document.createElement("img")
-        image.setAttribute("src", "./assets/DeadSkeleton/Skeleton/SkeletonDead.gif")
-        image.classList.add("gameover____image")
-        text.classList.add("gameover____message")
-        const newContent = document.createTextNode("Game Over")
-        const result = document.getElementById("game____overdiv")
-        const leaderBoard = document.createElement("button")
-        leaderBoard.classList.add("gameover____button")
-        leaderBoard.innerHTML = "Go to leaderboard"
-        points.innerHTML = "Score: " + `${winAnswers}`
-        losingText.innerHTML = "You will get better."
-        div.appendChild(image)
-        div.appendChild(text)
-        div.appendChild(points)
-        div.appendChild(losingText)
-        text.appendChild(newContent)
-        result.appendChild(div)
-        div.appendChild(leaderBoard)
-      }
-
       this.sec -= 1;
+      this.updateTime();
       if (this.sec <= 5 && this.sec > 0) {
         audioHandler.startTimeWarning();
       } else {
         audioHandler.stopTimeWarning();
       }
     }, 1000);
-
   },
   timerAnswerHandling(typeOfAnswer) {
     if (typeOfAnswer === 'correct') {
-      this.sec += 5;
+      timer.gainSeconds(5);
     } else if (typeOfAnswer === 'wrong') {
-      this.sec -= 5;
+      timer.loseSeconds(5);
     }
   },
   levelupHandling() {
-    this.sec += 20;
+    timer.gainSeconds(20);
   },
 };
 
@@ -425,7 +458,6 @@ function checkIfAnswerIsCorrect() {
     );
   }
 }
-
 
 // display the problem, add input field and a button to check the result
 function displayProblem() {
@@ -464,6 +496,7 @@ const uiHandler = {
 // * This fun contains the funs executed when the game starts
 function main() {
   audioHandler.init();
+  timer.updateTime();
   uiHandler.activateEventListeners();
 }
 main();
