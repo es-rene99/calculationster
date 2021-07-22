@@ -190,6 +190,14 @@ const monsters = [
     alt3: 'lizard man',
     growth4: 'assets/monster/Dragon/5.png',
     alt4: 'dragon',
+    transformation1: 'assets/monsterTransformation/dragon/dragonT01.gif',
+    altTransform1: 'egg to worm',
+    transformation2: 'assets/monsterTransformation/dragon/dragonT02.gif',
+    altTransform2: 'worm to snake',
+    transformation3: 'assets/monsterTransformation/dragon/dragonT03.gif',
+    altTransform3: 'snake to lizard man',
+    transformation4: 'assets/monsterTransformation/dragon/dragonT04.gif',
+    altTransform4: 'lzard man to dragon',
   },
   {
     type: 'flying',
@@ -201,6 +209,14 @@ const monsters = [
     alt3: 'imp',
     growth4: 'assets/monster/Flying/05.png',
     alt4: 'vampire',
+    transformation1: 'assets/monsterTransformation/flying/flyingT01.gif',
+    altTransform1: 'egg to bat',
+    transformation2: 'assets/monsterTransformation/flying/flyingT02.gif',
+    altTransform2: 'bat to gargoyle',
+    transformation3: 'assets/monsterTransformation/flying/flyingT03.gif',
+    altTransform3: 'gargoyle to imp',
+    transformation4: 'assets/monsterTransformation/flying/flyingT04.gif',
+    altTransform4: 'imp tovampire',
   },
   {
     type: 'ghost',
@@ -212,6 +228,14 @@ const monsters = [
     alt3: 'big ghost',
     growth4: 'assets/monster/Ghost/05.png',
     alt4: 'pumpkin ghost',
+    transformation1: 'assets/monsterTransformation/ghost/ghostT01.gif',
+    altTransform1: 'egg to cloud',
+    transformation2: 'assets/monsterTransformation/ghost/ghostT02.gif',
+    altTransform2: 'cloud to ghost',
+    transformation3: 'assets/monsterTransformation/ghost/ghostT03.gif',
+    altTransform3: 'small ghost to big ghost',
+    transformation4: 'assets/monsterTransformation/ghost/ghostT04.gif',
+    altTransform4: 'ghost to pumpkin ghostt',
   },
   {
     type: 'humanoid',
@@ -223,6 +247,15 @@ const monsters = [
     alt3: 'grumpy ogre',
     growth4: 'assets/monster/Humanoid/05.png',
     alt4: 'dark knight',
+    transformation1: 'assets/monsterTransformation/humanoid/humt01.gif',
+    altTransform1: 'egg to baby cyclope',
+    transformation2: 'assets/monsterTransformation/humanoid/humt02.gif',
+    altTransform2: 'baby cyclope to zombie',
+    transformation3: 'assets/monsterTransformation/humanoid/humt03.gif',
+    altTransform3: 'zombie to grumpy ogre',
+    transformation4: 'assets/monsterTransformation/humanoid/humt04.gif',
+    altTransform4: 'ogre ot dark knight',
+
   }];
 
 const monsterSelected = monsters[getRandomDigit(monsters.length)];
@@ -234,13 +267,21 @@ function createMonsterImg(src, alt) {
 }
 
 function monsterGrowth() {
-  if (level === 2) {
+  if (winAnswers === 10) {
+    createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1);
+  } else if (winAnswers === 11) {
     createMonsterImg(monsterSelected.growth1, monsterSelected.alt1);
-  } else if (level === 4) {
+  } else if (winAnswers === 30) {
+    createMonsterImg(monsterSelected.transformation2, monsterSelected.altTransform2);
+  } else if (winAnswers === 31) {
     createMonsterImg(monsterSelected.growth2, monsterSelected.alt2);
-  } else if (level === 6) {
+  } else if (winAnswers === 50) {
+    createMonsterImg(monsterSelected.transformation3, monsterSelected.altTransform3);
+  } else if (winAnswers === 51) {
     createMonsterImg(monsterSelected.growth3, monsterSelected.alt3);
-  } else if (level === 8) {
+  } else if (winAnswers === 70) {
+    createMonsterImg(monsterSelected.transformation4, monsterSelected.altTransform4);
+  } else if (winAnswers === 71) {
     createMonsterImg(monsterSelected.growth4, monsterSelected.alt4);
   }
 }
