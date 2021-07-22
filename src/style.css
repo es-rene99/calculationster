@@ -1,19 +1,38 @@
 .game__timer {
   float: right;
-  display: flex;
   margin-right: 2%;
   font-size: 1rem;
-  font-family: "Londrina Outline", cursive;
+  font-family: "Press Start 2P";
   color: #000;
   margin-top: 1%;
   padding: 0 1rem;
-  border: 2px solid #000;
+  border: 4px solid #000;
   background-color: #faebd7;
   align-items: center;
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+  animation-play-state: paused; 
 }
 .timer__title {
   font-size: 1rem;
   margin-right: 5%;
+}
+#timer-animation-container {
+  padding-left: 70%;
+}
+.timer-added-seconds {
+  position: absolute;
+  visibility: hidden;
+  animation-name: addedSeconds;
+  animation-duration: 2s;
+  animation-timing-function: ease;
+}
+.timer-lost-seconds {
+  position: absolute;
+  visibility: hidden;
+  animation-name: lostSeconds;
+  animation-duration: 2s;
+  animation-timing-function: ease;
 }
 
 .hidden-element {
@@ -44,4 +63,28 @@
   color: white;
   font-weight: bold;
   box-shadow: 1px 1px 10px;
+}
+
+@keyframes addedSeconds {
+  0% {color: green; visibility: visible;opacity:1;}
+  100% {color: green; transform: translate(20%, -600%); visibility: hidden;opacity:0;}
+}
+
+@keyframes lostSeconds {
+  0% {color: red; visibility: visible;opacity:1;}
+  100% {color: red; transform: translate(20%, 600%); visibility: hidden;opacity:0;}
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
