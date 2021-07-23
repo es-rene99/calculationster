@@ -203,6 +203,14 @@ const monsters = [
     alt3: 'lizard man',
     growth4: 'assets/monster/Dragon/5.png',
     alt4: 'dragon',
+    transformation1: 'assets/monsterTransformation/dragon/dragonT01.gif',
+    altTransform1: 'egg to worm',
+    transformation2: 'assets/monsterTransformation/dragon/dragonT02.gif',
+    altTransform2: 'worm to snake',
+    transformation3: 'assets/monsterTransformation/dragon/dragonT03.gif',
+    altTransform3: 'snake to lizard man',
+    transformation4: 'assets/monsterTransformation/dragon/dragonT04.gif',
+    altTransform4: 'lzard man to dragon',
   },
   {
     type: 'flying',
@@ -214,6 +222,14 @@ const monsters = [
     alt3: 'imp',
     growth4: 'assets/monster/Flying/05.png',
     alt4: 'vampire',
+    transformation1: 'assets/monsterTransformation/flying/flyingT01.gif',
+    altTransform1: 'egg to bat',
+    transformation2: 'assets/monsterTransformation/flying/flyingT02.gif',
+    altTransform2: 'bat to gargoyle',
+    transformation3: 'assets/monsterTransformation/flying/flyingT03.gif',
+    altTransform3: 'gargoyle to imp',
+    transformation4: 'assets/monsterTransformation/flying/flyingT04.gif',
+    altTransform4: 'imp tovampire',
   },
   {
     type: 'ghost',
@@ -225,6 +241,14 @@ const monsters = [
     alt3: 'big ghost',
     growth4: 'assets/monster/Ghost/05.png',
     alt4: 'pumpkin ghost',
+    transformation1: 'assets/monsterTransformation/ghost/ghostT01.gif',
+    altTransform1: 'egg to cloud',
+    transformation2: 'assets/monsterTransformation/ghost/ghostT02.gif',
+    altTransform2: 'cloud to ghost',
+    transformation3: 'assets/monsterTransformation/ghost/ghostT03.gif',
+    altTransform3: 'small ghost to big ghost',
+    transformation4: 'assets/monsterTransformation/ghost/ghostT04.gif',
+    altTransform4: 'ghost to pumpkin ghostt',
   },
   {
     type: 'humanoid',
@@ -236,6 +260,15 @@ const monsters = [
     alt3: 'grumpy ogre',
     growth4: 'assets/monster/Humanoid/05.png',
     alt4: 'dark knight',
+    transformation1: 'assets/monsterTransformation/humanoid/humt01.gif',
+    altTransform1: 'egg to baby cyclope',
+    transformation2: 'assets/monsterTransformation/humanoid/humt02.gif',
+    altTransform2: 'baby cyclope to zombie',
+    transformation3: 'assets/monsterTransformation/humanoid/humt03.gif',
+    altTransform3: 'zombie to grumpy ogre',
+    transformation4: 'assets/monsterTransformation/humanoid/humt04.gif',
+    altTransform4: 'ogre ot dark knight',
+
   }];
 
 const monsterSelected = monsters[getRandomDigit(monsters.length)];
@@ -247,13 +280,21 @@ function createMonsterImg(src, alt) {
 }
 
 function monsterGrowth() {
-  if (level === 2) {
+  if (winAnswers === 10) {
+    createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1);
+  } else if (winAnswers === 11) {
     createMonsterImg(monsterSelected.growth1, monsterSelected.alt1);
-  } else if (level === 4) {
+  } else if (winAnswers === 30) {
+    createMonsterImg(monsterSelected.transformation2, monsterSelected.altTransform2);
+  } else if (winAnswers === 31) {
     createMonsterImg(monsterSelected.growth2, monsterSelected.alt2);
-  } else if (level === 6) {
+  } else if (winAnswers === 50) {
+    createMonsterImg(monsterSelected.transformation3, monsterSelected.altTransform3);
+  } else if (winAnswers === 51) {
     createMonsterImg(monsterSelected.growth3, monsterSelected.alt3);
-  } else if (level === 8) {
+  } else if (winAnswers === 70) {
+    createMonsterImg(monsterSelected.transformation4, monsterSelected.altTransform4);
+  } else if (winAnswers === 71) {
     createMonsterImg(monsterSelected.growth4, monsterSelected.alt4);
   }
 }
@@ -355,17 +396,79 @@ const audioHandler = {
 
 const timer = {
   sec: 30,
+  timeDisplay: document.getElementById('gameTimer'),
+  animationContainer: document.getElementById('timer-animation-container'),
+  updateDisplay(text) {
+    this.timeDisplay.innerHTML = text;
+  },
+  updateTime() {
+    const minText = `0${Math.floor(this.sec / 60)}`.slice(-2);
+    const secText = `0${this.sec % 60}`.slice(-2);
+    this.updateDisplay(`${minText}:${secText}`);
+  },
+  gainSeconds(secondsGained) {
+    this.sec += secondsGained;
+    const animatedText = document.createElement('div');
+    animatedText.innerHTML = `+${secondsGained}`;
+    animatedText.classList.add('timer-added-seconds');
+    animatedText.onanimationend = () => {
+      animatedText.remove();
+    };
+    this.animationContainer.appendChild(animatedText);
+    this.updateTime();
+  },
+  loseSeconds(secondsLost) {
+    this.sec -= secondsLost;
+    const animatedText = document.createElement('div');
+    animatedText.innerHTML = `-${secondsLost}`;
+    animatedText.classList.add('timer-lost-seconds');
+    animatedText.onanimationend = () => {
+      animatedText.remove();
+    };
+    this.animationContainer.appendChild(animatedText);
+    this.updateTime();
+    const timerDiv = document.getElementById('game__timer');
+    timerDiv.style.animationPlayState = 'running';
+    setTimeout(() => {
+      timerDiv.style.animationPlayState = 'paused';
+    }, 500);
+  },
+  gameOver() {
+    this.updateDisplay('Time\'s up!');
+    audioHandler.gameOver();
+    document.getElementById('main__game').innerHTML = '';
+    const div = document.createElement('div');
+    div.classList.add('gameover____div');
+    const text = document.createElement('h1');
+    const points = document.createElement('p');
+    const losingText = document.createElement('p');
+    const image = document.createElement('img');
+    image.setAttribute('src', './assets/DeadSkeleton/Skeleton/SkeletonDead.gif');
+    image.classList.add('gameover____image');
+    text.classList.add('gameover____message');
+    const newContent = document.createTextNode('Game Over');
+    const result = document.getElementById('game____overdiv');
+    const leaderBoard = document.createElement('button');
+    leaderBoard.classList.add('gameover____button');
+    leaderBoard.innerHTML = 'Go to leaderboard';
+    points.innerHTML = `Score: ${winAnswers}`;
+    losingText.innerHTML = 'You will get better.';
+    div.appendChild(image);
+    div.appendChild(text);
+    div.appendChild(points);
+    div.appendChild(losingText);
+    text.appendChild(newContent);
+    result.appendChild(div);
+    div.appendChild(leaderBoard);
+  },
   startTimer() {
     const timeInterval = setInterval(() => {
-      const minText = `${Math.floor(this.sec / 60)}`;
-      const secText = `0${this.sec % 60}`.slice(-2);
-      document.getElementById('gameTimer').innerHTML = `${minText}:${secText}`;
       if (this.sec <= 0) {
         clearInterval(timeInterval);
-        document.getElementById('gameTimer').innerHTML = "Time's up!";
-        audioHandler.gameOver();
+        this.gameOver();
       }
       this.sec -= 1;
+      this.updateTime();
       if (this.sec <= 5 && this.sec > 0) {
         audioHandler.startTimeWarning();
       } else {
@@ -375,13 +478,13 @@ const timer = {
   },
   timerAnswerHandling(typeOfAnswer) {
     if (typeOfAnswer === 'correct') {
-      this.sec += 5;
+      timer.gainSeconds(5);
     } else if (typeOfAnswer === 'wrong') {
-      this.sec -= 5;
+      timer.loseSeconds(5);
     }
   },
   levelupHandling() {
-    this.sec += 20;
+    timer.gainSeconds(20);
   },
 };
 
@@ -448,6 +551,7 @@ const uiHandler = {
 // * This fun contains the funs executed when the game starts
 function main() {
   audioHandler.init();
+  timer.updateTime();
   uiHandler.activateEventListeners();
 }
 main();
