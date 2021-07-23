@@ -42,8 +42,8 @@ main {
 }
 
 .game__timer {
-  float: right;
-  margin-right: 2%;
+  float: left;
+  margin-left: 2%;
   font-size: 1rem;
   font-family: "Press Start 2P";
   color: #000;
@@ -54,14 +54,12 @@ main {
   align-items: center;
   animation: shake 0.5s;
   animation-iteration-count: infinite;
-  animation-play-state: paused; 
+  animation-play-state: paused;
+  display: flex;
 }
 .timer__title {
   font-size: 1rem;
   margin-right: 5%;
-}
-#timer-animation-container {
-  padding-left: 70%;
 }
 .timer-added-seconds {
   position: absolute;
@@ -90,6 +88,17 @@ main {
   cursor: pointer;
 }
 
+.monster-container {
+  position: absolute;
+  bottom: 0;
+  width: 40%;
+  text-align: center;
+}
+
+.monster {
+  width: 60%;
+}
+
 /* * This classes should be at bottom to take priority: */
 
 .hidden-element {
@@ -97,9 +106,9 @@ main {
 }
 
 .gameover____div {
-  border: 2px solid rgb(254,228,197);
+  border: 2px solid rgb(254, 228, 197);
   border-radius: 20px;
-  background: rgb(254,228,197);
+  background: rgb(254, 228, 197);
   width: 400px;
   height: 400px;
   text-align: center;
@@ -113,9 +122,9 @@ main {
 }
 
 .gameover____button {
-  background-color: rgb(249,153,0);
+  background-color: rgb(249, 153, 0);
   border-radius: 20px;
-  border: 10px solid rgb(249,153,0);
+  border: 10px solid rgb(249, 153, 0);
   cursor: pointer;
   color: white;
   font-weight: bold;
@@ -123,25 +132,65 @@ main {
 }
 
 @keyframes addedSeconds {
-  0% {color: green; visibility: visible;opacity:1;}
-  100% {color: green; transform: translate(20%, -600%); visibility: hidden;opacity:0;}
+  0% {
+    color: green;
+    visibility: visible;
+    opacity: 1;
+  }
+  100% {
+    color: green;
+    transform: translate(20%, -600%);
+    visibility: hidden;
+    opacity: 0;
+  }
 }
 
 @keyframes lostSeconds {
-  0% {color: red; visibility: visible;opacity:1;}
-  100% {color: red; transform: translate(20%, 600%); visibility: hidden;opacity:0;}
+  0% {
+    color: red;
+    visibility: visible;
+    opacity: 1;
+  }
+  100% {
+    color: red;
+    transform: translate(20%, 600%);
+    visibility: hidden;
+    opacity: 0;
+  }
 }
 
 @keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
 }
