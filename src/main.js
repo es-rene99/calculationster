@@ -518,6 +518,7 @@ function displayProblem() {
 const uiHandler = {
   gameStartBtn: document.getElementById('game__start-btn'),
   gameTimer: document.getElementById('game__timer'),
+  gameTitle: document.getElementById('opening-title'),
   toggleHiddenElement(element) {
     element.classList.toggle('hidden-element');
   },
@@ -525,6 +526,7 @@ const uiHandler = {
     this.gameStartBtn.onclick = () => {
       timer.startTimer();
       audioHandler.startBGM();
+      this.toggleHiddenElement(this.gameTitle);
       this.toggleHiddenElement(this.gameStartBtn);
       this.toggleHiddenElement(this.gameTimer);
       displayProblem();
