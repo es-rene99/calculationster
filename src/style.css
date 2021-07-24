@@ -9,12 +9,10 @@ body {
 }
 /* animation test */
 
-.rain{
-  height: 100vh;
-  animation: rain 0.3s linear infinite;
-}
 
-.rain::before{
+
+.thunder{
+  height: 100vh;
   content: "";
   position: absolute;
   width: 100%;
