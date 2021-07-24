@@ -7,10 +7,7 @@ body {
   -o-background-size: cover;
   background-size: cover;
 }
-/* animation test */
-
-
-
+/* thunder */
 .thunder{
   height: 100vh;
   content: "";
@@ -49,7 +46,7 @@ body {
       opacity: 0;
   }
 }
-/* animation over
+/* welcome page
  */
 
 #opening-title{
@@ -58,7 +55,8 @@ body {
   font-size: 5rem;
   letter-spacing: 7px;
   color:rgb(223, 193, 138);
-  text-shadow: 4px 4px rgba(124, 28, 28, 0.905);
+  text-shadow: 4px 4px rgba(81, 49, 49, 0.905);
+  margin-top: 2%;
 }
 
 #start-container{
@@ -66,9 +64,13 @@ body {
   flex-direction: column;
   text-align: center;
 }
+
+
 .btn{
   text-align: right;
-  padding-top: 400px;
+  animation: shake 10s  infinite;
+  padding-top: 30%;
+  flex-grow: 1;
 }
 #game__start-btn{
   background-color: Transparent;
@@ -186,4 +188,15 @@ transform: scale(115%)rotate(-5deg);
   80% { transform: translate(-1px, -1px) rotate(1deg); }
   90% { transform: translate(1px, 2px) rotate(0deg); }
   100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+
+
+@media screen and (max-width:670px) {
+  #opening-title{
+    font-size: 2.2rem;
+  }
+  .btn{
+    padding-top: 65%;
+  }
 }
