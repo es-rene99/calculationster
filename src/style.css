@@ -167,30 +167,36 @@ body {
   width: 60%;
 }
 
+.game-right-panel {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
 /* timer */
 
 .game__timer {
-  float: right;
-  margin-right: 2%;
+  margin-top: 2rem;
+  float: left;
+  margin-left: 2%;
   font-size: 1rem;
-  font-family: "Press Start 2P";
   color: #000;
-  margin-top: 1%;
   padding: 0 1rem;
+  font-family: "Press Start 2P";
   border: 4px solid #000;
   background-color: #faebd7;
   align-items: center;
   animation: shake 0.5s;
   animation-iteration-count: infinite;
   animation-play-state: paused;
+  display: flex;
+  width: 13rem;
 }
 .timer__title {
   font-size: 1rem;
   margin-right: 5%;
 }
-#timer-animation-container {
-  padding-left: 70%;
-}
+
 .timer-added-seconds {
   position: absolute;
   visibility: hidden;
@@ -206,10 +212,24 @@ body {
   animation-timing-function: ease;
 }
 
-.game-right-panel {
+.game__score {
+  margin-top: 2rem;
+  float: left;
+  margin-left: 2%;
+  font-family: "Press Start 2P";
+  color: #fff;
+  padding: 0 1rem;
+  align-items: center;
   display: flex;
-  flex-direction: column;
-  text-align: left;
+}
+
+.score__title {
+  font-size: 1rem;
+  margin-right: 5%;
+}
+
+.score__label {
+  font-size: 1rem;
 }
 
 .gameover____div {

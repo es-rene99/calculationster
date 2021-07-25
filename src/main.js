@@ -532,6 +532,7 @@ const uiHandler = {
   thunder: document.getElementsByClassName('thunder')[0],
   gameWrapper: document.getElementById('game-wrapper'),
   gameLeftPanel: document.getElementById('game-left-panel'),
+  gameRightPanel: document.getElementById('game-right-panel'),
   sidebars: document.getElementsByClassName('sidebar'),
 
   toggleColorInSideBars(elements) {
@@ -551,6 +552,7 @@ const uiHandler = {
       this.toggleHiddenElement(this.gameStartBtn);
       this.toggleHiddenElement(this.thunder);
       this.toggleHiddenElement(this.gameLeftPanel);
+      this.toggleHiddenElement(this.gameRightPanel);
       this.toggleHiddenElement(this.gameTimer);
       this.toggleColorInSideBars(this.sidebars);
       changeBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
