@@ -156,12 +156,16 @@ body {
   font-size: 3rem;
 }
 
-/* .monster-container {
+.monster-container {
   position: absolute;
   bottom: 0;
   width: 40%;
   text-align: center;
-} */
+}
+
+.monster {
+  width: 60%;
+}
 
 /* timer */
 
