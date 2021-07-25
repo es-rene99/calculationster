@@ -432,7 +432,7 @@ const timer = {
   gameOver() {
     this.updateDisplay('Time\'s up!');
     audioHandler.gameOver();
-    document.getElementById('main__game').innerHTML = '';
+    document.getElementById('game-wrapper').innerHTML = '';
     const div = document.createElement('div');
     div.classList.add('gameover____div');
     const text = document.createElement('h1');
@@ -529,6 +529,14 @@ const uiHandler = {
   gameTitle: document.getElementById('opening-title'),
   thunder: document.getElementsByClassName('thunder')[0],
   gameWrapper: document.getElementById('game-wrapper'),
+  gameLeftPanel: document.getElementById('game-left-panel'),
+  sidebars: document.getElementsByClassName('sidebar'),
+
+  toggleColorInSideBars(elements) {
+    [...elements].forEach((element) => {
+      element.classList.toggle('sidebar-colors');
+    });
+  },
   toggleHiddenElement(element) {
     element.classList.toggle('hidden-element');
   },
@@ -541,6 +549,7 @@ const uiHandler = {
       this.toggleHiddenElement(this.gameStartBtn);
       this.toggleHiddenElement(this.thunder);
       this.toggleHiddenElement(this.gameTimer);
+      this.toggleColorInSideBars(this.sidebars);
       changeBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
       displayProblem();
       askProblem();

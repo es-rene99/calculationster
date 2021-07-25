@@ -1,3 +1,10 @@
+/* * This is to extend the 3 grids heights */
+html,
+body,
+main {
+  min-height: 100vh;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -58,6 +65,7 @@ body {
  */
 
 #opening-title {
+  position: absolute;
   font-family: "Metal Mania";
   text-transform: uppercase;
   font-size: 5rem;
@@ -113,6 +121,26 @@ body {
   color: white;
   text-align: center;
   height: 100%;
+}
+
+.game-left-panel,
+.game-right-panel {
+  height: 100%;
+}
+
+.sidebar-colors {
+  background-color: rgba(138, 43, 226, 0.6);
+}
+
+.game-left-panel__title {
+  margin-top: 2rem;
+  font-size: 3.1rem;
+}
+.game-left-panel__items {
+  width: 80%;
+  background-color: blueviolet;
+  display: inline-block;
+  height: 70%;
 }
 
 .operation__panel {
@@ -173,8 +201,8 @@ body {
   width: 400px;
   height: 400px;
   text-align: center;
-  margin-left: 39%;
-  margin-top: 10%;
+  margin: 0 auto;
+  margin-top: 35%;
 }
 
 .gameover____image {
