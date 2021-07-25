@@ -392,6 +392,7 @@ const audioHandler = {
 
 const timer = {
   sec: 30,
+  status: 'running',
   timeDisplay: document.getElementById('gameTimer'),
   animationContainer: document.getElementById('timer-animation-container'),
   updateDisplay(text) {
@@ -401,6 +402,18 @@ const timer = {
     const minText = `0${Math.floor(this.sec / 60)}`.slice(-2);
     const secText = `0${this.sec % 60}`.slice(-2);
     this.updateDisplay(`${minText}:${secText}`);
+  },
+  pause() {
+    this.status = 'paused';
+  },
+  unpause() {
+    this.status = 'running';
+  },
+  pauseFor(numMillisecondsToPauseFor) {
+    this.pause();
+    setTimeout(() => {
+      this.unpause();
+    }, numMillisecondsToPauseFor);
   },
   gainSeconds(secondsGained) {
     this.sec += secondsGained;
@@ -459,16 +472,18 @@ const timer = {
   },
   startTimer() {
     const timeInterval = setInterval(() => {
-      if (this.sec <= 0) {
-        clearInterval(timeInterval);
-        this.gameOver();
-      }
-      this.sec -= 1;
-      this.updateTime();
-      if (this.sec <= 5 && this.sec > 0) {
-        audioHandler.startTimeWarning();
-      } else {
-        audioHandler.stopTimeWarning();
+      if (timer.status === 'running') {
+        if (this.sec <= 0) {
+          clearInterval(timeInterval);
+          this.gameOver();
+        }
+        this.sec -= 1;
+        this.updateTime();
+        if (this.sec <= 5 && this.sec > 0) {
+          audioHandler.startTimeWarning();
+        } else {
+          audioHandler.stopTimeWarning();
+        }
       }
     }, 1000);
   },
