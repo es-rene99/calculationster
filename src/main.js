@@ -511,16 +511,18 @@ function checkIfAnswerIsCorrect() {
 // display the problem, add input field and a button to check the result
 function displayProblem() {
   const operationPanel = document.getElementById('operation__panel');
-  const answerInputWrapper = document.createElement('p');
+  const answerInputWrapper = document.createElement('div');
+  answerInputWrapper.classList.add('answer-input-wrapper');
   const answerInput = document.createElement('input');
   answerInput.id = 'answer';
-  operationPanel.appendChild(answerInputWrapper);
+  const enterAnswerBtn = document.createElement('button');
+  enterAnswerBtn.id = 'enter-answer-btn';
+  enterAnswerBtn.classList.add('enter-answer-btn');
+  enterAnswerBtn.textContent = 'Enter';
   answerInputWrapper.appendChild(answerInput);
-  const submitButton = document.createElement('button');
-  submitButton.id = 'submit';
-  submitButton.textContent = 'submit';
-  operationPanel.appendChild(submitButton);
-  submitButton.addEventListener('click', checkIfAnswerIsCorrect);
+  answerInputWrapper.appendChild(enterAnswerBtn);
+  operationPanel.appendChild(answerInputWrapper);
+  enterAnswerBtn.addEventListener('click', checkIfAnswerIsCorrect);
 }
 
 const uiHandler = {
@@ -542,12 +544,13 @@ const uiHandler = {
   },
   activateEventListeners() {
     this.gameStartBtn.onclick = () => {
-      timer.startTimer();
+      // timer.startTimer();
       audioHandler.startBGM();
       this.toggleHiddenElement(this.gameWrapper);
       this.toggleHiddenElement(this.gameTitle);
       this.toggleHiddenElement(this.gameStartBtn);
       this.toggleHiddenElement(this.thunder);
+      this.toggleHiddenElement(this.gameLeftPanel);
       this.toggleHiddenElement(this.gameTimer);
       this.toggleColorInSideBars(this.sidebars);
       changeBackground("url('assets/Backgrounds/Interior/interior04.jpg')");

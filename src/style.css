@@ -3,6 +3,7 @@ html,
 body,
 main {
   min-height: 100vh;
+  overflow: hidden;
 }
 
 body {
@@ -143,6 +144,10 @@ body {
   height: 70%;
 }
 
+.main__game {
+  color: white;
+}
+
 .operation__panel {
   text-align: center;
 }
@@ -150,6 +155,13 @@ body {
 .operation__question {
   font-size: 3rem;
 }
+
+/* .monster-container {
+  position: absolute;
+  bottom: 0;
+  width: 40%;
+  text-align: center;
+} */
 
 /* timer */
 
@@ -190,8 +202,10 @@ body {
   animation-timing-function: ease;
 }
 
-.hidden-element {
-  display: none;
+.game-right-panel {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 }
 
 .gameover____div {
@@ -291,4 +305,8 @@ body {
   .btn-container {
     padding-top: 65%;
   }
+}
+
+.hidden-element {
+  display: none;
 }
