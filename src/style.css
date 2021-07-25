@@ -26,6 +26,7 @@ body {
   transform: rotate(180deg);
   animation: lightining 2s linear infinite;
   opacity: 1;
+  left: 0;
 }
 @keyframes lightining {
   0% {
@@ -77,6 +78,10 @@ body {
   animation: shake 10s infinite;
   padding-top: 30%;
   flex-grow: 1;
+  position: absolute;
+  bottom: 0;
+  right: 11rem;
+  bottom: 4rem;
 }
 #game__start-btn {
   background-color: Transparent;
