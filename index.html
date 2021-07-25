@@ -5,12 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculationster</title>
-    <link  rel='stylesheet' href='http://fonts.googleapis.com/css?family=Press+Start+2P' type='text/css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./src/style.css" />
     <link rel="stylesheet" href="./src/sanitize.css" />
   </head>
   <body>
+
+    <!-- <div class="lightining"></div> -->
+    <div class="thunder">  </div>
     <main id="main__game" class="main__game">
+
       <div id="game__timer" class="game__timer hidden-element">
         <h1 class="timer__title">TIME</h1>
         <div id="timer-animation-container"></div>
@@ -25,10 +33,16 @@
           <img src="" alt="" id="monster">
         </div>
       </div>
+      <div id="start-container">
+      <h1 id='opening-title'>Calculationster</h1>
+      <div class="btn">
       <button id="game__start-btn" class="game__start-btn">Start</button>
+      </div>
+      </div>
     </main>
     <div class="game____over" id="game____overdiv">
     </div>
+
     <script src="./src/main.js"></script>
   </body>
 </html>
