@@ -86,6 +86,7 @@ body {
   text-transform: uppercase;
   transform: rotate(-5deg);
   padding-right: 5%;
+  transition: all .2s ease-in-out;
 }
 #game__start-btn:hover{
 color:rgba(246, 255, 244, 0.905);
@@ -94,7 +95,6 @@ transform: scale(115%)rotate(-5deg);
 
 #game__start-btn:active{
   transform: translate(0, 0.1rem)rotate(-5deg);
-  box-shadow: 0 0.2rem rgba(116, 111, 111, 0.624);
 }
 
 /* timer */
