@@ -5,61 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculationster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap"
       rel="stylesheet"
-      href="http://fonts.googleapis.com/css?family=Press+Start+2P"
-      type="text/css"
     />
+    <link rel="stylesheet" href="./src/style.css" />
     <link rel="stylesheet" href="./src/sanitize.css" />
     <link rel="stylesheet" href="./src/style.css" />
   </head>
   <body>
-    <div class="app-wrapper">
-      <aside class="left-sidebar">
-        <div id="game-left-panel" class="game-left-panel hidden-element">
-          <h1 id="game-left-panel__title" class="game-left-panel__title">
-            Calculationster
-          </h1>
-          <div class="game-left-panel__items">
-            <h1 class="items__header"></h1>
-            <div class="items__container"></div>
-          </div>
-        </div>
-      </aside>
-
-      <main id="main__game" class="main__game">
-        <div id="title-screen" class="title-screen">
-          <h1 id="left-sidebar__title" class="title-screen__title">
-            Calculationster
-          </h1>
-          <button id="game__start-btn" class="game__start-btn">Start</button>
-        </div>
-        <div id="game-wrapper" class="game-wrapper hidden-element">
-          <div id="operation__panel" class="operation__panel">
-            <p id="operation__question" class="operation__question"></p>
-          </div>
-          <div
-            id="player-notification-msgs"
-            class="player-notification-msgs"
-          ></div>
-          <div id="monster-container" class="monster-container">
-            <img src="" alt="" id="monster" class="monster" />
-          </div>
-        </div>
-      </main>
-      <aside class="right-sidebar">
-        <div id="game__timer" class="game__timer hidden-element">
-          <h1 class="timer__title">TIME:</h1>
-          <div id="timer-animation-container"></div>
-          <label class="timer__label" id="gameTimer"></label>
+    <!-- <div class="lightining"></div> -->
+    <div class="thunder"></div>
+    <main id="main__game" class="main__game">
+      <div id="game__timer" class="game__timer hidden-element">
+        <h1 class="timer__title">TIME</h1>
+        <div id="timer-animation-container"></div>
+        <div class="timer__label" id="gameTimer"></div>
+      </div>
+      <div class="operation__list">
+        <div class="operation__item">
+          <p class="operation__question"></p>
         </div>
         <div id="game__score" class="game__score hidden-element">
           <h1 class="score__title">Score:</h1>
           <label class="score__label" id="gameScore"></label>
         </div>
-      </aside>
-      <div class="game____over" id="game____overdiv"></div>
-    </div>
+      </div>
+      <div id="start-container">
+        <h1 id="opening-title">Calculationster</h1>
+        <div class="btn">
+          <button id="game__start-btn" class="game__start-btn">Start</button>
+        </div>
+      </div>
+    </main>
+    <div class="game____over" id="game____overdiv"></div>
+
     <script src="./src/main.js"></script>
   </body>
 </html>

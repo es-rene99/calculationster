@@ -1,45 +1,103 @@
-/* * This is to extend the 3 grids heights */
-html,
-body,
-main {
+body {
+  margin: 0;
   min-height: 100vh;
+  background: url("../../assets/Backgrounds/Castle/castle01.jpg") no-repeat
+    center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
-
-.app-wrapper {
-  display: grid;
-  grid-template-columns: 30% 40% 30%;
-}
-
-.title-screen {
-  display: block;
+/* thunder */
+.thunder {
+  height: 100vh;
+  content: "";
   position: absolute;
-  top: 50%;
-  left: 50%;
-  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../assets/effects/thunder.png");
+  top: -100px;
+  transform: rotate(180deg);
+  animation: lightining 2s linear infinite;
+  opacity: 1;
+}
+@keyframes lightining {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  21% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0;
+  }
+  31% {
+    opacity: 1;
+  }
+  35% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+/* welcome page
+ */
+
+#opening-title {
+  font-family: "Metal Mania";
+  text-transform: uppercase;
+  font-size: 5rem;
+  letter-spacing: 7px;
+  color: rgb(223, 193, 138);
+  text-shadow: 4px 4px rgba(81, 49, 49, 0.905);
+  margin-top: 2%;
 }
 
-.title-screen__title {
-  position: absolute;
-  top: -390%;
-  left: -210%;
-}
-
-.main__game {
-  background-color: #000066;
-  color: white;
-}
-
-.left-sidebar,
-.right-sidebar {
-  background-color: #309;
-  color: white;
+#start-container {
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 
-.game-left-panel__title {
-  margin-top: 2rem;
-  font-size: 3.1rem;
+.btn {
+  text-align: right;
+  animation: shake 10s infinite;
+  padding-top: 30%;
+  flex-grow: 1;
 }
+#game__start-btn {
+  background-color: Transparent;
+  border: none;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+  outline: none;
+  font-family: "Just Another Hand", cursive;
+  font-size: 4rem;
+  color: rgba(246, 255, 244, 0.905);
+  text-shadow: 3px 3px rgba(124, 28, 28, 0.905);
+  text-transform: uppercase;
+  transform: rotate(-5deg);
+  padding-right: 5%;
+  transition: all 0.2s ease-in-out;
+}
+#game__start-btn:hover {
+  color: rgba(246, 255, 244, 0.905);
+  transform: scale(115%) rotate(-5deg);
+}
+
+#game__start-btn:active {
+  transform: translate(0, 0.1rem) rotate(-5deg);
+}
+
+/* timer */
 
 .game__timer {
   float: left;
@@ -192,5 +250,14 @@ main {
   }
   100% {
     transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+@media screen and (max-width: 670px) {
+  #opening-title {
+    font-size: 2.2rem;
+  }
+  .btn {
+    padding-top: 65%;
   }
 }

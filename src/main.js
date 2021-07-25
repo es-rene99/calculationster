@@ -299,10 +299,18 @@ function monsterGrowth() {
   }
 }
 
+// background switcher
+
+function changeBackground(src) {
+  document.body.style.background = `${src}no-repeat center center fixed`;
+  document.body.style.backgroundSize = 'cover';
+}
+
 function askProblem() {
   level = Math.floor((winAnswers / 10)) + 1;
   let operator;
   let numDigits;
+
   // Sets numTerms equal to two for levels 1-6, then numTerms increments once per level
 
   // further function for separation
@@ -530,6 +538,10 @@ function displayProblem() {
 }
 
 const uiHandler = {
+  gameStartBtn: document.getElementById('game__start-btn'),
+  gameTimer: document.getElementById('game__timer'),
+  gameTitle: document.getElementById('opening-title'),
+  thunder: document.getElementsByClassName('thunder')[0],
   toggleHiddenElement(element) {
     element.classList.toggle('hidden-element');
   },
@@ -541,6 +553,11 @@ const uiHandler = {
       this.toggleHiddenElement(predefinedUIElements.titleScreen);
       this.toggleHiddenElement(predefinedUIElements.gameLeftPanel);
       audioHandler.startBGM();
+      this.toggleHiddenElement(this.gameTitle);
+      this.toggleHiddenElement(this.gameStartBtn);
+      this.toggleHiddenElement(this.thunder);
+      this.toggleHiddenElement(this.gameTimer);
+      changeBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
       displayProblem();
       askProblem();
       createMonsterImg('assets/monster/Starter/01.png', 'egg');
