@@ -8,6 +8,12 @@ body {
   -o-background-size: cover;
   background-size: cover;
 }
+
+.app-wrapper {
+  display: grid;
+  grid-template-columns: 30% 40% 30%;
+}
+
 /* thunder */
 .thunder {
   height: 100vh;
@@ -66,7 +72,7 @@ body {
   text-align: center;
 }
 
-.btn {
+.btn-container {
   text-align: right;
   animation: shake 10s infinite;
   padding-top: 30%;
@@ -97,11 +103,26 @@ body {
   transform: translate(0, 0.1rem) rotate(-5deg);
 }
 
+.left-sidebar,
+.right-sidebar {
+  color: white;
+  text-align: center;
+  height: 100%;
+}
+
+.operation__panel {
+  text-align: center;
+}
+
+.operation__question {
+  font-size: 3rem;
+}
+
 /* timer */
 
 .game__timer {
-  float: left;
-  margin-left: 2%;
+  float: right;
+  margin-right: 2%;
   font-size: 1rem;
   font-family: "Press Start 2P";
   color: #000;
@@ -113,11 +134,13 @@ body {
   animation: shake 0.5s;
   animation-iteration-count: infinite;
   animation-play-state: paused;
-  display: flex;
 }
 .timer__title {
   font-size: 1rem;
   margin-right: 5%;
+}
+#timer-animation-container {
+  padding-left: 70%;
 }
 .timer-added-seconds {
   position: absolute;
@@ -133,31 +156,6 @@ body {
   animation-duration: 2s;
   animation-timing-function: ease;
 }
-
-.game__start-btn {
-  cursor: pointer;
-}
-
-.operation__panel {
-  text-align: center;
-}
-
-.enter-answer-btn {
-  cursor: pointer;
-}
-
-.monster-container {
-  position: absolute;
-  bottom: 0;
-  width: 40%;
-  text-align: center;
-}
-
-.monster {
-  width: 60%;
-}
-
-/* * This classes should be at bottom to take priority: */
 
 .hidden-element {
   display: none;
@@ -257,7 +255,7 @@ body {
   #opening-title {
     font-size: 2.2rem;
   }
-  .btn {
+  .btn-container {
     padding-top: 65%;
   }
 }

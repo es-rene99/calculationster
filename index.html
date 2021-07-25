@@ -7,43 +7,71 @@
     <title>Calculationster</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./src/style.css" />
     <link rel="stylesheet" href="./src/sanitize.css" />
     <link rel="stylesheet" href="./src/style.css" />
   </head>
   <body>
-    <!-- <div class="lightining"></div> -->
-    <div class="thunder"></div>
-    <main id="main__game" class="main__game">
-      <div id="game__timer" class="game__timer hidden-element">
-        <h1 class="timer__title">TIME</h1>
-        <div id="timer-animation-container"></div>
-        <div class="timer__label" id="gameTimer"></div>
-      </div>
-      <div class="operation__list">
-        <div class="operation__item">
-          <p class="operation__question"></p>
-        </div>
-        <div id="game__score" class="game__score hidden-element">
-          <h1 class="score__title">Score:</h1>
-          <label class="score__label" id="gameScore"></label>
-        </div>
-      </div>
-      <div id="start-container">
-        <h1 id="opening-title">Calculationster</h1>
-        <div class="btn">
-          <button id="game__start-btn" class="game__start-btn">Start</button>
-        </div>
-      </div>
-    </main>
-    <div class="game____over" id="game____overdiv"></div>
+    <div class="app-wrapper">
+      <!-- <div class="lightining"></div> -->
 
+      <aside class="left-sidebar">
+        <div id="game-left-panel" class="game-left-panel hidden-element">
+          <h1 id="game-left-panel__title" class="game-left-panel__title">
+            Calculationster
+          </h1>
+          <div class="game-left-panel__items">
+            <h1 class="items__header">Items:</h1>
+            <div class="items__container">
+              <!-- TODO generate a list of items in JS -->
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main id="main__game" class="main__game">
+        <div id="start-container">
+          <div class="thunder"></div>
+          <h1 id="opening-title">Calculationster</h1>
+          <div class="btn-container">
+            <button id="game__start-btn" class="game__start-btn">Start</button>
+          </div>
+        </div>
+
+        <div id="game-wrapper" class="game-wrapper hidden-element">
+          <div id="operation__panel" class="operation__panel">
+            <p id="operation__question" class="operation__question"></p>
+          </div>
+          <div
+            id="player-notification-msgs"
+            class="player-notification-msgs"
+          ></div>
+          <div id="monster-container" class="monster-container">
+            <img src="" alt="" id="monster" class="monster" />
+          </div>
+        </div>
+      </main>
+
+      <aside class="right-sidebar">
+        <div id="game-right-panel" class="game-right-panel hidden-element">
+          <div id="game__timer" class="game__timer hidden-element">
+            <h1 class="timer__title">TIME</h1>
+            <div id="timer-animation-container"></div>
+            <div class="timer__label" id="gameTimer"></div>
+          </div>
+          <div id="game__score" class="game__score">
+            <h1 class="score__title">Score:</h1>
+            <!-- TODO gameScore functionality -->
+            <label class="score__label" id="gameScore">0</label>
+          </div>
+        </div>
+      </aside>
+
+      <div class="game____over" id="game____overdiv"></div>
+    </div>
     <script src="./src/main.js"></script>
   </body>
 </html>

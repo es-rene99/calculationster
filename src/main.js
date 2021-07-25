@@ -1,17 +1,4 @@
 /*
-Contains the constant uiElements, TODO still need to refactor
-*/
-const predefinedUIElements = {
-  titleScreen: document.getElementById('title-screen'),
-  gameStartBtn: document.getElementById('game__start-btn'),
-  gameTimer: document.getElementById('game__timer'),
-  gameWrapper: document.getElementById('game-wrapper'),
-  operationPanel: document.getElementById('operation__panel'),
-  operationQuestion: document.getElementById('operation__question'),
-  gameLeftPanel: document.getElementById('game-left-panel'),
-};
-
-/*
 Returns a random digit [0-9]
 I'm leaving this here because other people have been using it but
 I feel like getRandomDigit shouldn't be used for generating operands because it returns 0.
@@ -325,7 +312,8 @@ function askProblem() {
     numDigits = 2;
     problem = makeRandomExpression(numTerms, numDigits);
   }
-  predefinedUIElements.operationQuestion.textContent = problem;
+  const question = document.getElementsByClassName('operation__question')[0];
+  question.textContent = problem;
 }
 
 /*
@@ -522,19 +510,17 @@ function checkIfAnswerIsCorrect() {
 
 // display the problem, add input field and a button to check the result
 function displayProblem() {
-  const { operationPanel } = predefinedUIElements;
-  const answerInputWrapper = document.createElement('div');
-  answerInputWrapper.classList.add('answer-input-wrapper');
+  const operationPanel = document.getElementById('operation__panel');
+  const answerInputWrapper = document.createElement('p');
   const answerInput = document.createElement('input');
   answerInput.id = 'answer';
-  const enterAnswerBtn = document.createElement('button');
-  enterAnswerBtn.id = 'enter-answer-btn';
-  enterAnswerBtn.classList.add('enter-answer-btn');
-  enterAnswerBtn.textContent = 'Enter';
-  answerInputWrapper.appendChild(answerInput);
-  answerInputWrapper.appendChild(enterAnswerBtn);
   operationPanel.appendChild(answerInputWrapper);
-  enterAnswerBtn.addEventListener('click', checkIfAnswerIsCorrect);
+  answerInputWrapper.appendChild(answerInput);
+  const submitButton = document.createElement('button');
+  submitButton.id = 'submit';
+  submitButton.textContent = 'submit';
+  operationPanel.appendChild(submitButton);
+  submitButton.addEventListener('click', checkIfAnswerIsCorrect);
 }
 
 const uiHandler = {
@@ -542,17 +528,15 @@ const uiHandler = {
   gameTimer: document.getElementById('game__timer'),
   gameTitle: document.getElementById('opening-title'),
   thunder: document.getElementsByClassName('thunder')[0],
+  gameWrapper: document.getElementById('game-wrapper'),
   toggleHiddenElement(element) {
     element.classList.toggle('hidden-element');
   },
   activateEventListeners() {
-    predefinedUIElements.gameStartBtn.onclick = () => {
+    this.gameStartBtn.onclick = () => {
       timer.startTimer();
-      this.toggleHiddenElement(predefinedUIElements.gameTimer);
-      this.toggleHiddenElement(predefinedUIElements.gameWrapper);
-      this.toggleHiddenElement(predefinedUIElements.titleScreen);
-      this.toggleHiddenElement(predefinedUIElements.gameLeftPanel);
       audioHandler.startBGM();
+      this.toggleHiddenElement(this.gameWrapper);
       this.toggleHiddenElement(this.gameTitle);
       this.toggleHiddenElement(this.gameStartBtn);
       this.toggleHiddenElement(this.thunder);
