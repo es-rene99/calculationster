@@ -560,7 +560,7 @@ const uiHandler = {
   },
   activateEventListeners() {
     this.gameStartBtn.onclick = () => {
-      // timer.startTimer();
+      timer.startTimer();
       audioHandler.startBGM();
       this.toggleHiddenElement(this.gameWrapper);
       this.toggleHiddenElement(this.gameTitle);
