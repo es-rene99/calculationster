@@ -202,13 +202,17 @@ body {
 }
 
 
+
 .monster-container {
+  position: absolute;
+  bottom: 0;
+  width: 40%;
   text-align: center;
-  align-content: center;
+  z-index: -1;
 }
 
 .monster {
-  margin-top: 1vh;
+  width: 60%;
 }
 
 .game-right-panel {
