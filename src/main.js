@@ -560,7 +560,7 @@ function sceneControl() {
 }
 
 const uiHandler = {
-  gameStartBtn: document.getElementById('game__start-btn'),
+  gameStartBtn: document.getElementsByClassName('btn-container')[0],
   gameTimer: document.getElementById('game__timer'),
   gameTitle: document.getElementById('opening-title'),
   thunder: document.getElementsByClassName('thunder')[0],
