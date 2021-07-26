@@ -564,6 +564,7 @@ const uiHandler = {
   gameTimer: document.getElementById('game__timer'),
   gameTitle: document.getElementById('opening-title'),
   thunder: document.getElementsByClassName('thunder')[0],
+  appWrapper: document.getElementsByClassName('app-wrapper')[0],
   gameWrapper: document.getElementById('game-wrapper'),
   asideLeft: document.getElementsByTagName('aside')[0],
   asideRight: document.getElementsByTagName('aside')[1],
@@ -592,6 +593,7 @@ const uiHandler = {
     this.nextBtn.onclick = () => {
       sceneControl();
       if (scene === 5) {
+        this.toggleHiddenElement(this.appWrapper);
         this.toggleHiddenElement(this.nextBtn);
         this.toggleHiddenElement(this.gameWrapper);
         timer.startTimer();
