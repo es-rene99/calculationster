@@ -565,6 +565,8 @@ const uiHandler = {
   gameTitle: document.getElementById('opening-title'),
   thunder: document.getElementsByClassName('thunder')[0],
   gameWrapper: document.getElementById('game-wrapper'),
+  asideLeft: document.getElementsByTagName('aside')[0],
+  asideRight: document.getElementsByTagName('aside')[1],
   gameLeftPanel: document.getElementById('game-left-panel'),
   gameRightPanel: document.getElementById('game-right-panel'),
   sidebars: document.getElementsByClassName('sidebar'),
@@ -590,9 +592,12 @@ const uiHandler = {
     this.nextBtn.onclick = () => {
       sceneControl();
       if (scene === 5) {
+        this.toggleHiddenElement(this.nextBtn);
         this.toggleHiddenElement(this.gameWrapper);
         timer.startTimer();
         audioHandler.startBGM();
+        this.toggleHiddenElement(this.asideLeft);
+        this.toggleHiddenElement(this.asideRight);
         this.toggleHiddenElement(this.gameLeftPanel);
         this.toggleHiddenElement(this.gameRightPanel);
         this.toggleHiddenElement(this.gameTimer);
