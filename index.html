@@ -18,6 +18,7 @@
     />
     <link rel="stylesheet" href="./src/sanitize.css" />
     <link rel="stylesheet" href="./src/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"/>
   </head>
   <body>
 
@@ -31,7 +32,11 @@
     </div>
     <!-- cut scene -->
     <div id="cut-scene" class="hidden-element">
-      <button class="next-scene">next</button>
+      <div id="scene1">
+      </div>
+      <div class="next-wrapper">
+      <button class="next-scene hidden-element"><i class="fas fa-angle-double-right"></i></i></button>
+      </div>
     </div>
 
     <div class="app-wrapper hidden-element">
@@ -51,8 +56,6 @@
         </div>
       </aside>
       <main id="main__game" class="main__game">
-
-
         <div id="game-wrapper" class="game-wrapper hidden-element">
           <div id="operation__panel" class="operation__panel">
             <p id="operation__question" class="operation__question"></p>

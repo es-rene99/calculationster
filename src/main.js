@@ -585,6 +585,7 @@ const uiHandler = {
   activateEventListeners() {
     this.gameStartBtn.onclick = () => {
       this.toggleHiddenElement(this.cutScene);
+      this.toggleHiddenElement(this.nextBtn);
       this.toggleHiddenElement(this.gameTitle);
       this.toggleHiddenElement(this.gameStartBtn);
       this.toggleHiddenElement(this.thunder);
