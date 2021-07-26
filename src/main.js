@@ -545,8 +545,6 @@ function displayProblem() {
 let scene = 1;
 
 function sceneControl() {
-  console.log(scene);
-
   if (scene === 1) {
     changeBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')");
     scene += 1;
