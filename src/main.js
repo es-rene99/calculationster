@@ -33,7 +33,7 @@ Solve a single operation
 
 function getCorrectResult(mathOne, mathTwo, operatorValue) {
   switch (operatorValue) {
-    case '*':
+    case 'x':
       return multiply(mathOne, mathTwo);
 
     case '/':
@@ -55,7 +55,7 @@ Returns a random operator
 */
 
 function getRandomOperator() {
-  const operators = ['+', '-', '*', '/'];
+  const operators = ['+', '-', 'x', '/'];
   const randomOperator = operators[Math.floor(Math.random() * operators.length)];
   return randomOperator;
 }
@@ -67,14 +67,14 @@ Returns an expression string with all multiplication and division resolved.
 
 function resolveMultAndDiv(expressionString) {
   const expressionArray = expressionString.split(' ');
-  let nextOperatorIndex = expressionArray.findIndex((o) => ['*', '/'].includes(o));
+  let nextOperatorIndex = expressionArray.findIndex((o) => ['x', '/'].includes(o));
   while (nextOperatorIndex !== -1) {
     const operator = expressionArray[nextOperatorIndex];
     const operandOne = Number(expressionArray[nextOperatorIndex - 1]);
     const operandTwo = Number(expressionArray[nextOperatorIndex + 1]);
     const resultOfNextOperation = getCorrectResult(operandOne, operandTwo, operator);
     expressionArray.splice(nextOperatorIndex - 1, 3, resultOfNextOperation);
-    nextOperatorIndex = expressionArray.findIndex((o) => ['*', '/'].includes(o));
+    nextOperatorIndex = expressionArray.findIndex((o) => ['x', '/'].includes(o));
   }
   return expressionArray.join(' ');
 }
@@ -133,7 +133,7 @@ function addTermToExpression(expression, operand, operator) {
   const expressionArray = expression.split(' ');
   const expressionSolution = solveExpression(expression);
   const expressionArrayResolvedMultAndDiv = resolveMultAndDiv(expression).split(' ');
-  if (['+', '*'].includes(operator)) {
+  if (['+', 'x'].includes(operator)) {
     expressionArray.unshift(operand, operator);
   } else if (operator === '-') {
     if (operand >= expressionSolution) {
@@ -304,7 +304,7 @@ function askProblem() {
 
   const numTerms = Math.max(2, level - 4);
   if (level < 5) {
-    operator = ['+', '-', '*', '/'][level - 1];
+    operator = ['+', '-', 'x', '/'][level - 1];
     numDigits = 1;
     problem = makeSimpleExpression(numDigits, operator);
   } else {
@@ -456,7 +456,7 @@ const timer = {
     image.classList.add('gameover____image');
     text.classList.add('gameover____message');
     const newContent = document.createTextNode('Game Over');
-    const result = document.getElementById('game____overdiv');
+    // const result = document.getElementById('game____overdiv');
     const leaderBoard = document.createElement('button');
     leaderBoard.classList.add('gameover____button');
     leaderBoard.innerHTML = 'Go to leaderboard';
@@ -467,8 +467,9 @@ const timer = {
     div.appendChild(points);
     div.appendChild(losingText);
     text.appendChild(newContent);
-    result.appendChild(div);
+    // result.appendChild(div);
     div.appendChild(leaderBoard);
+    document.getElementById('game-wrapper').appendChild(div);
   },
   startTimer() {
     const timeInterval = setInterval(() => {
@@ -476,8 +477,10 @@ const timer = {
         if (this.sec <= 0) {
           clearInterval(timeInterval);
           this.gameOver();
+          this.sec = 0;
+        } else {
+          this.sec -= 1;
         }
-        this.sec -= 1;
         this.updateTime();
         if (this.sec <= 5 && this.sec > 0) {
           audioHandler.startTimeWarning();
