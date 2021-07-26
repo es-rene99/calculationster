@@ -126,8 +126,18 @@ body {
   color: rgba(65, 216, 103, 0.994);
   border-radius: 20%;
   width: 4.4rem;
-  background-color: rgba(241, 255, 228, 0.871);
+  background-color: rgba(241, 255, 228, 0.748);
+  transition: all 0.2s ease-in-out;
 }
+.next-scene:hover {
+  transform: scale(115%);
+  filter: brightness(110%);
+}
+
+.next-scene:active {
+  transform: translate(0, 0.1rem) ;
+}
+
 
 /* game */
 
