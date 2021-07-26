@@ -560,20 +560,20 @@ const uiHandler = {
   },
   activateEventListeners() {
     this.gameStartBtn.onclick = () => {
-      timer.startTimer();
-      audioHandler.startBGM();
-      this.toggleHiddenElement(this.gameWrapper);
-      this.toggleHiddenElement(this.gameTitle);
-      this.toggleHiddenElement(this.gameStartBtn);
-      this.toggleHiddenElement(this.thunder);
-      this.toggleHiddenElement(this.gameLeftPanel);
-      this.toggleHiddenElement(this.gameRightPanel);
-      this.toggleHiddenElement(this.gameTimer);
-      this.toggleColorInSideBars(this.sidebars);
-      changeBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
-      displayProblem();
-      askProblem();
-      createMonsterImg('assets/monster/Starter/01.png', 'egg');
+      // timer.startTimer();
+      // audioHandler.startBGM();
+      // this.toggleHiddenElement(this.gameWrapper);
+      // this.toggleHiddenElement(this.gameTitle);
+      // this.toggleHiddenElement(this.gameStartBtn);
+      // this.toggleHiddenElement(this.thunder);
+      // this.toggleHiddenElement(this.gameLeftPanel);
+      // this.toggleHiddenElement(this.gameRightPanel);
+      // this.toggleHiddenElement(this.gameTimer);
+      // this.toggleColorInSideBars(this.sidebars);
+      // changeBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
+      // displayProblem();
+      // askProblem();
+      // createMonsterImg('assets/monster/Starter/01.png', 'egg');
     };
   },
 };
