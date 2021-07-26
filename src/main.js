@@ -540,6 +540,27 @@ function displayProblem() {
   enterAnswerBtn.addEventListener('click', checkIfAnswerIsCorrect);
 }
 
+// control the cut scene, change background and introduction animations
+
+let scene = 1;
+
+function sceneControl() {
+  console.log(scene);
+
+  if (scene === 1) {
+    changeBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')");
+    scene += 1;
+  } else if (scene === 2) {
+    changeBackground("url('assets/Backgrounds/Castle/Cave01.jpg')");
+    scene += 1;
+  } else if (scene === 3) {
+    changeBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
+    scene += 1;
+  } else if (scene === 4) {
+    scene += 1;
+  }
+}
+
 const uiHandler = {
   gameStartBtn: document.getElementById('game__start-btn'),
   gameTimer: document.getElementById('game__timer'),
@@ -549,6 +570,8 @@ const uiHandler = {
   gameLeftPanel: document.getElementById('game-left-panel'),
   gameRightPanel: document.getElementById('game-right-panel'),
   sidebars: document.getElementsByClassName('sidebar'),
+  cutScene: document.getElementById('cut-scene'),
+  nextBtn: document.getElementsByClassName('next-scene')[0],
 
   toggleColorInSideBars(elements) {
     [...elements].forEach((element) => {
@@ -560,24 +583,30 @@ const uiHandler = {
   },
   activateEventListeners() {
     this.gameStartBtn.onclick = () => {
-      // timer.startTimer();
-      // audioHandler.startBGM();
-      // this.toggleHiddenElement(this.gameWrapper);
-      // this.toggleHiddenElement(this.gameTitle);
-      // this.toggleHiddenElement(this.gameStartBtn);
-      // this.toggleHiddenElement(this.thunder);
-      // this.toggleHiddenElement(this.gameLeftPanel);
-      // this.toggleHiddenElement(this.gameRightPanel);
-      // this.toggleHiddenElement(this.gameTimer);
-      // this.toggleColorInSideBars(this.sidebars);
-      // changeBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
-      // displayProblem();
-      // askProblem();
-      // createMonsterImg('assets/monster/Starter/01.png', 'egg');
+      this.toggleHiddenElement(this.cutScene);
+      this.toggleHiddenElement(this.gameTitle);
+      this.toggleHiddenElement(this.gameStartBtn);
+      this.toggleHiddenElement(this.thunder);
+      sceneControl();
+    };
+    this.nextBtn.onclick = () => {
+      sceneControl();
+      if (scene === 5) {
+        this.toggleHiddenElement(this.gameWrapper);
+        timer.startTimer();
+        audioHandler.startBGM();
+        this.toggleHiddenElement(this.gameLeftPanel);
+        this.toggleHiddenElement(this.gameRightPanel);
+        this.toggleHiddenElement(this.gameTimer);
+        this.toggleColorInSideBars(this.sidebars);
+        changeBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
+        displayProblem();
+        askProblem();
+        createMonsterImg('assets/monster/Starter/01.png', 'egg');
+      }
     };
   },
 };
-
 // * This fun contains the funs executed when the game starts
 function main() {
   audioHandler.init();
