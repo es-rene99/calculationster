@@ -17,11 +17,6 @@ body {
   background-size: cover;
 }
 
-.app-wrapper {
-  display: grid;
-  grid-template-columns: 30% 40% 30%;
-}
-
 /* thunder */
 .thunder {
   height: 100vh;
@@ -65,8 +60,13 @@ body {
 /* welcome page
  */
 
+#start-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
 #opening-title {
-  /* position: absolute; */
   font-family: "Metal Mania";
   text-transform: uppercase;
   font-size: 5rem;
@@ -76,20 +76,11 @@ body {
   margin-top: 2%;
 }
 
-#start-container {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
 .btn-container {
   text-align: right;
   animation: shake 10s infinite;
-  padding-top: 30%;
-  flex-grow: 1;
-  position: absolute;
+  padding-top: 500px;
   bottom: 0;
-  right: 11rem;
   bottom: 4rem;
 }
 #game__start-btn {
@@ -116,6 +107,14 @@ body {
 #game__start-btn:active {
   transform: translate(0, 0.1rem) rotate(-5deg);
 }
+
+/* game */
+
+.app-wrapper {
+  display: grid;
+  grid-template-columns: 30% 40% 30%;
+}
+
 
 .left-sidebar,
 .right-sidebar {
@@ -329,7 +328,7 @@ body {
     font-size: 2.2rem;
   }
   .btn-container {
-    padding-top: 65%;
+    padding-top: 450px;
   }
 }
 
