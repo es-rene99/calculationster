@@ -75,13 +75,15 @@ body {
   text-shadow: 4px 4px rgba(81, 49, 49, 0.905);
   margin-top: 2%;
 }
+
 .btn-container {
-  position: absolute;
   text-align: right;
   animation: shake 10s infinite;
-  bottom: 5px;
-  right: 5%;
-} 
+  flex-grow: 1;
+  position: absolute;
+  right: 3rem;
+  bottom: 2rem;
+}
 #game__start-btn {
   background-color: Transparent;
   border: none;
@@ -95,9 +97,8 @@ body {
   text-shadow: 3px 3px rgba(124, 28, 28, 0.905);
   text-transform: uppercase;
   transform: rotate(-5deg);
+  padding-right: 5%;
   transition: all 0.2s ease-in-out;
-  animation: shake 10s infinite;
-
 }
 #game__start-btn:hover {
   color: rgba(246, 255, 244, 0.905);
