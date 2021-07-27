@@ -76,11 +76,11 @@ body {
   margin-top: 2%;
 }
 .btn-container {
+  position: absolute;
   text-align: right;
   animation: shake 10s infinite;
-  padding-top: 500px;
-  bottom: 0;
-  bottom: 4rem;
+  bottom: 5px;
+  right: 5%;
 } 
 #game__start-btn {
   background-color: Transparent;
@@ -95,9 +95,9 @@ body {
   text-shadow: 3px 3px rgba(124, 28, 28, 0.905);
   text-transform: uppercase;
   transform: rotate(-5deg);
-  padding-right: 5%;
   transition: all 0.2s ease-in-out;
   animation: shake 10s infinite;
+
 }
 #game__start-btn:hover {
   color: rgba(246, 255, 244, 0.905);
@@ -371,9 +371,6 @@ img.wizard{
 @media screen and (max-width: 670px) {
   #opening-title {
     font-size: 2.2rem;
-  }
-  .btn-container {
-    padding-top: 450px;
   }
   img.wizard{
     width: 150px;
