@@ -540,25 +540,7 @@ function displayProblem() {
   enterAnswerBtn.addEventListener('click', checkIfAnswerIsCorrect);
 }
 
-// control the cut scene, change background and introduction animations
-
 let scene = 1;
-
-function sceneControl() {
-  if (scene === 1) {
-    changeBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')");
-    createMonsterImg('assets/monster/Extras/Wizard.png', 'egg', 'scene1');
-    scene += 1;
-  } else if (scene === 2) {
-    changeBackground("url('assets/Backgrounds/Castle/Cave01.jpg')");
-    scene += 1;
-  } else if (scene === 3) {
-    changeBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
-    scene += 1;
-  } else if (scene === 4) {
-    scene += 1;
-  }
-}
 
 const uiHandler = {
   gameStartBtn: document.getElementsByClassName('btn-container')[0],
@@ -574,6 +556,7 @@ const uiHandler = {
   sidebars: document.getElementsByClassName('sidebar'),
   cutScene: document.getElementById('cut-scene'),
   nextBtn: document.getElementsByClassName('next-scene')[0],
+  
 
   toggleColorInSideBars(elements) {
     [...elements].forEach((element) => {
@@ -590,11 +573,19 @@ const uiHandler = {
       this.toggleHiddenElement(this.gameTitle);
       this.toggleHiddenElement(this.gameStartBtn);
       this.toggleHiddenElement(this.thunder);
-      sceneControl();
+      changeBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')");
+      createMonsterImg('assets/monster/Extras/Wizard.png', 'egg', 'wizard1');
     };
+    // introduction sequence
     this.nextBtn.onclick = () => {
-      sceneControl();
-      if (scene === 5) {
+      // sceneControl();
+      if (scene === 1) {
+        changeBackground("url('assets/Backgrounds/Castle/Cave01.jpg')");
+        scene += 1;
+      } else if (scene === 2) {
+        changeBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
+        scene += 1;
+      } else if (scene === 3) {
         this.toggleHiddenElement(this.appWrapper);
         this.toggleHiddenElement(this.nextBtn);
         this.toggleHiddenElement(this.gameWrapper);
