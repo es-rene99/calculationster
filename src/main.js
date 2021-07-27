@@ -260,29 +260,29 @@ const monsters = [
 
 const monsterSelected = monsters[getRandomDigit(monsters.length)];
 
-function createMonsterImg(src, alt) {
-  const monster = document.getElementById('monster');
-  monster.src = src;
-  monster.alt = alt;
+function createMonsterImg(src, alt, id) {
+  const monsterPlacement = document.getElementById(id);
+  monsterPlacement.src = src;
+  monsterPlacement.alt = alt;
 }
 
 function monsterGrowth() {
   if (winAnswers === 10) {
-    createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1);
+    createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1, 'monster');
   } else if (winAnswers === 11) {
-    createMonsterImg(monsterSelected.growth1, monsterSelected.alt1);
+    createMonsterImg(monsterSelected.growth1, monsterSelected.alt1, 'monster');
   } else if (winAnswers === 30) {
-    createMonsterImg(monsterSelected.transformation2, monsterSelected.altTransform2);
+    createMonsterImg(monsterSelected.transformation2, monsterSelected.altTransform2, 'monster');
   } else if (winAnswers === 31) {
-    createMonsterImg(monsterSelected.growth2, monsterSelected.alt2);
+    createMonsterImg(monsterSelected.growth2, monsterSelected.alt2, 'monster');
   } else if (winAnswers === 50) {
-    createMonsterImg(monsterSelected.transformation3, monsterSelected.altTransform3);
+    createMonsterImg(monsterSelected.transformation3, monsterSelected.altTransform3, 'monster');
   } else if (winAnswers === 51) {
-    createMonsterImg(monsterSelected.growth3, monsterSelected.alt3);
+    createMonsterImg(monsterSelected.growth3, monsterSelected.alt3, 'monster');
   } else if (winAnswers === 70) {
-    createMonsterImg(monsterSelected.transformation4, monsterSelected.altTransform4);
+    createMonsterImg(monsterSelected.transformation4, monsterSelected.altTransform4, 'monster');
   } else if (winAnswers === 71) {
-    createMonsterImg(monsterSelected.growth4, monsterSelected.alt4);
+    createMonsterImg(monsterSelected.growth4, monsterSelected.alt4, 'monster');
   }
 }
 
@@ -547,6 +547,7 @@ let scene = 1;
 function sceneControl() {
   if (scene === 1) {
     changeBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')");
+    createMonsterImg('assets/monster/Extras/Wizard.png', 'egg', 'scene1');
     scene += 1;
   } else if (scene === 2) {
     changeBackground("url('assets/Backgrounds/Castle/Cave01.jpg')");
@@ -608,7 +609,7 @@ const uiHandler = {
         changeBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
         displayProblem();
         askProblem();
-        createMonsterImg('assets/monster/Starter/01.png', 'egg');
+        createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
       }
     };
   },

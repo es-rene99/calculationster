@@ -110,6 +110,20 @@ body {
 
 /* cut scene */
 
+.scene1{
+  display: flex;
+  background-color: red;
+}
+
+img.wizard{
+  position: absolute;  
+  bottom: 33%;
+  left: 51%;
+  width: 200px;
+  height: 200px;
+}
+
+
 /* #cut-scene{
 
 /* next btn */
@@ -360,6 +374,18 @@ body {
   }
   .btn-container {
     padding-top: 450px;
+  }
+  img.wizard{
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  img.wizard{
+    bottom: 30%;
+    width: 150px;
+    height: 150px;
   }
 }
 
