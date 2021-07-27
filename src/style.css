@@ -118,7 +118,7 @@ body {
 
 img.wizard{
   position: absolute;  
-  bottom: 33%;
+  bottom: 35%;
   left: 51%;
   width: 200px;
   height: 200px;
@@ -371,7 +371,7 @@ img.wizard{
 
 @media screen and (max-width: 2000px) {
   img.wizard{
-    bottom: 35%;
+    bottom: 32%;
 
   }
 }
@@ -386,9 +386,9 @@ img.wizard{
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-height: 500px) {
   img.wizard{
-    bottom: 30%;
+    bottom: 32%;
     width: 150px;
     height: 150px;
   }

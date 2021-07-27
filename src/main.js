@@ -545,17 +545,25 @@ function displayProblem() {
 let scene = 1;
 
 function sceneControl() {
+  const sceneDiv = document.getElementsByClassName('scene')[0];
   if (scene === 1) {
     changeBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')");
     createMonsterImg('assets/monster/Extras/Wizard.png', 'egg', 'wizard1');
     scene += 1;
   } else if (scene === 2) {
+    sceneDiv.querySelectorAll('*').forEach(n => n.remove());
+    const img = document.createElement('img');
+    img.id = 'scene2';
+    sceneDiv.appendChild(img);
     changeBackground("url('assets/Backgrounds/Castle/Cave01.jpg')");
+    createMonsterImg('assets/monster/Starter/01.png', 'egg', 'scene2');
     scene += 1;
   } else if (scene === 3) {
+    sceneDiv.querySelectorAll('*').forEach(n => n.remove());
     changeBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
     scene += 1;
   } else if (scene === 4) {
+    sceneDiv.querySelectorAll('*').forEach(n => n.remove());
     scene += 1;
   }
 }
