@@ -524,7 +524,7 @@ const timer = {
 
 function checkIfAnswerIsCorrect() {
   const userInputField = document.getElementById('answer');
-  const userAnswer = parseInt(userInputField.value);
+  const userAnswer = parseInt(userInputField.value, 10);
   correctAnswer = solveExpression(problem);
   if (userAnswer === correctAnswer) {
     audioHandler.playNoise('correct');
@@ -537,14 +537,16 @@ function checkIfAnswerIsCorrect() {
     userInputField.value = '';
     askProblem();
     monsterGrowth(level);
-    console.log(`${userAnswer} was the correct answer!\nGood job! Correct answers: ${winAnswers}`);
+    // console.log(
+    //  `${userAnswer} was the correct answer!\nGood job! Correct answers: ${winAnswers}`
+    // );
     timer.timerAnswerHandling('correct');
   } else {
     audioHandler.playNoise('incorrect');
     timer.timerAnswerHandling('wrong');
-    console.log(
-      `Ouch! ${userAnswer} was not the correct answer.\n Try again! (correct : ${correctAnswer})`,
-    );
+    // console.log(
+    //  `Ouch! ${userAnswer} was not the correct answer.\n Try again! (correct : ${correctAnswer})`,
+    // );
   }
 }
 
@@ -569,7 +571,7 @@ let scene = 1;
 
 // writer text function used for cut-scene. Function based on css tricks typography effect.
 
-const storyContent = new Array();
+const storyContent = [];
 
 storyContent[0] = 'A long time ago lived';
 storyContent[1] = 'an evil wizard who dreamt ';
@@ -591,18 +593,20 @@ function typewriter() {
   const destination = document.getElementById('story');
 
   while (iRow < iIndex) {
-    sContents += `${storyContent[iRow++]}<br />`;
+    iRow += 1;
+    sContents += `${storyContent[iRow]}<br />`;
   }
   destination.innerHTML = `${sContents + storyContent[iIndex].substring(0, iTextPos)}`;
-  if (iTextPos++ == iArrLength) {
+  iTextPos += 1;
+  if (iTextPos === iArrLength) {
     iTextPos = 0;
-    iIndex++;
-    if (iIndex != storyContent.length) {
+    iIndex += 1;
+    if (iIndex !== storyContent.length) {
       iArrLength = storyContent[iIndex].length;
-      setTimeout('typewriter()', 500);
+      setTimeout(typewriter, 500);
     }
   } else {
-    setTimeout('typewriter()', iSpeed);
+    setTimeout(typewriter, iSpeed);
   }
 }
 
@@ -708,35 +712,35 @@ const uiHandler = {
     element.classList.toggle('hidden-element');
   },
   activateEventListeners() {
-      this.gameStartBtn.onclick = () => {
-        this.toggleHiddenElement(this.cutScene);
+    this.gameStartBtn.onclick = () => {
+      this.toggleHiddenElement(this.cutScene);
+      this.toggleHiddenElement(this.nextBtn);
+      this.toggleHiddenElement(this.gameTitle);
+      this.toggleHiddenElement(this.gameStartBtn);
+      this.toggleHiddenElement(this.thunder);
+      sceneControl();
+    };
+    this.nextBtn.onclick = () => {
+      sceneControl();
+      if (scene === 7) {
+        this.toggleHiddenElement(this.appWrapper);
         this.toggleHiddenElement(this.nextBtn);
-        this.toggleHiddenElement(this.gameTitle);
-        this.toggleHiddenElement(this.gameStartBtn);
-        this.toggleHiddenElement(this.thunder);
-        sceneControl();
-      };
-      this.nextBtn.onclick = () => {
-        sceneControl();
-        if (scene === 7) {
-          this.toggleHiddenElement(this.appWrapper);
-          this.toggleHiddenElement(this.nextBtn);
-          this.toggleHiddenElement(this.gameWrapper);
-          timer.startTimer();
-          audioHandler.changeBGM('gameplayPhaseOneBGM', 'play');
-          this.toggleHiddenElement(this.asideLeft);
-          this.toggleHiddenElement(this.asideRight);
-          this.toggleHiddenElement(this.gameLeftPanel);
-          this.toggleHiddenElement(this.gameRightPanel);
-          this.toggleHiddenElement(this.gameTimer);
-          this.toggleColorInSideBars(this.sidebars);
-          displayProblem();
-          askProblem();
-          createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
-        }
-      };
-    }
-  }
+        this.toggleHiddenElement(this.gameWrapper);
+        timer.startTimer();
+        audioHandler.changeBGM('gameplayPhaseOneBGM', 'play');
+        this.toggleHiddenElement(this.asideLeft);
+        this.toggleHiddenElement(this.asideRight);
+        this.toggleHiddenElement(this.gameLeftPanel);
+        this.toggleHiddenElement(this.gameRightPanel);
+        this.toggleHiddenElement(this.gameTimer);
+        this.toggleColorInSideBars(this.sidebars);
+        displayProblem();
+        askProblem();
+        createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
+      }
+    };
+  },
+};
 // * This fun contains the funs executed when the game starts
 function main() {
   audioHandler.init();
