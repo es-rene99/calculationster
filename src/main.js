@@ -723,7 +723,7 @@ const uiHandler = {
           this.toggleHiddenElement(this.nextBtn);
           this.toggleHiddenElement(this.gameWrapper);
           timer.startTimer();
-          audioHandler.startBGM();
+          audioHandler.changeBGM('gameplayPhaseOneBGM', 'play');
           this.toggleHiddenElement(this.asideLeft);
           this.toggleHiddenElement(this.asideRight);
           this.toggleHiddenElement(this.gameLeftPanel);
