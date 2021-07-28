@@ -708,38 +708,35 @@ const uiHandler = {
     element.classList.toggle('hidden-element');
   },
   activateEventListeners() {
-    this.gameStartBtn.onclick = () => {
-      this.toggleHiddenElement(this.cutScene);
-      this.toggleHiddenElement(this.nextBtn);
-      this.toggleHiddenElement(this.gameTitle);
-      this.toggleHiddenElement(this.gameStartBtn);
-      this.toggleHiddenElement(this.thunder);
-      sceneControl();
-    };
-    this.nextBtn.onclick = () => {
-      sceneControl();
-      if (scene === 7) {
-        timer.startTimer();
-        audioHandler.changeBGM('gameplayPhaseOneBGM', 'play');
-        this.toggleHiddenElement(this.gameWrapper);
-        this.toggleHiddenElement(this.appWrapper);
+      this.gameStartBtn.onclick = () => {
+        this.toggleHiddenElement(this.cutScene);
         this.toggleHiddenElement(this.nextBtn);
-        this.toggleHiddenElement(this.gameWrapper);
-        timer.startTimer();
-        audioHandler.startBGM();
-        this.toggleHiddenElement(this.asideLeft);
-        this.toggleHiddenElement(this.asideRight);
-        this.toggleHiddenElement(this.gameLeftPanel);
-        this.toggleHiddenElement(this.gameRightPanel);
-        this.toggleHiddenElement(this.gameTimer);
-        this.toggleColorInSideBars(this.sidebars);
-        displayProblem();
-        askProblem();
-        createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
-      }
-    };
-  },
-};
+        this.toggleHiddenElement(this.gameTitle);
+        this.toggleHiddenElement(this.gameStartBtn);
+        this.toggleHiddenElement(this.thunder);
+        sceneControl();
+      };
+      this.nextBtn.onclick = () => {
+        sceneControl();
+        if (scene === 7) {
+          this.toggleHiddenElement(this.appWrapper);
+          this.toggleHiddenElement(this.nextBtn);
+          this.toggleHiddenElement(this.gameWrapper);
+          timer.startTimer();
+          audioHandler.startBGM();
+          this.toggleHiddenElement(this.asideLeft);
+          this.toggleHiddenElement(this.asideRight);
+          this.toggleHiddenElement(this.gameLeftPanel);
+          this.toggleHiddenElement(this.gameRightPanel);
+          this.toggleHiddenElement(this.gameTimer);
+          this.toggleColorInSideBars(this.sidebars);
+          displayProblem();
+          askProblem();
+          createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
+        }
+      };
+    }
+  }
 // * This fun contains the funs executed when the game starts
 function main() {
   audioHandler.init();
