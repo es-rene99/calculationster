@@ -532,8 +532,6 @@ function checkIfAnswerIsCorrect() {
       level = Math.floor((winAnswers / 10)) + 1;
       timer.levelupHandling();
       audioHandler.levelUpHandling(level);
-      console.log('level up');
-      console.log(level);
     }
     userInputField.value = '';
     askProblem();
