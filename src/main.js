@@ -177,6 +177,13 @@ let problem;
 let correctAnswer;
 let level;
 
+// background switcher
+
+function changeBackground(src) {
+  document.body.style.background = `${src}no-repeat center center fixed`;
+  document.body.style.backgroundSize = 'cover';
+}
+
 // functions for monsters and monster growth
 
 const monsters = [
@@ -260,37 +267,31 @@ const monsters = [
 
 const monsterSelected = monsters[getRandomDigit(monsters.length)];
 
-function createMonsterImg(src, alt) {
-  const monster = document.getElementById('monster');
-  monster.src = src;
-  monster.alt = alt;
+function createMonsterImg(src, alt, id) {
+  const monsterPlacement = document.getElementById(id);
+  monsterPlacement.src = src;
+  monsterPlacement.alt = alt;
 }
 
 function monsterGrowth() {
   if (winAnswers === 10) {
-    createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1);
+    changeBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
+    createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1, 'monster');
   } else if (winAnswers === 11) {
-    createMonsterImg(monsterSelected.growth1, monsterSelected.alt1);
+    createMonsterImg(monsterSelected.growth1, monsterSelected.alt1, 'monster');
   } else if (winAnswers === 30) {
-    createMonsterImg(monsterSelected.transformation2, monsterSelected.altTransform2);
+    createMonsterImg(monsterSelected.transformation2, monsterSelected.altTransform2, 'monster');
   } else if (winAnswers === 31) {
-    createMonsterImg(monsterSelected.growth2, monsterSelected.alt2);
+    createMonsterImg(monsterSelected.growth2, monsterSelected.alt2, 'monster');
   } else if (winAnswers === 50) {
-    createMonsterImg(monsterSelected.transformation3, monsterSelected.altTransform3);
+    createMonsterImg(monsterSelected.transformation3, monsterSelected.altTransform3, 'monster');
   } else if (winAnswers === 51) {
-    createMonsterImg(monsterSelected.growth3, monsterSelected.alt3);
+    createMonsterImg(monsterSelected.growth3, monsterSelected.alt3, 'monster');
   } else if (winAnswers === 70) {
-    createMonsterImg(monsterSelected.transformation4, monsterSelected.altTransform4);
+    createMonsterImg(monsterSelected.transformation4, monsterSelected.altTransform4, 'monster');
   } else if (winAnswers === 71) {
-    createMonsterImg(monsterSelected.growth4, monsterSelected.alt4);
+    createMonsterImg(monsterSelected.growth4, monsterSelected.alt4, 'monster');
   }
-}
-
-// background switcher
-
-function changeBackground(src) {
-  document.body.style.background = `${src}no-repeat center center fixed`;
-  document.body.style.backgroundSize = 'cover';
 }
 
 function askProblem() {
@@ -564,15 +565,139 @@ function displayProblem() {
   enterAnswerBtn.addEventListener('click', checkIfAnswerIsCorrect);
 }
 
+let scene = 1;
+
+// writer text function used for cut-scene. Function based on css tricks typography effect.
+
+const storyContent = new Array();
+
+storyContent[0] = 'A long time ago lived';
+storyContent[1] = 'an evil wizard who dreamt ';
+storyContent[2] = 'to conquer the world';
+storyContent[3] = 'and force everyone to serve him...';
+
+const iSpeed = 100; // time delay of print out
+let iIndex = 0; // start printing array at this posision
+let iArrLength = storyContent[0].length; // the length of the text array
+const iScrollAt = 20; // start scrolling up at this many lines
+
+let iTextPos = 0; // initialise text position
+let sContents = ''; // initialise contents variable
+let iRow; // initialise current row
+
+function typewriter() {
+  sContents = ' ';
+  iRow = Math.max(0, iIndex - iScrollAt);
+  const destination = document.getElementById('story');
+
+  while (iRow < iIndex) {
+    sContents += `${storyContent[iRow++]}<br />`;
+  }
+  destination.innerHTML = `${sContents + storyContent[iIndex].substring(0, iTextPos)}`;
+  if (iTextPos++ == iArrLength) {
+    iTextPos = 0;
+    iIndex++;
+    if (iIndex != storyContent.length) {
+      iArrLength = storyContent[iIndex].length;
+      setTimeout('typewriter()', 500);
+    }
+  } else {
+    setTimeout('typewriter()', iSpeed);
+  }
+}
+
+// helper for calling back the function
+
+function resetText() {
+  iTextPos = 0;
+  iIndex = 0;
+  sContents = '';
+}
+
+// control the cut scene, change background and introduction animations
+
+function sceneControl() {
+  const sceneDiv = document.getElementsByClassName('scene')[0];
+  const textFrame = document.getElementById('story');
+  const wizard = document.getElementById('wizard1');
+  const egg = document.getElementById('egg2');
+
+  if (scene === 1) {
+    egg.style.display = 'none';
+    createMonsterImg('assets/monster/Extras/Wizard.png', 'wizard', 'wizard1');
+    changeBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')");
+    typewriter();
+    scene += 1;
+    resetText();
+  } else if (scene === 2) {
+    wizard.style.display = 'none';
+    egg.style.display = 'inline';
+    textFrame.style.paddingTop = '2%';
+    storyContent[0] = 'One night he found a cave';
+    storyContent[1] = 'and in the cave there was an egg...';
+    storyContent[2] = 'He stole it and ran away into his castle';
+    storyContent[3] = '"Whatever will come from it will serve me well!"';
+    storyContent[4] = '- happilly thought the sorcerrer...';
+    changeBackground("url('assets/Backgrounds/Cave/cave_edited.jpg')");
+    createMonsterImg('assets/monster/Starter/01.png', 'egg2', 'egg2');
+    scene += 1;
+    typewriter();
+    resetText();
+  } else if (scene === 3) {
+    wizard.style.display = 'inline';
+    wizard.style.left = '10%';
+    wizard.style.bottom = '8%';
+    storyContent[0] = 'He locked  the egg in his dungeon';
+    storyContent[1] = 'where he used to make his experiments...';
+    storyContent[2] = '"When you will come out - you will be my favourite server!"';
+    storyContent[3] = '-said the wizard till he left the creature inside the egg alone...';
+    storyContent[4] = '';
+    changeBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
+    scene += 1;
+    resetText();
+    typewriter();
+  } else if (scene === 4) {
+    storyContent[0] = 'As soon as he left the beast withing tried to break away...';
+    storyContent[1] = 'but the shackles of the egg were not letting him out';
+    storyContent[2] = 'Then the creature within heard a voice:';
+    storyContent[3] = '"Eat the knowledge! Solve the problems and you will become stronger...';
+    storyContent[4] = '"...Grow enough to get your freedom!"';
+    egg.style.animation = 'shake 3s infinite';
+    wizard.style.display = 'none';
+    scene += 1;
+    resetText();
+    typewriter();
+  } else if (scene === 5) {
+    storyContent[0] = 'And then the creature saw...';
+    storyContent[1] = '5 + 5 = ?';
+    storyContent[2] = 'He thought hard and he answered: 10!';
+    storyContent[3] = '2 + 2 = 4! He grew more!';
+    storyContent[4] = 'Once again he heard - "Grow as fast as you can..."';
+    storyContent[5] = '...escape the castle before the wizard catches you!';
+    egg.style.animation = 'grow 10s forwards';
+    scene += 1;
+    resetText();
+    typewriter();
+  } else if (scene === 6) {
+    sceneDiv.querySelectorAll('*').forEach((n) => n.remove());
+    scene += 1;
+  }
+}
+
 const uiHandler = {
-  gameStartBtn: document.getElementById('game__start-btn'),
+  gameStartBtn: document.getElementsByClassName('btn-container')[0],
   gameTimer: document.getElementById('game__timer'),
   gameTitle: document.getElementById('opening-title'),
   thunder: document.getElementsByClassName('thunder')[0],
+  appWrapper: document.getElementsByClassName('app-wrapper')[0],
   gameWrapper: document.getElementById('game-wrapper'),
+  asideLeft: document.getElementsByTagName('aside')[0],
+  asideRight: document.getElementsByTagName('aside')[1],
   gameLeftPanel: document.getElementById('game-left-panel'),
   gameRightPanel: document.getElementById('game-right-panel'),
   sidebars: document.getElementsByClassName('sidebar'),
+  cutScene: document.getElementById('cut-scene'),
+  nextBtn: document.getElementsByClassName('next-scene')[0],
 
   toggleColorInSideBars(elements) {
     [...elements].forEach((element) => {
@@ -584,24 +709,37 @@ const uiHandler = {
   },
   activateEventListeners() {
     this.gameStartBtn.onclick = () => {
-      timer.startTimer();
-      audioHandler.changeBGM('gameplayPhaseOneBGM', 'play');
-      this.toggleHiddenElement(this.gameWrapper);
+      this.toggleHiddenElement(this.cutScene);
+      this.toggleHiddenElement(this.nextBtn);
       this.toggleHiddenElement(this.gameTitle);
       this.toggleHiddenElement(this.gameStartBtn);
       this.toggleHiddenElement(this.thunder);
-      this.toggleHiddenElement(this.gameLeftPanel);
-      this.toggleHiddenElement(this.gameRightPanel);
-      this.toggleHiddenElement(this.gameTimer);
-      this.toggleColorInSideBars(this.sidebars);
-      changeBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
-      displayProblem();
-      askProblem();
-      createMonsterImg('assets/monster/Starter/01.png', 'egg');
+      sceneControl();
+    };
+    this.nextBtn.onclick = () => {
+      sceneControl();
+      if (scene === 7) {
+        timer.startTimer();
+        audioHandler.changeBGM('gameplayPhaseOneBGM', 'play');
+        this.toggleHiddenElement(this.gameWrapper);
+        this.toggleHiddenElement(this.appWrapper);
+        this.toggleHiddenElement(this.nextBtn);
+        this.toggleHiddenElement(this.gameWrapper);
+        timer.startTimer();
+        audioHandler.startBGM();
+        this.toggleHiddenElement(this.asideLeft);
+        this.toggleHiddenElement(this.asideRight);
+        this.toggleHiddenElement(this.gameLeftPanel);
+        this.toggleHiddenElement(this.gameRightPanel);
+        this.toggleHiddenElement(this.gameTimer);
+        this.toggleColorInSideBars(this.sidebars);
+        displayProblem();
+        askProblem();
+        createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
+      }
     };
   },
 };
-
 // * This fun contains the funs executed when the game starts
 function main() {
   audioHandler.init();

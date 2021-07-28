@@ -17,11 +17,6 @@ body {
   background-size: cover;
 }
 
-.app-wrapper {
-  display: grid;
-  grid-template-columns: 30% 40% 30%;
-}
-
 /* thunder */
 .thunder {
   height: 100vh;
@@ -65,8 +60,13 @@ body {
 /* welcome page
  */
 
+#start-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
 #opening-title {
-  position: absolute;
   font-family: "Metal Mania";
   text-transform: uppercase;
   font-size: 5rem;
@@ -76,21 +76,13 @@ body {
   margin-top: 2%;
 }
 
-#start-container {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
 .btn-container {
   text-align: right;
   animation: shake 10s infinite;
-  padding-top: 30%;
   flex-grow: 1;
   position: absolute;
-  bottom: 0;
-  right: 11rem;
-  bottom: 4rem;
+  right: 3rem;
+  bottom: 2rem;
 }
 #game__start-btn {
   background-color: Transparent;
@@ -116,6 +108,76 @@ body {
 #game__start-btn:active {
   transform: translate(0, 0.1rem) rotate(-5deg);
 }
+
+/* cut scene */
+
+.scene1{
+  display: flex;
+  background-color: red;
+}
+
+img.wizard{
+  position: absolute;  
+  bottom: 35%;
+  left: 51%;
+  width: 200px;
+  height: 200px;
+}
+
+img.egg{
+  position: absolute;  
+  text-align: center;
+  bottom: 1%;
+  left: 40%;
+  width: 250px;
+  height: 250px;
+}
+
+/* scene story */
+
+#story{
+  color: rgba(255, 217, 0, 0.711);
+  font-family: "Metal Mania";
+  font-size: 2.5rem;
+  padding-top: 10%;
+  padding-left: 3%;
+  line-height: 85%;
+}
+
+/* next btn */
+.next-wrapper{
+  position: absolute;
+  bottom: 20px;
+  right: 2%;
+}
+
+.next-scene{
+  font-size: 4rem;
+  background-color: transparent;
+  border: none;
+  color: rgba(65, 216, 103, 0.994);
+  border-radius: 20%;
+  width: 4.4rem;
+  background-color: rgba(241, 255, 228, 0.748);
+  transition: all 0.2s ease-in-out;
+}
+.next-scene:hover {
+  transform: scale(115%);
+  filter: brightness(110%);
+}
+
+.next-scene:active {
+  transform: translate(0, 0.1rem) ;
+}
+
+
+/* game */
+
+.app-wrapper {
+  display: grid;
+  grid-template-columns: 30% 40% 30%;
+}
+
 
 .left-sidebar,
 .right-sidebar {
@@ -288,6 +350,15 @@ body {
   }
 }
 
+@keyframes grow{
+ 100%
+  {
+  transform: scale(120%); 
+  bottom: 5%;
+  }
+}
+
+
 @keyframes shake {
   0% {
     transform: translate(1px, 1px) rotate(0deg);
@@ -324,14 +395,36 @@ body {
   }
 }
 
+@media screen and (max-width: 2000px) {
+  img.wizard{
+    bottom: 32%;
+
+  }
+}
+
 @media screen and (max-width: 670px) {
   #opening-title {
     font-size: 2.2rem;
   }
-  .btn-container {
-    padding-top: 65%;
+  img.wizard{
+    width: 150px;
+    height: 150px;
+
+  }
+  img.egg{
+    bottom: -1%;
+    left: 22%;
   }
 }
+
+@media screen and (max-height: 500px) {
+  img.wizard{
+    bottom: 32%;
+    width: 150px;
+    height: 150px;
+  }
+}
+
 
 .hidden-element {
   display: none;
