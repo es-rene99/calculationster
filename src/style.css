@@ -124,8 +124,25 @@ img.wizard{
   height: 200px;
 }
 
+img.egg{
+  position: absolute;  
+  text-align: center;
+  bottom: 1%;
+  left: 40%;
+  width: 250px;
+  height: 250px;
+}
 
-/* #cut-scene{
+/* scene story */
+
+#story{
+  color: rgba(255, 217, 0, 0.711);
+  font-family: "Metal Mania";
+  font-size: 2.5rem;
+  padding-top: 10%;
+  padding-left: 3%;
+  line-height: 85%;
+}
 
 /* next btn */
 .next-wrapper{
@@ -383,6 +400,11 @@ img.wizard{
   img.wizard{
     width: 150px;
     height: 150px;
+
+  }
+  img.egg{
+    bottom: -1%;
+    left: 22%;
   }
 }
 

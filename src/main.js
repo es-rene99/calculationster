@@ -540,30 +540,102 @@ function displayProblem() {
   enterAnswerBtn.addEventListener('click', checkIfAnswerIsCorrect);
 }
 
-// control the cut scene, change background and introduction animations
+// writer
 
+// set up text to print, each item in array is new line
 let scene = 1;
+
+// typing text
+const storyContent = new Array();
+
+storyContent[0] = 'A long time ago lived';
+storyContent[1] = 'an evil wizard who dreamt ';
+storyContent[2] = 'to conquer the world';
+storyContent[3] = 'and force everyone to serve him...';
+
+const iSpeed = 100; // time delay of print out
+let iIndex = 0; // start printing array at this posision
+let iArrLength = storyContent[0].length; // the length of the text array
+const iScrollAt = 20; // start scrolling up at this many lines
+
+let iTextPos = 0; // initialise text position
+let sContents = ''; // initialise contents variable
+let iRow; // initialise current row
+
+function typewriter() {
+  sContents = ' ';
+  iRow = Math.max(0, iIndex - iScrollAt);
+  const destination = document.getElementById('story');
+
+  while (iRow < iIndex) {
+    sContents += `${storyContent[iRow++]}<br />`;
+  }
+  destination.innerHTML = `${sContents + storyContent[iIndex].substring(0, iTextPos)}`;
+  if (iTextPos++ == iArrLength) {
+    iTextPos = 0;
+    iIndex++;
+    if (iIndex != storyContent.length) {
+      iArrLength = storyContent[iIndex].length;
+      setTimeout('typewriter()', 500);
+    }
+  } else {
+    setTimeout('typewriter()', iSpeed);
+  }
+}
+
+// reset
+
+function resetText() {
+  iTextPos = 0;
+  iIndex = 0;
+  sContents = '';
+  // storyContent[0] = 'tes a test';
+  // storyContent[1] = 'Hahaha';
+  // storyContent[2] = 'Power!';
+}
+
+// control the cut scene, change background and introduction animations
 
 function sceneControl() {
   const sceneDiv = document.getElementsByClassName('scene')[0];
+  // const image = document.createElement('img');
+  const textFrame = document.getElementById('story');
+  const wizard = document.getElementById('wizard1');
+  const egg = document.getElementById('egg2');
+
   if (scene === 1) {
-    changeBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')");
-    createMonsterImg('assets/monster/Extras/Wizard.png', 'egg', 'wizard1');
+    egg.style.display = 'none';
+    createMonsterImg('assets/monster/Extras/Wizard.png', 'wizard', 'wizard1');
+    changeBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')")
+    typewriter();
     scene += 1;
+    resetText();
   } else if (scene === 2) {
-    sceneDiv.querySelectorAll('*').forEach(n => n.remove());
-    const img = document.createElement('img');
-    img.id = 'scene2';
-    sceneDiv.appendChild(img);
-    changeBackground("url('assets/Backgrounds/Castle/Cave01.jpg')");
-    createMonsterImg('assets/monster/Starter/01.png', 'egg', 'scene2');
+    wizard.style.display = 'none';
+    egg.style.display = 'inline';
+    textFrame.style.paddingTop = '2%';
+    storyContent[0] = 'One night he found a cave';
+    storyContent[1] = 'and in the cave there was an egg...';
+    storyContent[2] = 'He stole it and ran away into his castle';
+    storyContent[3] = '"Whatever will come from it will serve me well!"';
+    storyContent[4] = '- happilly thought the sorcerrer...';
+    changeBackground("url('assets/Backgrounds/Cave/cave_edited.jpg')");
+    createMonsterImg('assets/monster/Starter/01.png', 'egg2', 'egg2');
     scene += 1;
+    typewriter();
+    resetText();
   } else if (scene === 3) {
-    sceneDiv.querySelectorAll('*').forEach(n => n.remove());
+    storyContent[0] = 'He locked  the egg in his dungeon';
+    storyContent[1] = 'where he used to make his experiments...';
+    storyContent[2] = '"When you will come out - you will serve me well';
+    storyContent[3] = '-said the wizard till he left the egg alone...';
+    storyContent[4] = '';
     changeBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
     scene += 1;
+    resetText();
+    typewriter();
   } else if (scene === 4) {
-    sceneDiv.querySelectorAll('*').forEach(n => n.remove());
+    sceneDiv.querySelectorAll('*').forEach((n) => n.remove());
     scene += 1;
   }
 }
