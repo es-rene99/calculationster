@@ -177,6 +177,13 @@ let problem;
 let correctAnswer;
 let level;
 
+// background switcher
+
+function changeBackground(src) {
+  document.body.style.background = `${src}no-repeat center center fixed`;
+  document.body.style.backgroundSize = 'cover';
+}
+
 // functions for monsters and monster growth
 
 const monsters = [
@@ -268,6 +275,7 @@ function createMonsterImg(src, alt, id) {
 
 function monsterGrowth() {
   if (winAnswers === 10) {
+    changeBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
     createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1, 'monster');
   } else if (winAnswers === 11) {
     createMonsterImg(monsterSelected.growth1, monsterSelected.alt1, 'monster');
@@ -284,13 +292,6 @@ function monsterGrowth() {
   } else if (winAnswers === 71) {
     createMonsterImg(monsterSelected.growth4, monsterSelected.alt4, 'monster');
   }
-}
-
-// background switcher
-
-function changeBackground(src) {
-  document.body.style.background = `${src}no-repeat center center fixed`;
-  document.body.style.backgroundSize = 'cover';
 }
 
 function askProblem() {
@@ -540,12 +541,10 @@ function displayProblem() {
   enterAnswerBtn.addEventListener('click', checkIfAnswerIsCorrect);
 }
 
-// writer
-
-// set up text to print, each item in array is new line
 let scene = 1;
 
-// typing text
+// writer text function used for cut-scene. Function based on css tricks typography effect.
+
 const storyContent = new Array();
 
 storyContent[0] = 'A long time ago lived';
@@ -583,22 +582,18 @@ function typewriter() {
   }
 }
 
-// reset
+// helper for calling back the function
 
 function resetText() {
   iTextPos = 0;
   iIndex = 0;
   sContents = '';
-  // storyContent[0] = 'tes a test';
-  // storyContent[1] = 'Hahaha';
-  // storyContent[2] = 'Power!';
 }
 
 // control the cut scene, change background and introduction animations
 
 function sceneControl() {
   const sceneDiv = document.getElementsByClassName('scene')[0];
-  // const image = document.createElement('img');
   const textFrame = document.getElementById('story');
   const wizard = document.getElementById('wizard1');
   const egg = document.getElementById('egg2');
@@ -606,7 +601,7 @@ function sceneControl() {
   if (scene === 1) {
     egg.style.display = 'none';
     createMonsterImg('assets/monster/Extras/Wizard.png', 'wizard', 'wizard1');
-    changeBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')")
+    changeBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')");
     typewriter();
     scene += 1;
     resetText();
@@ -625,16 +620,41 @@ function sceneControl() {
     typewriter();
     resetText();
   } else if (scene === 3) {
+    wizard.style.display = 'inline';
+    wizard.style.left = '10%';
+    wizard.style.bottom = '8%';
     storyContent[0] = 'He locked  the egg in his dungeon';
     storyContent[1] = 'where he used to make his experiments...';
-    storyContent[2] = '"When you will come out - you will serve me well';
-    storyContent[3] = '-said the wizard till he left the egg alone...';
+    storyContent[2] = '"When you will come out - you will be my favourite server!"';
+    storyContent[3] = '-said the wizard till he left the creature inside the egg alone...';
     storyContent[4] = '';
     changeBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
     scene += 1;
     resetText();
     typewriter();
   } else if (scene === 4) {
+    storyContent[0] = 'As soon as he left the beast withing tried to break away...';
+    storyContent[1] = 'but the shackles of the egg were not letting him out';
+    storyContent[2] = 'Then the creature within heard a voice:';
+    storyContent[3] = '"Eat the knowledge! Solve the problems and you will become stronger...';
+    storyContent[4] = '"...Grow enough to get your freedom!"';
+    egg.style.animation = 'shake 3s infinite';
+    wizard.style.display = 'none';
+    scene += 1;
+    resetText();
+    typewriter();
+  } else if (scene === 5) {
+    storyContent[0] = 'And then the creature saw...';
+    storyContent[1] = '5 + 5 = ?';
+    storyContent[2] = 'He thought hard and he answered: 10!';
+    storyContent[3] = '2 + 2 = 4! He grew more!';
+    storyContent[4] = 'Once again he heard - "Grow as fast as you can..."';
+    storyContent[5] = '...escape the castle before the wizard catches you!';
+    egg.style.animation = 'grow 10s forwards';
+    scene += 1;
+    resetText();
+    typewriter();
+  } else if (scene === 6) {
     sceneDiv.querySelectorAll('*').forEach((n) => n.remove());
     scene += 1;
   }
@@ -674,7 +694,7 @@ const uiHandler = {
     };
     this.nextBtn.onclick = () => {
       sceneControl();
-      if (scene === 5) {
+      if (scene === 7) {
         this.toggleHiddenElement(this.appWrapper);
         this.toggleHiddenElement(this.nextBtn);
         this.toggleHiddenElement(this.gameWrapper);
@@ -686,7 +706,6 @@ const uiHandler = {
         this.toggleHiddenElement(this.gameRightPanel);
         this.toggleHiddenElement(this.gameTimer);
         this.toggleColorInSideBars(this.sidebars);
-        changeBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
         displayProblem();
         askProblem();
         createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');

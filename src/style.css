@@ -350,6 +350,15 @@ img.egg{
   }
 }
 
+@keyframes grow{
+ 100%
+  {
+  transform: scale(120%); 
+  bottom: 5%;
+  }
+}
+
+
 @keyframes shake {
   0% {
     transform: translate(1px, 1px) rotate(0deg);
