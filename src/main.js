@@ -352,11 +352,15 @@ const audioHandler = {
       reward: new Sound('../assets/sounds/noises/reward.mp3'),
     };
     this.loops = {
-      gamePlayBGM: new Sound('../assets/sounds/bgm-loop.mp3', true),
-      gameOverBGM: new Sound('../assets/sounds/game-over-loop.mp3', true),
-      timeWarning: new Sound('../assets/sounds/time-warning-loop.mp3', true),
+      menuThemeBGM: new Sound('../assets/sounds/loops/start-menu-theme.mp3', true),
+      gameOverBGM: new Sound('../assets/sounds/loops/game-over.mp3', true),
+      timeWarning: new Sound('../assets/sounds/loops/time-warning.mp3', true),
+      gameplayPhaseOneBGM: new Sound('../assets/sounds/loops/gameplay-early.mp3', true),
+      gameplayPhaseTwoBGM: new Sound('../assets/sounds/loops/gameplay-mid-1.mp3', true),
+      gameplayPhaseThreeBGM: new Sound('../assets/sounds/loops/gameplay-mid-2.mp3', true),
+      gameplayPhaseFourBGM: new Sound('../assets/sounds/loops/gameplay-late.mp3', true),
     };
-    this.bgm = this.loops.gamePlayBGM;
+    this.bgm = this.loops.menuThemeBGM;
   },
   startBGM() {
     this.bgm.play();
@@ -364,9 +368,12 @@ const audioHandler = {
   stopBGM() {
     this.bgm.stop();
   },
-  changeBGM(bgmTrack) {
+  changeBGM(bgmTrack, startPausedOrPlay = 'paused') {
     this.bgm.stop();
     this.bgm = this.loops[bgmTrack];
+    if (startPausedOrPlay === 'play') {
+      this.bgm.play();
+    }
   },
   speedUp() {
     const currentSpeed = Number(this.bgm.sound.playbackRate);
@@ -384,10 +391,25 @@ const audioHandler = {
   stopTimeWarning() {
     this.loops.timeWarning.stop();
   },
+  levelUpHandling() {
+    this.playNoise('reward');
+    let bgmChanged = true;
+    if (level === 3) {
+      this.changeBGM('gameplayPhaseTwoBGM');
+    } else if (level === 5) {
+      this.changeBGM('gameplayPhaseThreeBGM');
+    } else if (level === 6) {
+      this.changeBGM('gameplayPhaseThreeBGM');
+    } else {
+      bgmChanged = false;
+    }
+    if (bgmChanged) {
+      this.startBGM();
+    }
+  },
   gameOver() {
-    this.changeBGM('gameOverBGM');
+    this.changeBGM('gameOverBGM', 'play');
     this.loops.timeWarning.stop();
-    this.startBGM();
   },
 };
 
@@ -508,7 +530,9 @@ function checkIfAnswerIsCorrect() {
     audioHandler.playNoise('correct');
     winAnswers += 1;
     if (winAnswers % 10 === 0) {
+      level = Math.floor((winAnswers / 10)) + 1;
       timer.levelupHandling();
+      audioHandler.levelUpHandling(level);
     }
     userInputField.value = '';
     askProblem();
@@ -695,6 +719,9 @@ const uiHandler = {
     this.nextBtn.onclick = () => {
       sceneControl();
       if (scene === 7) {
+        timer.startTimer();
+        audioHandler.changeBGM('gameplayPhaseOneBGM', 'play');
+        this.toggleHiddenElement(this.gameWrapper);
         this.toggleHiddenElement(this.appWrapper);
         this.toggleHiddenElement(this.nextBtn);
         this.toggleHiddenElement(this.gameWrapper);
