@@ -33,7 +33,7 @@ Solve a single operation
 
 function getCorrectResult(mathOne, mathTwo, operatorValue) {
   switch (operatorValue) {
-    case '*':
+    case 'x':
       return multiply(mathOne, mathTwo);
 
     case '/':
@@ -55,7 +55,7 @@ Returns a random operator
 */
 
 function getRandomOperator() {
-  const operators = ['+', '-', '*', '/'];
+  const operators = ['+', '-', 'x', '/'];
   const randomOperator = operators[Math.floor(Math.random() * operators.length)];
   return randomOperator;
 }
@@ -67,14 +67,14 @@ Returns an expression string with all multiplication and division resolved.
 
 function resolveMultAndDiv(expressionString) {
   const expressionArray = expressionString.split(' ');
-  let nextOperatorIndex = expressionArray.findIndex((o) => ['*', '/'].includes(o));
+  let nextOperatorIndex = expressionArray.findIndex((o) => ['x', '/'].includes(o));
   while (nextOperatorIndex !== -1) {
     const operator = expressionArray[nextOperatorIndex];
     const operandOne = Number(expressionArray[nextOperatorIndex - 1]);
     const operandTwo = Number(expressionArray[nextOperatorIndex + 1]);
     const resultOfNextOperation = getCorrectResult(operandOne, operandTwo, operator);
     expressionArray.splice(nextOperatorIndex - 1, 3, resultOfNextOperation);
-    nextOperatorIndex = expressionArray.findIndex((o) => ['*', '/'].includes(o));
+    nextOperatorIndex = expressionArray.findIndex((o) => ['x', '/'].includes(o));
   }
   return expressionArray.join(' ');
 }
@@ -133,7 +133,7 @@ function addTermToExpression(expression, operand, operator) {
   const expressionArray = expression.split(' ');
   const expressionSolution = solveExpression(expression);
   const expressionArrayResolvedMultAndDiv = resolveMultAndDiv(expression).split(' ');
-  if (['+', '*'].includes(operator)) {
+  if (['+', 'x'].includes(operator)) {
     expressionArray.unshift(operand, operator);
   } else if (operator === '-') {
     if (operand >= expressionSolution) {
@@ -176,23 +176,6 @@ let winAnswers = 0;
 let problem;
 let correctAnswer;
 let level;
-let count = 0
-
-/*
-Here we activate the different effects
-*/
-
-let effect1 = false
-let effect2 = false
-let effect4 = false
-let isClicked = false
-
-// background switcher
-
-function changeBackground(src) {
-  document.body.style.background = `${src}no-repeat center center fixed`;
-  document.body.style.backgroundSize = 'cover';
-}
 
 // background switcher
 
@@ -322,7 +305,7 @@ function askProblem() {
 
   const numTerms = Math.max(2, level - 4);
   if (level < 5) {
-    operator = ['+', '-', '*', '/'][level - 1];
+    operator = ['+', '-', 'x', '/'][level - 1];
     numDigits = 1;
     problem = makeSimpleExpression(numDigits, operator);
   } else {
@@ -331,7 +314,7 @@ function askProblem() {
     problem = makeRandomExpression(numTerms, numDigits);
   }
   const question = document.getElementsByClassName('operation__question')[0];
-    question.textContent = problem;
+  question.textContent = problem;
 }
 
 /*
@@ -362,22 +345,23 @@ Here's an object to handle our audio stuff
 const audioHandler = {
   init() {
     this.noises = {
-      button: new Sound('../assets/sounds/noises/button-input.mp3'),
-      correct: new Sound('../assets/sounds/noises/correct.mp3'),
-      gameOver: new Sound('../assets/sounds/noises/game-over.mp3'),
-      incorrect: new Sound('../assets/sounds/noises/incorrect.mp3'),
-      reward: new Sound('../assets/sounds/noises/reward.mp3'),
+      button: new Sound('./assets/sounds/noises/button-input.mp3'),
+      correct: new Sound('./assets/sounds/noises/correct.mp3'),
+      gameOver: new Sound('./assets/sounds/noises/game-over.mp3'),
+      incorrect: new Sound('./assets/sounds/noises/incorrect.mp3'),
+      reward: new Sound('./assets/sounds/noises/reward.mp3'),
     };
     this.loops = {
-      menuThemeBGM: new Sound('../assets/sounds/loops/start-menu-theme.mp3', true),
-      gameOverBGM: new Sound('../assets/sounds/loops/game-over.mp3', true),
-      timeWarning: new Sound('../assets/sounds/loops/time-warning.mp3', true),
-      gameplayPhaseOneBGM: new Sound('../assets/sounds/loops/gameplay-early.mp3', true),
-      gameplayPhaseTwoBGM: new Sound('../assets/sounds/loops/gameplay-mid-1.mp3', true),
-      gameplayPhaseThreeBGM: new Sound('../assets/sounds/loops/gameplay-mid-2.mp3', true),
-      gameplayPhaseFourBGM: new Sound('../assets/sounds/loops/gameplay-late.mp3', true),
+      introBGM: new Sound('./assets/sounds/loops/intro.mp3', true),
+      menuThemeBGM: new Sound('./assets/sounds/loops/start-menu-theme.mp3', true),
+      gameOverBGM: new Sound('./assets/sounds/loops/game-over.mp3', true),
+      timeWarning: new Sound('./assets/sounds/loops/time-warning.mp3', true),
+      gameplayPhaseOneBGM: new Sound('./assets/sounds/loops/gameplay-early.mp3', true),
+      gameplayPhaseTwoBGM: new Sound('./assets/sounds/loops/gameplay-mid-1.mp3', true),
+      gameplayPhaseThreeBGM: new Sound('./assets/sounds/loops/gameplay-mid-2.mp3', true),
+      gameplayPhaseFourBGM: new Sound('./assets/sounds/loops/gameplay-late.mp3', true),
     };
-    this.bgm = this.loops.menuThemeBGM;
+    this.bgm = this.loops.introBGM;
   },
   startBGM() {
     this.bgm.play();
@@ -474,10 +458,6 @@ const timer = {
     animatedText.onanimationend = () => {
       animatedText.remove();
     };
-    const image = document.getElementById("specialEffect1")
-    image.addEventListener("click", () => {
-      this.sec -= 0
-    })
     this.animationContainer.appendChild(animatedText);
     this.updateTime();
     const timerDiv = document.getElementById('game__timer');
@@ -500,7 +480,7 @@ const timer = {
     image.classList.add('gameover____image');
     text.classList.add('gameover____message');
     const newContent = document.createTextNode('Game Over');
-    const result = document.getElementById('game____overdiv');
+    // const result = document.getElementById('game____overdiv');
     const leaderBoard = document.createElement('button');
     leaderBoard.classList.add('gameover____button');
     leaderBoard.innerHTML = 'Go to leaderboard';
@@ -511,8 +491,9 @@ const timer = {
     div.appendChild(points);
     div.appendChild(losingText);
     text.appendChild(newContent);
-    result.appendChild(div);
+    // result.appendChild(div);
     div.appendChild(leaderBoard);
+    document.getElementById('game-wrapper').appendChild(div);
   },
   startTimer() {
     const timeInterval = setInterval(() => {
@@ -520,12 +501,10 @@ const timer = {
         if (this.sec <= 0) {
           clearInterval(timeInterval);
           this.gameOver();
-        }
-        if (effect2 === true && isClicked === false) {
-          this.sec -= 0
+          this.sec = 0;
         } else {
-        this.sec -= 1
-      }
+          this.sec -= 1;
+        }
         this.updateTime();
         if (this.sec <= 5 && this.sec > 0) {
           audioHandler.startTimeWarning();
@@ -539,44 +518,13 @@ const timer = {
     if (typeOfAnswer === 'correct') {
       timer.gainSeconds(5);
     } else if (typeOfAnswer === 'wrong') {
-      if(effect1 === true && count < 5){
-        timer.loseSeconds(0)
-      } else {
       timer.loseSeconds(5);
     }
-  }
   },
   levelupHandling() {
     timer.gainSeconds(20);
   },
 };
-
-function clickedItems() {
-  const getEffect1 = document.getElementById("specialEffect1")
-  getEffect1.addEventListener("click", () => {
-      effect1 = true
-      var getCount = document.getElementById("enter-answer-btn").addEventListener("click", () => {
-        console.log(count += 1)
-      })
-  }, {once: true})
-  const getEffect2 = document.getElementById("specialEffect2")
-  getEffect2.addEventListener("click", () => {
-      effect2 = true
-      document.getElementById("enter-answer-btn").addEventListener("click", () => {
-        isClicked = true
-      })
-  }, {once: true})
-
-  const getEffect4 = document.getElementById("specialEffect4")
-  getEffect4.addEventListener("click", () => {
-      askProblem()
-  }, {once: true})
-
-  const getEffect5 = document.getElementById("specialEffect5")
-  getEffect5.addEventListener("click", () => {
-      timer.gainSeconds(60)
-  }, {once: true})
-}
 
 function checkIfAnswerIsCorrect() {
   const userInputField = document.getElementById('answer');
@@ -604,30 +552,17 @@ function checkIfAnswerIsCorrect() {
     //  `Ouch! ${userAnswer} was not the correct answer.\n Try again! (correct : ${correctAnswer})`,
     // );
   }
-}
-
-function specialItems() {
-  const image = document.getElementById("specialEffect1")
-  const image1 = document.getElementById('specialEffect2')
-  const image2 = document.getElementById('specialEffect3')
-  const image3 = document.getElementById('specialEffect4')
-  const image4 = document.getElementById('specialEffect5')
-  image.className = "specialEffects__image"
-  image1.className = "specialEffects__image"
-  image2.className = "specialEffects__image"
-  image3.className = "specialEffects__image"
-  image4.className = "specialEffects__image"
-  image.setAttribute('src', './assets/specialEffects/breastplate.png')
-  image1.setAttribute('src', './assets/specialEffects/emptyhourglass.png')
-  image2.setAttribute('src', './assets/specialEffects/halfdead.png')
-  image3.setAttribute('src', './assets/specialEffects/top-paw.png')
-  image4.setAttribute('src', './assets/specialEffects/wingfoot.png')
+  userInputField.focus();
 }
 
 // display the problem, add input field and a button to check the result
 function displayProblem() {
   const operationPanel = document.getElementById('operation__panel');
-  const answerInputWrapper = document.createElement('div');
+  const answerInputWrapper = document.createElement('form');
+  answerInputWrapper.addEventListener('click', (e) => {
+    e.preventDefault();
+  });
+  answerInputWrapper.autocomplete = 'off';
   answerInputWrapper.classList.add('answer-input-wrapper');
   const answerInput = document.createElement('input');
   answerInput.id = 'answer';
@@ -639,13 +574,14 @@ function displayProblem() {
   answerInputWrapper.appendChild(enterAnswerBtn);
   operationPanel.appendChild(answerInputWrapper);
   enterAnswerBtn.addEventListener('click', checkIfAnswerIsCorrect);
+  answerInput.focus();
 }
 
 let scene = 1;
 
 // writer text function used for cut-scene. Function based on css tricks typography effect.
 
-const storyContent = [];
+const storyContent = new Array();
 
 storyContent[0] = 'A long time ago lived';
 storyContent[1] = 'an evil wizard who dreamt ';
@@ -667,20 +603,20 @@ function typewriter() {
   const destination = document.getElementById('story');
 
   while (iRow < iIndex) {
-    iRow += 1;
-    sContents += `${storyContent[iRow]}<br />`;
+    sContents += `${storyContent[iRow++]}<br />`;
   }
   destination.innerHTML = `${sContents + storyContent[iIndex].substring(0, iTextPos)}`;
-  iTextPos += 1;
-  if (iTextPos === iArrLength) {
+  if (iTextPos++ == iArrLength) {
     iTextPos = 0;
-    iIndex += 1;
-    if (iIndex !== storyContent.length) {
+    iIndex++;
+    if (iIndex != storyContent.length) {
       iArrLength = storyContent[iIndex].length;
-      setTimeout(typewriter, 500);
+      // eslint-disable-next-line no-implied-eval
+      setTimeout('typewriter()', 500);
     }
   } else {
-    setTimeout(typewriter, iSpeed);
+    // eslint-disable-next-line no-implied-eval
+    setTimeout('typewriter()', iSpeed);
   }
 }
 
@@ -793,6 +729,7 @@ const uiHandler = {
       this.toggleHiddenElement(this.gameStartBtn);
       this.toggleHiddenElement(this.thunder);
       sceneControl();
+      audioHandler.startBGM();
     };
     this.nextBtn.onclick = () => {
       sceneControl();
@@ -810,8 +747,6 @@ const uiHandler = {
         this.toggleColorInSideBars(this.sidebars);
         displayProblem();
         askProblem();
-        specialItems();
-        clickedItems()
         createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
       }
     };
