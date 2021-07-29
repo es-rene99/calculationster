@@ -84,7 +84,7 @@ body {
   right: 3rem;
   bottom: 2rem;
 }
-#game__start-btn {
+.title-screen-btn {
   background-color: Transparent;
   border: none;
   width: fit-content;
@@ -100,32 +100,32 @@ body {
   padding-right: 5%;
   transition: all 0.2s ease-in-out;
 }
-#game__start-btn:hover {
+.title-screen-btn:hover {
   color: rgba(246, 255, 244, 0.905);
   transform: scale(115%) rotate(-5deg);
 }
 
-#game__start-btn:active {
+.title-screen-btn:active {
   transform: translate(0, 0.1rem) rotate(-5deg);
 }
 
 /* cut scene */
 
-.scene1{
+.scene1 {
   display: flex;
   background-color: red;
 }
 
-img.wizard{
-  position: absolute;  
+img.wizard {
+  position: absolute;
   bottom: 35%;
   left: 51%;
   width: 200px;
   height: 200px;
 }
 
-img.egg{
-  position: absolute;  
+img.egg {
+  position: absolute;
   text-align: center;
   bottom: 1%;
   left: 40%;
@@ -135,7 +135,7 @@ img.egg{
 
 /* scene story */
 
-#story{
+#story {
   color: rgba(255, 217, 0, 0.711);
   font-family: "Metal Mania";
   font-size: 2.5rem;
@@ -145,13 +145,13 @@ img.egg{
 }
 
 /* next btn */
-.next-wrapper{
+.next-wrapper {
   position: absolute;
   bottom: 20px;
   right: 2%;
 }
 
-.next-scene{
+.next-scene {
   font-size: 4rem;
   background-color: transparent;
   border: none;
@@ -167,9 +167,8 @@ img.egg{
 }
 
 .next-scene:active {
-  transform: translate(0, 0.1rem) ;
+  transform: translate(0, 0.1rem);
 }
-
 
 /* game */
 
@@ -177,7 +176,6 @@ img.egg{
   display: grid;
   grid-template-columns: 30% 40% 30%;
 }
-
 
 .left-sidebar,
 .right-sidebar {
@@ -350,14 +348,12 @@ img.egg{
   }
 }
 
-@keyframes grow{
- 100%
-  {
-  transform: scale(120%); 
-  bottom: 5%;
+@keyframes grow {
+  100% {
+    transform: scale(120%);
+    bottom: 5%;
   }
 }
-
 
 @keyframes shake {
   0% {
@@ -396,9 +392,8 @@ img.egg{
 }
 
 @media screen and (max-width: 2000px) {
-  img.wizard{
+  img.wizard {
     bottom: 32%;
-
   }
 }
 
@@ -406,25 +401,23 @@ img.egg{
   #opening-title {
     font-size: 2.2rem;
   }
-  img.wizard{
+  img.wizard {
     width: 150px;
     height: 150px;
-
   }
-  img.egg{
+  img.egg {
     bottom: -1%;
     left: 22%;
   }
 }
 
 @media screen and (max-height: 500px) {
-  img.wizard{
+  img.wizard {
     bottom: 32%;
     width: 150px;
     height: 150px;
   }
 }
-
 
 .hidden-element {
   display: none;
