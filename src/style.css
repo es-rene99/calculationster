@@ -1,14 +1,24 @@
+/* * This is to extend the 3 grids heights */
+html,
+body,
+main {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
-  background: url("../../assets/Backgrounds/Castle/castle01.jpg") no-repeat center center fixed; 
+  background: url("../../assets/Backgrounds/Castle/castle01.jpg") no-repeat
+    center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
+
 /* thunder */
-.thunder{
+.thunder {
   height: 100vh;
   content: "";
   position: absolute;
@@ -19,108 +29,238 @@ body {
   transform: rotate(180deg);
   animation: lightining 2s linear infinite;
   opacity: 1;
+  left: 0;
 }
-@keyframes lightining{
-  0%{
-      opacity: 0;
+@keyframes lightining {
+  0% {
+    opacity: 0;
   }
-  20%{
-      opacity: 0;
+  20% {
+    opacity: 0;
   }
-  21%{
-      opacity: 0;
+  21% {
+    opacity: 0;
   }
-  25%{
-      opacity: 0;
+  25% {
+    opacity: 0;
   }
-  30%{
-      opacity: 0;
+  30% {
+    opacity: 0;
   }
-  31%{
-      opacity: 1;
+  31% {
+    opacity: 1;
   }
-  35%{
-      opacity: 0;
+  35% {
+    opacity: 0;
   }
-  100%{
-      opacity: 0;
+  100% {
+    opacity: 0;
   }
 }
 /* welcome page
  */
 
-#opening-title{
-  font-family: 'Metal Mania';
-  text-transform: uppercase;
-  font-size: 5rem;
-  letter-spacing: 7px;
-  color:rgb(223, 193, 138);
-  text-shadow: 4px 4px rgba(81, 49, 49, 0.905);
-  margin-top: 2%;
-}
-
-#start-container{
+#start-container {
   display: flex;
   flex-direction: column;
   text-align: center;
 }
 
-
-.btn{
-  text-align: right;
-  animation: shake 10s  infinite;
-  padding-top: 30%;
-  flex-grow: 1;
+#opening-title {
+  font-family: "Metal Mania";
+  text-transform: uppercase;
+  font-size: 5rem;
+  letter-spacing: 7px;
+  color: rgb(223, 193, 138);
+  text-shadow: 4px 4px rgba(81, 49, 49, 0.905);
+  margin-top: 2%;
 }
-#game__start-btn{
+
+.btn-container {
+  text-align: right;
+  animation: shake 10s infinite;
+  flex-grow: 1;
+  position: absolute;
+  right: 3rem;
+  bottom: 2rem;
+}
+#game__start-btn {
   background-color: Transparent;
   border: none;
-   width: fit-content;
-  height: fit-content; 
-  cursor:pointer;
-  outline:none;
-  font-family: 'Just Another Hand', cursive;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+  outline: none;
+  font-family: "Just Another Hand", cursive;
   font-size: 4rem;
-  color:rgba(246, 255, 244, 0.905);
+  color: rgba(246, 255, 244, 0.905);
   text-shadow: 3px 3px rgba(124, 28, 28, 0.905);
   text-transform: uppercase;
   transform: rotate(-5deg);
   padding-right: 5%;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
-#game__start-btn:hover{
-color:rgba(246, 255, 244, 0.905);
-transform: scale(115%)rotate(-5deg);
+#game__start-btn:hover {
+  color: rgba(246, 255, 244, 0.905);
+  transform: scale(115%) rotate(-5deg);
 }
 
-#game__start-btn:active{
-  transform: translate(0, 0.1rem)rotate(-5deg);
+#game__start-btn:active {
+  transform: translate(0, 0.1rem) rotate(-5deg);
+}
+
+/* cut scene */
+
+.scene1{
+  display: flex;
+  background-color: red;
+}
+
+img.wizard{
+  position: absolute;  
+  bottom: 35%;
+  left: 51%;
+  width: 200px;
+  height: 200px;
+}
+
+img.egg{
+  position: absolute;  
+  text-align: center;
+  bottom: 1%;
+  left: 40%;
+  width: 250px;
+  height: 250px;
+}
+
+/* scene story */
+
+#story{
+  color: rgba(255, 217, 0, 0.711);
+  font-family: "Metal Mania";
+  font-size: 2.5rem;
+  padding-top: 10%;
+  padding-left: 3%;
+  line-height: 85%;
+}
+
+/* next btn */
+.next-wrapper{
+  position: absolute;
+  bottom: 20px;
+  right: 2%;
+}
+
+.next-scene{
+  font-size: 4rem;
+  background-color: transparent;
+  border: none;
+  color: rgba(65, 216, 103, 0.994);
+  border-radius: 20%;
+  width: 4.4rem;
+  background-color: rgba(241, 255, 228, 0.748);
+  transition: all 0.2s ease-in-out;
+}
+.next-scene:hover {
+  transform: scale(115%);
+  filter: brightness(110%);
+}
+
+.next-scene:active {
+  transform: translate(0, 0.1rem) ;
+}
+
+
+/* game */
+
+.app-wrapper {
+  display: grid;
+  grid-template-columns: 30% 40% 30%;
+}
+
+
+.left-sidebar,
+.right-sidebar {
+  color: white;
+  text-align: center;
+  height: 100%;
+}
+
+.game-left-panel,
+.game-right-panel {
+  height: 100%;
+}
+
+.sidebar-colors {
+  background-color: rgba(64, 10, 64, 0.6);
+  border: 4px solid #791a40;
+}
+
+.game-left-panel__title {
+  margin-top: 2rem;
+  font-size: 3.1rem;
+}
+.game-left-panel__items {
+  width: 80%;
+  background-color: rgba(59, 27, 102, 0.6);
+  display: inline-block;
+  height: 70%;
+}
+
+.main__game {
+  color: white;
+}
+
+.operation__panel {
+  text-align: center;
+}
+
+.operation__question {
+  font-size: 3rem;
+}
+
+.monster-container {
+  position: absolute;
+  bottom: 0;
+  width: 40%;
+  text-align: center;
+}
+
+.monster {
+  width: 60%;
+}
+
+.game-right-panel {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 }
 
 /* timer */
 
 .game__timer {
-  float: right;
-  margin-right: 2%;
+  margin-top: 2rem;
+  float: left;
+  margin-left: 2%;
   font-size: 1rem;
-  font-family: "Press Start 2P";
-  color: #000;
-  margin-top: 1%;
   padding: 0 1rem;
-  border: 4px solid #000;
-  background-color: #faebd7;
+  font-family: "Press Start 2P";
+  background-color: #934842;
   align-items: center;
   animation: shake 0.5s;
+  animation-iteration-count: 1;
+  animation-play-state: running;
   animation-iteration-count: infinite;
-  animation-play-state: paused; 
+  animation-play-state: paused;
+  display: flex;
+  width: 13rem;
+  border: 4px solid #ff7f50;
 }
 .timer__title {
   font-size: 1rem;
   margin-right: 5%;
 }
-#timer-animation-container {
-  padding-left: 70%;
-}
+
 .timer-added-seconds {
   position: absolute;
   visibility: hidden;
@@ -136,19 +276,35 @@ transform: scale(115%)rotate(-5deg);
   animation-timing-function: ease;
 }
 
-.hidden-element {
-  display: none;
+.game__score {
+  margin-top: 2rem;
+  float: left;
+  margin-left: 2%;
+  font-family: "Press Start 2P";
+  color: #fff;
+  padding: 0 1rem;
+  align-items: center;
+  display: flex;
+}
+
+.score__title {
+  font-size: 1rem;
+  margin-right: 5%;
+}
+
+.score__label {
+  font-size: 1rem;
 }
 
 .gameover____div {
-  border: 2px solid rgb(254,228,197);
+  border: 2px solid rgb(254, 228, 197);
   border-radius: 20px;
-  background: rgb(254,228,197);
+  background: rgb(254, 228, 197);
   width: 400px;
   height: 400px;
   text-align: center;
-  margin-left: 39%;
-  margin-top: 10%;
+  margin: 0 auto;
+  margin-top: 35%;
 }
 
 .gameover____image {
@@ -157,9 +313,9 @@ transform: scale(115%)rotate(-5deg);
 }
 
 .gameover____button {
-  background-color: rgb(249,153,0);
+  background-color: rgb(249, 153, 0);
   border-radius: 20px;
-  border: 10px solid rgb(249,153,0);
+  border: 10px solid rgb(249, 153, 0);
   cursor: pointer;
   color: white;
   font-weight: bold;
@@ -167,36 +323,109 @@ transform: scale(115%)rotate(-5deg);
 }
 
 @keyframes addedSeconds {
-  0% {color: green; visibility: visible;opacity:1;}
-  100% {color: green; transform: translate(20%, -600%); visibility: hidden;opacity:0;}
+  0% {
+    color: green;
+    visibility: visible;
+    opacity: 1;
+  }
+  100% {
+    color: green;
+    transform: translate(20%, -600%);
+    visibility: hidden;
+    opacity: 0;
+  }
 }
 
 @keyframes lostSeconds {
-  0% {color: red; visibility: visible;opacity:1;}
-  100% {color: red; transform: translate(20%, 600%); visibility: hidden;opacity:0;}
+  0% {
+    color: red;
+    visibility: visible;
+    opacity: 1;
+  }
+  100% {
+    color: red;
+    transform: translate(20%, 600%);
+    visibility: hidden;
+    opacity: 0;
+  }
 }
+
+@keyframes grow{
+ 100%
+  {
+  transform: scale(120%); 
+  bottom: 5%;
+  }
+}
+
 
 @keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+@media screen and (max-width: 2000px) {
+  img.wizard{
+    bottom: 32%;
+
+  }
+}
+
+@media screen and (max-width: 670px) {
+  #opening-title {
+    font-size: 2.2rem;
+  }
+  img.wizard{
+    width: 150px;
+    height: 150px;
+
+  }
+  img.egg{
+    bottom: -1%;
+    left: 22%;
+  }
+}
+
+@media screen and (max-height: 500px) {
+  img.wizard{
+    bottom: 32%;
+    width: 150px;
+    height: 150px;
+  }
 }
 
 
-
-@media screen and (max-width:670px) {
-  #opening-title{
-    font-size: 2.2rem;
-  }
-  .btn{
-    padding-top: 65%;
-  }
+.hidden-element {
+  display: none;
 }
