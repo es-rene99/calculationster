@@ -352,6 +352,7 @@ const audioHandler = {
       reward: new Sound('../assets/sounds/noises/reward.mp3'),
     };
     this.loops = {
+      introBGM: new Sound('../assets/sounds/loops/intro.mp3', true),
       menuThemeBGM: new Sound('../assets/sounds/loops/start-menu-theme.mp3', true),
       gameOverBGM: new Sound('../assets/sounds/loops/game-over.mp3', true),
       timeWarning: new Sound('../assets/sounds/loops/time-warning.mp3', true),
@@ -360,7 +361,7 @@ const audioHandler = {
       gameplayPhaseThreeBGM: new Sound('../assets/sounds/loops/gameplay-mid-2.mp3', true),
       gameplayPhaseFourBGM: new Sound('../assets/sounds/loops/gameplay-late.mp3', true),
     };
-    this.bgm = this.loops.menuThemeBGM;
+    this.bgm = this.loops.introBGM;
   },
   startBGM() {
     this.bgm.play();
@@ -727,6 +728,7 @@ const uiHandler = {
       this.toggleHiddenElement(this.gameStartBtn);
       this.toggleHiddenElement(this.thunder);
       sceneControl();
+      audioHandler.startBGM();
     };
     this.nextBtn.onclick = () => {
       sceneControl();
