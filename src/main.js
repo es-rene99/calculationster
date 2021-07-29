@@ -548,6 +548,7 @@ function checkIfAnswerIsCorrect() {
     //  `Ouch! ${userAnswer} was not the correct answer.\n Try again! (correct : ${correctAnswer})`,
     // );
   }
+  userInputField.focus();
 }
 
 // display the problem, add input field and a button to check the result
@@ -565,6 +566,7 @@ function displayProblem() {
   answerInputWrapper.appendChild(enterAnswerBtn);
   operationPanel.appendChild(answerInputWrapper);
   enterAnswerBtn.addEventListener('click', checkIfAnswerIsCorrect);
+  answerInput.focus();
 }
 
 let scene = 1;
