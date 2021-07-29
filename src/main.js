@@ -345,21 +345,21 @@ Here's an object to handle our audio stuff
 const audioHandler = {
   init() {
     this.noises = {
-      button: new Sound('../assets/sounds/noises/button-input.mp3'),
-      correct: new Sound('../assets/sounds/noises/correct.mp3'),
-      gameOver: new Sound('../assets/sounds/noises/game-over.mp3'),
-      incorrect: new Sound('../assets/sounds/noises/incorrect.mp3'),
-      reward: new Sound('../assets/sounds/noises/reward.mp3'),
+      button: new Sound('./assets/sounds/noises/button-input.mp3'),
+      correct: new Sound('./assets/sounds/noises/correct.mp3'),
+      gameOver: new Sound('./assets/sounds/noises/game-over.mp3'),
+      incorrect: new Sound('./assets/sounds/noises/incorrect.mp3'),
+      reward: new Sound('./assets/sounds/noises/reward.mp3'),
     };
     this.loops = {
-      introBGM: new Sound('../assets/sounds/loops/intro.mp3', true),
-      menuThemeBGM: new Sound('../assets/sounds/loops/start-menu-theme.mp3', true),
-      gameOverBGM: new Sound('../assets/sounds/loops/game-over.mp3', true),
-      timeWarning: new Sound('../assets/sounds/loops/time-warning.mp3', true),
-      gameplayPhaseOneBGM: new Sound('../assets/sounds/loops/gameplay-early.mp3', true),
-      gameplayPhaseTwoBGM: new Sound('../assets/sounds/loops/gameplay-mid-1.mp3', true),
-      gameplayPhaseThreeBGM: new Sound('../assets/sounds/loops/gameplay-mid-2.mp3', true),
-      gameplayPhaseFourBGM: new Sound('../assets/sounds/loops/gameplay-late.mp3', true),
+      introBGM: new Sound('./assets/sounds/loops/intro.mp3', true),
+      menuThemeBGM: new Sound('./assets/sounds/loops/start-menu-theme.mp3', true),
+      gameOverBGM: new Sound('./assets/sounds/loops/game-over.mp3', true),
+      timeWarning: new Sound('./assets/sounds/loops/time-warning.mp3', true),
+      gameplayPhaseOneBGM: new Sound('./assets/sounds/loops/gameplay-early.mp3', true),
+      gameplayPhaseTwoBGM: new Sound('./assets/sounds/loops/gameplay-mid-1.mp3', true),
+      gameplayPhaseThreeBGM: new Sound('./assets/sounds/loops/gameplay-mid-2.mp3', true),
+      gameplayPhaseFourBGM: new Sound('./assets/sounds/loops/gameplay-late.mp3', true),
     };
     this.bgm = this.loops.introBGM;
   },
