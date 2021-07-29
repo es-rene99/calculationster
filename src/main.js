@@ -562,6 +562,7 @@ function displayProblem() {
   answerInputWrapper.addEventListener('click', (e) => {
     e.preventDefault();
   });
+  answerInputWrapper.autocomplete = 'off';
   answerInputWrapper.classList.add('answer-input-wrapper');
   const answerInput = document.createElement('input');
   answerInput.id = 'answer';
