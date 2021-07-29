@@ -579,7 +579,7 @@ let scene = 1;
 
 // writer text function used for cut-scene. Function based on css tricks typography effect.
 
-const storyContent = [];
+const storyContent = new Array();
 
 storyContent[0] = 'A long time ago lived';
 storyContent[1] = 'an evil wizard who dreamt ';
@@ -601,20 +601,20 @@ function typewriter() {
   const destination = document.getElementById('story');
 
   while (iRow < iIndex) {
-    iRow += 1;
-    sContents += `${storyContent[iRow]}<br />`;
+    sContents += `${storyContent[iRow++]}<br />`;
   }
   destination.innerHTML = `${sContents + storyContent[iIndex].substring(0, iTextPos)}`;
-  iTextPos += 1;
-  if (iTextPos === iArrLength) {
+  if (iTextPos++ == iArrLength) {
     iTextPos = 0;
-    iIndex += 1;
-    if (iIndex !== storyContent.length) {
+    iIndex++;
+    if (iIndex != storyContent.length) {
       iArrLength = storyContent[iIndex].length;
-      setTimeout(typewriter, 500);
+      // eslint-disable-next-line no-implied-eval
+      setTimeout('typewriter()', 500);
     }
   } else {
-    setTimeout(typewriter, iSpeed);
+    // eslint-disable-next-line no-implied-eval
+    setTimeout('typewriter()', iSpeed);
   }
 }
 
