@@ -699,7 +699,8 @@ function sceneControl() {
 }
 
 const uiHandler = {
-  gameStartBtn: document.getElementsByClassName('btn-container')[0],
+  gameCreditsBtn: document.getElementById('game__credits-btn'),
+  gameStartBtn: document.getElementById('game__start-btn'),
   gameTimer: document.getElementById('game__timer'),
   gameTitle: document.getElementById('opening-title'),
   thunder: document.getElementsByClassName('thunder')[0],
@@ -727,6 +728,7 @@ const uiHandler = {
       this.toggleHiddenElement(this.cutScene);
       this.toggleHiddenElement(this.nextBtn);
       this.toggleHiddenElement(this.gameTitle);
+      this.toggleHiddenElement(this.gameCreditsBtn);
       this.toggleHiddenElement(this.gameStartBtn);
       this.toggleHiddenElement(this.thunder);
       sceneControl();

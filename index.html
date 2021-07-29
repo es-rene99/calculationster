@@ -28,7 +28,7 @@
       <h1 id="opening-title">Calculationster</h1>
       <div class="btn-container">
         <button id="game__start-btn" class="game__start-btn title-screen-btn">Start</button>
-        <button id="game__credits-btn" class="game__credits-btn title-screen-btn">Credits</button>
+        <a id="game__credits-btn" class="game__credits-btn title-screen-btn" href="#credits">Credits</a>
       </div>
     </div>
     <!-- cut scene -->
@@ -90,11 +90,26 @@
       </aside>
     </div>
 
-    <div class="credits__msg credits__msg--hidden">
-      <ul class="credits__msg-list">
-        <li></li>
+  
+  
+  <div id="credits" class="credits__modal">
+    <div class="credits__container">
+      <h1 class="credits__header">Credits</h1>
+      <ul class="credits__list">
+        <li>Backgrounds:
+          <br>
+          "Designed by upklyak / Freepik"
+          <br>
+          "Designed by brgfx / Freepik"
+          <br>
+          "Designed by vectorpouch / Freepik"
+        </li>
       </ul>
+      <a class="credits__close-modal" href="#close">&times;</a>
     </div>
+  </div>
+  
+
     <script src="./src/main.js"></script>
   </body>
 </html>
