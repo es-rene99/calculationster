@@ -117,7 +117,7 @@ body {
 }
 
 img.wizard{
-  position: absolute;
+  position: absolute;  
   bottom: 35%;
   left: 51%;
   width: 200px;
@@ -125,7 +125,7 @@ img.wizard{
 }
 
 img.egg{
-  position: absolute;
+  position: absolute;  
   text-align: center;
   bottom: 1%;
   left: 40%;
@@ -178,12 +178,6 @@ img.egg{
   grid-template-columns: 30% 40% 30%;
 }
 
-
-/* special effects */
-.specialEffects__image {
-  width: 100px;
-  cursor: pointer;
-}
 
 .left-sidebar,
 .right-sidebar {
@@ -405,7 +399,7 @@ img.egg{
 @keyframes grow{
  100%
   {
-  transform: scale(120%);
+  transform: scale(120%); 
   bottom: 5%;
   }
 }
