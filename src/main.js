@@ -554,7 +554,10 @@ function checkIfAnswerIsCorrect() {
 // display the problem, add input field and a button to check the result
 function displayProblem() {
   const operationPanel = document.getElementById('operation__panel');
-  const answerInputWrapper = document.createElement('div');
+  const answerInputWrapper = document.createElement('form');
+  answerInputWrapper.addEventListener('click', (e) => {
+    e.preventDefault();
+  });
   answerInputWrapper.classList.add('answer-input-wrapper');
   const answerInput = document.createElement('input');
   answerInput.id = 'answer';
