@@ -109,6 +109,21 @@ body {
   transform: translate(0, 0.1rem) rotate(-5deg);
 }
 
+.credits__msg {
+  width: 16rem;
+  margin: 0 auto;
+  text-align: left;
+  margin-bottom: 0.25rem;
+}
+
+.credits__msg-list {
+  list-style-type: square;
+}
+
+.credits__msg--hidden {
+  display: none;
+}
+
 /* cut scene */
 
 .scene1 {

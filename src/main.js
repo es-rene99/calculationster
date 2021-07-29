@@ -702,6 +702,7 @@ const uiHandler = {
   sidebars: document.getElementsByClassName('sidebar'),
   cutScene: document.getElementById('cut-scene'),
   nextBtn: document.getElementsByClassName('next-scene')[0],
+  creditsBtn: document.getElementById('game__credits-btn'),
 
   toggleColorInSideBars(elements) {
     [...elements].forEach((element) => {
