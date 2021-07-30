@@ -33,7 +33,7 @@ Solve a single operation
 
 function getCorrectResult(mathOne, mathTwo, operatorValue) {
   switch (operatorValue) {
-    case '*':
+    case 'x':
       return multiply(mathOne, mathTwo);
 
     case '/':
@@ -55,7 +55,7 @@ Returns a random operator
 */
 
 function getRandomOperator() {
-  const operators = ['+', '-', '*', '/'];
+  const operators = ['+', '-', 'x', '/'];
   const randomOperator = operators[Math.floor(Math.random() * operators.length)];
   return randomOperator;
 }
@@ -67,14 +67,14 @@ Returns an expression string with all multiplication and division resolved.
 
 function resolveMultAndDiv(expressionString) {
   const expressionArray = expressionString.split(' ');
-  let nextOperatorIndex = expressionArray.findIndex((o) => ['*', '/'].includes(o));
+  let nextOperatorIndex = expressionArray.findIndex((o) => ['x', '/'].includes(o));
   while (nextOperatorIndex !== -1) {
     const operator = expressionArray[nextOperatorIndex];
     const operandOne = Number(expressionArray[nextOperatorIndex - 1]);
     const operandTwo = Number(expressionArray[nextOperatorIndex + 1]);
     const resultOfNextOperation = getCorrectResult(operandOne, operandTwo, operator);
     expressionArray.splice(nextOperatorIndex - 1, 3, resultOfNextOperation);
-    nextOperatorIndex = expressionArray.findIndex((o) => ['*', '/'].includes(o));
+    nextOperatorIndex = expressionArray.findIndex((o) => ['x', '/'].includes(o));
   }
   return expressionArray.join(' ');
 }
@@ -133,7 +133,7 @@ function addTermToExpression(expression, operand, operator) {
   const expressionArray = expression.split(' ');
   const expressionSolution = solveExpression(expression);
   const expressionArrayResolvedMultAndDiv = resolveMultAndDiv(expression).split(' ');
-  if (['+', '*'].includes(operator)) {
+  if (['+', 'x'].includes(operator)) {
     expressionArray.unshift(operand, operator);
   } else if (operator === '-') {
     if (operand >= expressionSolution) {
@@ -322,7 +322,7 @@ function askProblem() {
 
   const numTerms = Math.max(2, level - 4);
   if (level < 5) {
-    operator = ['+', '-', '*', '/'][level - 1];
+    operator = ['+', '-', 'x', '/'][level - 1];
     numDigits = 1;
     problem = makeSimpleExpression(numDigits, operator);
   } else {
@@ -362,22 +362,22 @@ Here's an object to handle our audio stuff
 const audioHandler = {
   init() {
     this.noises = {
-      button: new Sound('../assets/sounds/noises/button-input.mp3'),
-      correct: new Sound('../assets/sounds/noises/correct.mp3'),
-      gameOver: new Sound('../assets/sounds/noises/game-over.mp3'),
-      incorrect: new Sound('../assets/sounds/noises/incorrect.mp3'),
-      reward: new Sound('../assets/sounds/noises/reward.mp3'),
+      button: new Sound('./assets/sounds/noises/button-input.mp3'),
+      correct: new Sound('./assets/sounds/noises/correct.mp3'),
+      gameOver: new Sound('./assets/sounds/noises/game-over.mp3'),
+      incorrect: new Sound('./assets/sounds/noises/incorrect.mp3'),
+      reward: new Sound('./assets/sounds/noises/reward.mp3'),
     };
     this.loops = {
-      menuThemeBGM: new Sound('../assets/sounds/loops/start-menu-theme.mp3', true),
-      gameOverBGM: new Sound('../assets/sounds/loops/game-over.mp3', true),
-      timeWarning: new Sound('../assets/sounds/loops/time-warning.mp3', true),
-      gameplayPhaseOneBGM: new Sound('../assets/sounds/loops/gameplay-early.mp3', true),
-      gameplayPhaseTwoBGM: new Sound('../assets/sounds/loops/gameplay-mid-1.mp3', true),
-      gameplayPhaseThreeBGM: new Sound('../assets/sounds/loops/gameplay-mid-2.mp3', true),
-      gameplayPhaseFourBGM: new Sound('../assets/sounds/loops/gameplay-late.mp3', true),
+      menuThemeBGM: new Sound('./assets/sounds/loops/start-menu-theme.mp3', true),
+      gameOverBGM: new Sound('./assets/sounds/loops/game-over.mp3', true),
+      timeWarning: new Sound('./assets/sounds/loops/time-warning.mp3', true),
+      gameplayPhaseOneBGM: new Sound('./assets/sounds/loops/gameplay-early.mp3', true),
+      gameplayPhaseTwoBGM: new Sound('./assets/sounds/loops/gameplay-mid-1.mp3', true),
+      gameplayPhaseThreeBGM: new Sound('./assets/sounds/loops/gameplay-mid-2.mp3', true),
+      gameplayPhaseFourBGM: new Sound('./assets/sounds/loops/gameplay-late.mp3', true),
     };
-    this.bgm = this.loops.menuThemeBGM;
+    this.bgm = this.loops.introBGM;
   },
   startBGM() {
     this.bgm.play();
@@ -500,7 +500,7 @@ const timer = {
     image.classList.add('gameover____image');
     text.classList.add('gameover____message');
     const newContent = document.createTextNode('Game Over');
-    const result = document.getElementById('game____overdiv');
+    // const result = document.getElementById('game____overdiv');
     const leaderBoard = document.createElement('button');
     leaderBoard.classList.add('gameover____button');
     leaderBoard.innerHTML = 'Go to leaderboard';
@@ -511,7 +511,7 @@ const timer = {
     div.appendChild(points);
     div.appendChild(losingText);
     text.appendChild(newContent);
-    result.appendChild(div);
+    // result.appendChild(div);
     div.appendChild(leaderBoard);
   },
   startTimer() {
@@ -627,7 +627,11 @@ function specialItems() {
 // display the problem, add input field and a button to check the result
 function displayProblem() {
   const operationPanel = document.getElementById('operation__panel');
-  const answerInputWrapper = document.createElement('div');
+  const answerInputWrapper = document.createElement('form');
+     answerInputWrapper.addEventListener('click', (e) => {
+       e.preventDefault();
+     });
+ answerInputWrapper.autocomplete = 'off';
   answerInputWrapper.classList.add('answer-input-wrapper');
   const answerInput = document.createElement('input');
   answerInput.id = 'answer';
@@ -645,7 +649,7 @@ let scene = 1;
 
 // writer text function used for cut-scene. Function based on css tricks typography effect.
 
-const storyContent = [];
+const storyContent = new Array();
 
 storyContent[0] = 'A long time ago lived';
 storyContent[1] = 'an evil wizard who dreamt ';
@@ -667,20 +671,19 @@ function typewriter() {
   const destination = document.getElementById('story');
 
   while (iRow < iIndex) {
-    iRow += 1;
-    sContents += `${storyContent[iRow]}<br />`;
+    sContents += `${storyContent[iRow++]}<br />`;
   }
   destination.innerHTML = `${sContents + storyContent[iIndex].substring(0, iTextPos)}`;
   iTextPos += 1;
-  if (iTextPos === iArrLength) {
+  if (iTextPos++ == iArrLength) {
     iTextPos = 0;
-    iIndex += 1;
-    if (iIndex !== storyContent.length) {
+    iIndex++;
+    if (iIndex != storyContent.length) {
       iArrLength = storyContent[iIndex].length;
-      setTimeout(typewriter, 500);
+      setTimeout('typewriter()', 500);
     }
   } else {
-    setTimeout(typewriter, iSpeed);
+    setTimeout('typewriter()', iSpeed);
   }
 }
 
@@ -793,6 +796,7 @@ const uiHandler = {
       this.toggleHiddenElement(this.gameStartBtn);
       this.toggleHiddenElement(this.thunder);
       sceneControl();
+      audioHandler.startBGM();
     };
     this.nextBtn.onclick = () => {
       sceneControl();
