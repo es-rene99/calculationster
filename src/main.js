@@ -139,7 +139,7 @@ function addTermToExpression(expression, operand, operator) {
     // if we always add to the end of the expression
     // when the new operand is less than the current answer
     // things get kind of boring so we flip a coin about it
-    if (operand < expressionSolution && getRandomInt(0, 2)) {
+    if (operand < expressionSolution) {
       expressionArray.push(operator, operand);
     } else {
       const newTerm = operand + 2 * Number(expressionArrayResolvedMultAndDiv[0]);
@@ -323,15 +323,14 @@ function askProblem() {
     operator = '-';
     problem = makeSimpleExpression(numDigits, operator);
   } else if (level === 3) {
-    const operand1 = getRandomInt(1, 10);
-    const operand2 = getRandomInt(1, 10);
+    numDigits = 1;
     operator = ['+', '-'][getRandomInt(0, 2)];
-    problem = addTermToExpression(String(operand1), operand2, operator);
+    problem = makeSimpleExpression(numDigits, operator);
   } else if (level === 4) {
-    const operand1 = getRandomInt(1, 100);
+    const operand1 = String(getRandomInt(10, 100));
     const operand2 = getRandomInt(1, 10);
     operator = ['+', '-'][getRandomInt(0, 2)];
-    problem = addTermToExpression(String(operand1), operand2, operator);
+    problem = addTermToExpression(operand1, operand2, operator);
   } else if (level === 5) {
     numDigits = 1;
     operator = 'x';
@@ -352,14 +351,12 @@ function askProblem() {
     }
     problem = makeSimpleExpression(numDigits, operator);
   } else if (level >= 9) {
-    numDigits = 1;
     operator = getRandomOperator();
+    numDigits = 1;
     if (['+', '-'].includes(operator)) {
       numDigits = 2;
     }
     problem = makeSimpleExpression(numDigits, operator);
-    // we don't want both operations to be multiplication
-    // I don't think
     operator = ['+', '-'][getRandomInt(0, 2)];
     numDigits = 2;
     problem = addTermToExpression(problem, getRandomInt(1, 10 ** numDigits), operator);
