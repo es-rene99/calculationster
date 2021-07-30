@@ -190,7 +190,7 @@ let isClicked = false
 // background switcher
 
 function changeBackground(src) {
-  document.body.style.background = `${src}no-repeat center center fixed`;
+  document.body.style.background = `${src} no-repeat center center fixed`;
   document.body.style.backgroundSize = 'cover';
 }
 
@@ -285,7 +285,7 @@ function createMonsterImg(src, alt, id) {
 
 function monsterGrowth() {
   if (winAnswers === 10) {
-    changeBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
+    changeBackground("url('assets/Backgrounds/Interior/interior04compressed.jpg')");
     createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1, 'monster');
   } else if (winAnswers === 11) {
     createMonsterImg(monsterSelected.growth1, monsterSelected.alt1, 'monster');
