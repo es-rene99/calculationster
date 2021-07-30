@@ -467,6 +467,10 @@ const timer = {
     animatedText.onanimationend = () => {
       animatedText.remove();
     };
+    const image = document.getElementById("specialEffect1")
+    image.addEventListener("click", () => {
+      this.sec -= 0
+    })
     this.animationContainer.appendChild(animatedText);
     this.updateTime();
     const timerDiv = document.getElementById('game__timer');
@@ -511,9 +515,11 @@ const timer = {
           clearInterval(timeInterval);
           this.gameOver();
           this.sec = 0;
+        } if (effect2 === true && isClicked === false) {
+          this.sec -= 0
         } else {
-          this.sec -= 1;
-        }
+        this.sec -= 1
+      }
         this.updateTime();
         if (this.sec <= 5 && this.sec > 0) {
           audioHandler.startTimeWarning();
@@ -527,6 +533,9 @@ const timer = {
     if (typeOfAnswer === 'correct') {
       timer.gainSeconds(5);
     } else if (typeOfAnswer === 'wrong') {
+        if(effect1 === true && count < 5){
+        timer.loseSeconds(0)
+      } else {
       timer.loseSeconds(5);
     }
   },
