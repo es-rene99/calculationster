@@ -748,7 +748,7 @@ function sceneControl() {
   if (scene === 1) {
     egg.style.display = 'none';
     createMonsterImg('assets/monster/Extras/Wizard.png', 'wizard', 'wizard1');
-    changeBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')");
+    changeBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312-smaller.jpg')");
     typewriter();
     scene += 1;
     resetText();
@@ -775,7 +775,7 @@ function sceneControl() {
     storyContent[2] = '"When you will come out - you will be my favourite server!"';
     storyContent[3] = '-said the wizard till he left the creature inside the egg alone...';
     storyContent[4] = '';
-    changeBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
+    changeBackground("url('assets/Backgrounds/Prison/prison01-smaller.jpg')");
     scene += 1;
     resetText();
     typewriter();
