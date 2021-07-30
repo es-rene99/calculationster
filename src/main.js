@@ -514,7 +514,6 @@ const timer = {
         if (this.sec <= 0) {
           clearInterval(timeInterval);
           this.gameOver();
-          this.sec = 0;
         } if (effect2 === true && isClicked === false) {
           this.sec -= 0
         } else {
