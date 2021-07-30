@@ -606,7 +606,6 @@ function typewriter() {
     sContents += `${storyContent[iRow++]}<br />`;
   }
   destination.innerHTML = `${sContents + storyContent[iIndex].substring(0, iTextPos)}`;
-
   iTextPos += 1;
   if (iTextPos++ == iArrLength) {
     iTextPos = 0;
