@@ -612,7 +612,7 @@ function typewriter() {
     iIndex++;
     if (iIndex != storyContent.length) {
       iArrLength = storyContent[iIndex].length;
-
+  // eslint-disable-next-line no-implied-eval
       setTimeout('typewriter()', 500);
     }
   } else {
