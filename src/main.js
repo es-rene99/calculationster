@@ -559,10 +559,10 @@ function checkIfAnswerIsCorrect() {
 function displayProblem() {
   const operationPanel = document.getElementById('operation__panel');
   const answerInputWrapper = document.createElement('form');
-  answerInputWrapper.addEventListener('click', (e) => {
-    e.preventDefault();
-  });
-  answerInputWrapper.autocomplete = 'off';
+     answerInputWrapper.addEventListener('click', (e) => {
+       e.preventDefault();
+     });
+ answerInputWrapper.autocomplete = 'off';
   answerInputWrapper.classList.add('answer-input-wrapper');
   const answerInput = document.createElement('input');
   answerInput.id = 'answer';
@@ -611,7 +611,7 @@ function typewriter() {
     iIndex++;
     if (iIndex != storyContent.length) {
       iArrLength = storyContent[iIndex].length;
-      // eslint-disable-next-line no-implied-eval
+  // eslint-disable-next-line no-implied-eval
       setTimeout('typewriter()', 500);
     }
   } else {
