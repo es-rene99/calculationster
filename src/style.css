@@ -276,6 +276,12 @@ img.egg{
   width: 60%;
 }
 
+/* special effects */
+.specialEffects__image {
+  width: 100px;
+  cursor: pointer;
+}
+
 .game-right-panel {
   display: flex;
   flex-direction: column;
