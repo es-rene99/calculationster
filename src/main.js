@@ -136,7 +136,10 @@ function addTermToExpression(expression, operand, operator) {
   if (['+', 'x'].includes(operator)) {
     expressionArray.unshift(operand, operator);
   } else if (operator === '-') {
-    if (operand < expressionSolution) {
+    // if we always add to the end of the expression
+    // when the new operand is less than the current answer
+    // things get kind of boring so we flip a coin about it
+    if (operand < expressionSolution && getRandomInt(0, 2)) {
       expressionArray.push(operator, operand);
     } else {
       const newTerm = operand + 2 * Number(expressionArrayResolvedMultAndDiv[0]);
