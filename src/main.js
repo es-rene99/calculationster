@@ -176,6 +176,7 @@ let winAnswers = 0;
 let problem;
 let correctAnswer;
 let level;
+let count = 0
 
 /*
 Here we activate the different effects
