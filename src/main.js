@@ -136,11 +136,11 @@ function addTermToExpression(expression, operand, operator) {
   if (['+', 'x'].includes(operator)) {
     expressionArray.unshift(operand, operator);
   } else if (operator === '-') {
-    if (operand >= expressionSolution) {
-      const newTerm = operand + Number(expressionArrayResolvedMultAndDiv[0]);
-      expressionArray.unshift(newTerm, operator);
-    } else {
+    if (operand < expressionSolution) {
       expressionArray.push(operator, operand);
+    } else {
+      const newTerm = operand + 2 * Number(expressionArrayResolvedMultAndDiv[0]);
+      expressionArray.unshift(newTerm, operator);
     }
   } else {
     // If we're here we are adding a division operator
@@ -348,7 +348,7 @@ function askProblem() {
       numDigits = 2;
     }
     problem = makeSimpleExpression(numDigits, operator);
-  } else if (level === 9) {
+  } else if (level >= 9) {
     numDigits = 1;
     operator = getRandomOperator();
     if (['+', '-'].includes(operator)) {
@@ -357,15 +357,8 @@ function askProblem() {
     problem = makeSimpleExpression(numDigits, operator);
     // we don't want both operations to be multiplication
     // I don't think
-    if (['x', '/'].includes(operator)) {
-      operator = ['+', '-'][getRandomInt(0, 2)];
-    } else {
-      operator = getRandomOperator();
-    }
-    numDigits = 1;
-    if (['+', '-'].includes(operator)) {
-      numDigits = 2;
-    }
+    operator = ['+', '-'][getRandomInt(0, 2)];
+    numDigits = 2;
     problem = addTermToExpression(problem, getRandomInt(1, 10 ** numDigits), operator);
   }
   const question = document.getElementsByClassName('operation__question')[0];
