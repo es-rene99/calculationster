@@ -538,6 +538,7 @@ const timer = {
       } else {
       timer.loseSeconds(5);
     }
+    }
   },
   levelupHandling() {
     timer.gainSeconds(20);
