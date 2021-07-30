@@ -176,23 +176,6 @@ let winAnswers = 0;
 let problem;
 let correctAnswer;
 let level;
-let count = 0
-
-/*
-Here we activate the different effects
-*/
-
-let effect1 = false
-let effect2 = false
-let effect4 = false
-let isClicked = false
-
-// background switcher
-
-function changeBackground(src) {
-  document.body.style.background = `${src}no-repeat center center fixed`;
-  document.body.style.backgroundSize = 'cover';
-}
 
 // background switcher
 
@@ -331,7 +314,7 @@ function askProblem() {
     problem = makeRandomExpression(numTerms, numDigits);
   }
   const question = document.getElementsByClassName('operation__question')[0];
-    question.textContent = problem;
+  question.textContent = problem;
 }
 
 /*
@@ -369,6 +352,7 @@ const audioHandler = {
       reward: new Sound('./assets/sounds/noises/reward.mp3'),
     };
     this.loops = {
+      introBGM: new Sound('./assets/sounds/loops/intro.mp3', true),
       menuThemeBGM: new Sound('./assets/sounds/loops/start-menu-theme.mp3', true),
       gameOverBGM: new Sound('./assets/sounds/loops/game-over.mp3', true),
       timeWarning: new Sound('./assets/sounds/loops/time-warning.mp3', true),
@@ -474,10 +458,6 @@ const timer = {
     animatedText.onanimationend = () => {
       animatedText.remove();
     };
-    const image = document.getElementById("specialEffect1")
-    image.addEventListener("click", () => {
-      this.sec -= 0
-    })
     this.animationContainer.appendChild(animatedText);
     this.updateTime();
     const timerDiv = document.getElementById('game__timer');
@@ -513,6 +493,7 @@ const timer = {
     text.appendChild(newContent);
     // result.appendChild(div);
     div.appendChild(leaderBoard);
+    document.getElementById('game-wrapper').appendChild(div);
   },
   startTimer() {
     const timeInterval = setInterval(() => {
@@ -520,12 +501,10 @@ const timer = {
         if (this.sec <= 0) {
           clearInterval(timeInterval);
           this.gameOver();
-        }
-        if (effect2 === true && isClicked === false) {
-          this.sec -= 0
+          this.sec = 0;
         } else {
-        this.sec -= 1
-      }
+          this.sec -= 1;
+        }
         this.updateTime();
         if (this.sec <= 5 && this.sec > 0) {
           audioHandler.startTimeWarning();
@@ -539,44 +518,13 @@ const timer = {
     if (typeOfAnswer === 'correct') {
       timer.gainSeconds(5);
     } else if (typeOfAnswer === 'wrong') {
-      if(effect1 === true && count < 5){
-        timer.loseSeconds(0)
-      } else {
       timer.loseSeconds(5);
     }
-  }
   },
   levelupHandling() {
     timer.gainSeconds(20);
   },
 };
-
-function clickedItems() {
-  const getEffect1 = document.getElementById("specialEffect1")
-  getEffect1.addEventListener("click", () => {
-      effect1 = true
-      var getCount = document.getElementById("enter-answer-btn").addEventListener("click", () => {
-        console.log(count += 1)
-      })
-  }, {once: true})
-  const getEffect2 = document.getElementById("specialEffect2")
-  getEffect2.addEventListener("click", () => {
-      effect2 = true
-      document.getElementById("enter-answer-btn").addEventListener("click", () => {
-        isClicked = true
-      })
-  }, {once: true})
-
-  const getEffect4 = document.getElementById("specialEffect4")
-  getEffect4.addEventListener("click", () => {
-      askProblem()
-  }, {once: true})
-
-  const getEffect5 = document.getElementById("specialEffect5")
-  getEffect5.addEventListener("click", () => {
-      timer.gainSeconds(60)
-  }, {once: true})
-}
 
 function checkIfAnswerIsCorrect() {
   const userInputField = document.getElementById('answer');
@@ -604,24 +552,7 @@ function checkIfAnswerIsCorrect() {
     //  `Ouch! ${userAnswer} was not the correct answer.\n Try again! (correct : ${correctAnswer})`,
     // );
   }
-}
-
-function specialItems() {
-  const image = document.getElementById("specialEffect1")
-  const image1 = document.getElementById('specialEffect2')
-  const image2 = document.getElementById('specialEffect3')
-  const image3 = document.getElementById('specialEffect4')
-  const image4 = document.getElementById('specialEffect5')
-  image.className = "specialEffects__image"
-  image1.className = "specialEffects__image"
-  image2.className = "specialEffects__image"
-  image3.className = "specialEffects__image"
-  image4.className = "specialEffects__image"
-  image.setAttribute('src', './assets/specialEffects/breastplate.png')
-  image1.setAttribute('src', './assets/specialEffects/emptyhourglass.png')
-  image2.setAttribute('src', './assets/specialEffects/halfdead.png')
-  image3.setAttribute('src', './assets/specialEffects/top-paw.png')
-  image4.setAttribute('src', './assets/specialEffects/wingfoot.png')
+  userInputField.focus();
 }
 
 // display the problem, add input field and a button to check the result
@@ -643,6 +574,7 @@ function displayProblem() {
   answerInputWrapper.appendChild(enterAnswerBtn);
   operationPanel.appendChild(answerInputWrapper);
   enterAnswerBtn.addEventListener('click', checkIfAnswerIsCorrect);
+  answerInput.focus();
 }
 
 let scene = 1;
@@ -674,15 +606,18 @@ function typewriter() {
     sContents += `${storyContent[iRow++]}<br />`;
   }
   destination.innerHTML = `${sContents + storyContent[iIndex].substring(0, iTextPos)}`;
+
   iTextPos += 1;
   if (iTextPos++ == iArrLength) {
     iTextPos = 0;
     iIndex++;
     if (iIndex != storyContent.length) {
       iArrLength = storyContent[iIndex].length;
+
       setTimeout('typewriter()', 500);
     }
   } else {
+    // eslint-disable-next-line no-implied-eval
     setTimeout('typewriter()', iSpeed);
   }
 }
@@ -814,8 +749,6 @@ const uiHandler = {
         this.toggleColorInSideBars(this.sidebars);
         displayProblem();
         askProblem();
-        specialItems();
-        clickedItems()
         createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
       }
     };
