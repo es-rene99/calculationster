@@ -309,19 +309,64 @@ function askProblem() {
   let operator;
   let numDigits;
 
-  // Sets numTerms equal to two for levels 1-6, then numTerms increments once per level
-
   // further function for separation
 
-  const numTerms = Math.max(2, level - 4);
-  if (level < 5) {
-    operator = ['+', '-', 'x', '/'][level - 1];
+  if (level === 1) {
     numDigits = 1;
+    operator = '+';
     problem = makeSimpleExpression(numDigits, operator);
-  } else {
+  } else if (level === 2) {
+    numDigits = 1;
+    operator = '-';
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 3) {
+    const operand1 = getRandomInt(1, 10);
+    const operand2 = getRandomInt(1, 10);
+    operator = ['+', '-'][getRandomInt(0, 2)];
+    problem = addTermToExpression(String(operand1), operand2, operator);
+  } else if (level === 4) {
+    const operand1 = getRandomInt(1, 100);
+    const operand2 = getRandomInt(1, 10);
+    operator = ['+', '-'][getRandomInt(0, 2)];
+    problem = addTermToExpression(String(operand1), operand2, operator);
+  } else if (level === 5) {
+    numDigits = 1;
+    operator = 'x';
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 6) {
+    numDigits = 1;
+    operator = '/';
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 7) {
+    numDigits = 1;
+    operator = ['x', '/'][getRandomInt(0, 2)];
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 8) {
+    numDigits = 1;
     operator = getRandomOperator();
-    numDigits = 2;
-    problem = makeRandomExpression(numTerms, numDigits);
+    if (['+', '-'].includes(operator)) {
+      numDigits = 2;
+    }
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 9) {
+    numDigits = 1;
+    operator = getRandomOperator();
+    if (['+', '-'].includes(operator)) {
+      numDigits = 2;
+    }
+    problem = makeSimpleExpression(numDigits, operator);
+    // we don't want both operations to be multiplication
+    // I don't think
+    if (['x', '/'].includes(operator)) {
+      operator = ['+', '-'][getRandomInt(0, 2)];
+    } else {
+      operator = getRandomOperator();
+    }
+    numDigits = 1;
+    if (['+', '-'].includes(operator)) {
+      numDigits = 2;
+    }
+    problem = addTermToExpression(problem, getRandomInt(1, 10 ** numDigits), operator);
   }
   const question = document.getElementsByClassName('operation__question')[0];
   question.textContent = problem;
