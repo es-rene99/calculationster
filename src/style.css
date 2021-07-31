@@ -9,8 +9,8 @@ main {
 body {
   margin: 0;
   min-height: 100vh;
-  background: url("../assets/Backgrounds/Castle/castle01.jpg") no-repeat
-    center center fixed;
+  background: url("../assets/Backgrounds/Castle/castle01.jpg") no-repeat center
+    center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -84,7 +84,7 @@ body {
   right: 3rem;
   bottom: 2rem;
 }
-#game__start-btn {
+.title-screen-btn {
   background-color: Transparent;
   border: none;
   width: fit-content;
@@ -99,33 +99,96 @@ body {
   transform: rotate(-5deg);
   padding-right: 5%;
   transition: all 0.2s ease-in-out;
+  text-decoration: none;
 }
-#game__start-btn:hover {
+.title-screen-btn:hover {
   color: rgba(246, 255, 244, 0.905);
   transform: scale(115%) rotate(-5deg);
 }
 
-#game__start-btn:active {
+.title-screen-btn:active {
   transform: translate(0, 0.1rem) rotate(-5deg);
+}
+
+.credits__modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: -15vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  pointer-events: none;
+}
+
+.credits__modal:target {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.credits__container {
+  background-color: #fefefe;
+  padding: 5px;
+  border: 1px solid #888;
+  background-image: linear-gradient(
+    180.5deg,
+    rgba(245, 245, 220, 1) 23.6%,
+    rgba(231, 231, 231, 1) 130.2%
+  );
+  width: 30%;
+  margin: 25% auto;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.credits__close-modal {
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin-right: -0.9rem;
+  margin-top: -18.9rem;
+  background: #606061;
+  color: #fff;
+  line-height: 1.5rem;
+  text-align: center;
+  width: 1.5rem;
+  text-decoration: none;
+  border-radius: 12px;
+  box-shadow: 1px 1px 3px #000;
+}
+.credits__close-modal:hover,
+.credits__close-modal:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  background: #00d9ff;
+}
+
+.credits__list {
+  list-style-type: none;
 }
 
 /* cut scene */
 
-.scene1{
+.scene1 {
   display: flex;
   background-color: red;
 }
 
-img.wizard{
-  position: absolute;  
+img.wizard {
+  position: absolute;
   bottom: 35%;
   left: 51%;
   width: 200px;
   height: 200px;
 }
 
-img.egg{
-  position: absolute;  
+img.egg {
+  position: absolute;
   text-align: center;
   bottom: 1%;
   left: 40%;
@@ -135,7 +198,7 @@ img.egg{
 
 /* scene story */
 
-#story{
+#story {
   color: rgba(255, 217, 0, 0.711);
   font-family: "Metal Mania";
   font-size: 2.5rem;
@@ -145,13 +208,13 @@ img.egg{
 }
 
 /* next btn */
-.next-wrapper{
+.next-wrapper {
   position: absolute;
   bottom: 20px;
   right: 2%;
 }
 
-.next-scene{
+.next-scene {
   font-size: 4rem;
   background-color: transparent;
   border: none;
@@ -167,9 +230,8 @@ img.egg{
 }
 
 .next-scene:active {
-  transform: translate(0, 0.1rem) ;
+  transform: translate(0, 0.1rem);
 }
-
 
 /* game */
 
@@ -177,7 +239,6 @@ img.egg{
   display: grid;
   grid-template-columns: 30% 40% 30%;
 }
-
 
 .left-sidebar,
 .right-sidebar {
@@ -239,7 +300,7 @@ img.egg{
 }
 
 #answer {
-  background-color: rgb(107,142,35, 0.2);
+  background-color: rgb(107, 142, 35, 0.2);
   text-align: center;
   width: 200px;
   height: 70px;
@@ -261,8 +322,6 @@ img.egg{
   box-shadow: 2px 2px #888888;
   font-family: "Press Start 2P";
 }
-
-
 
 .monster-container {
   position: absolute;
@@ -402,14 +461,12 @@ img.egg{
   }
 }
 
-@keyframes grow{
- 100%
-  {
-  transform: scale(120%); 
-  bottom: 5%;
+@keyframes grow {
+  100% {
+    transform: scale(120%);
+    bottom: 5%;
   }
 }
-
 
 @keyframes shake {
   0% {
@@ -448,9 +505,8 @@ img.egg{
 }
 
 @media screen and (max-width: 2000px) {
-  img.wizard{
+  img.wizard {
     bottom: 32%;
-
   }
 }
 
@@ -458,25 +514,23 @@ img.egg{
   #opening-title {
     font-size: 2.2rem;
   }
-  img.wizard{
+  img.wizard {
     width: 150px;
     height: 150px;
-
   }
-  img.egg{
+  img.egg {
     bottom: -1%;
     left: 22%;
   }
 }
 
 @media screen and (max-height: 500px) {
-  img.wizard{
+  img.wizard {
     bottom: 32%;
     width: 150px;
     height: 150px;
   }
 }
-
 
 .hidden-element {
   display: none;
