@@ -630,6 +630,7 @@ function checkIfAnswerIsCorrect() {
     // );
     timer.timerAnswerHandling('correct');
   } else {
+    userInputField.value = '';
     audioHandler.playNoise('incorrect');
     timer.timerAnswerHandling('wrong');
     // console.log(
