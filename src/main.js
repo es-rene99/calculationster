@@ -178,8 +178,9 @@ So far we are tracking the number correct in this variable, winAnswers.
 let winAnswers = 0;
 let problem;
 let correctAnswer;
-let level;
-let count = 0
+let level = 1;
+let count = 0;
+const ANSWERS_PER_LEVEL = 5;
 
 /*
 Here we activate the different effects
@@ -324,7 +325,7 @@ function monsterGrowth() {
 }
 
 function askProblem() {
-  level = Math.floor((winAnswers / 10)) + 1;
+  level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
   let operator;
   let numDigits;
 
@@ -634,7 +635,7 @@ function checkIfAnswerIsCorrect() {
     audioHandler.playNoise('correct');
     winAnswers += 1;
     if (winAnswers % 10 === 0) {
-      level = Math.floor((winAnswers / 10)) + 1;
+      level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
       timer.levelupHandling();
       audioHandler.levelUpHandling(level);
     }
