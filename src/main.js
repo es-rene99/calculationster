@@ -302,24 +302,24 @@ function createMonsterImg(src, alt, id) {
 }
 
 function monsterGrowth() {
-  if (winAnswers === 10) {
+  if (winAnswers === 5) {
     // Here is where we ould preload the next level's background
     changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
     createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1, 'monster');
-  } else if (winAnswers === 11) {
+  } else if (winAnswers === 6) {
     createMonsterImg(monsterSelected.growth1, monsterSelected.alt1, 'monster');
-  } else if (winAnswers === 30) {
+  } else if (winAnswers === 10) {
     createMonsterImg(monsterSelected.transformation2, monsterSelected.altTransform2, 'monster');
-  } else if (winAnswers === 31) {
+  } else if (winAnswers === 11) {
     createMonsterImg(monsterSelected.growth2, monsterSelected.alt2, 'monster');
-  } else if (winAnswers === 50) {
+  } else if (winAnswers === 20) {
     createMonsterImg(monsterSelected.transformation3, monsterSelected.altTransform3, 'monster');
-  } else if (winAnswers === 51) {
+  } else if (winAnswers === 21) {
     createMonsterImg(monsterSelected.growth3, monsterSelected.alt3, 'monster');
-  } else if (winAnswers === 70) {
+  } else if (winAnswers === 30) {
     createMonsterImg(monsterSelected.transformation4, monsterSelected.altTransform4, 'monster');
-  } else if (winAnswers === 71) {
+  } else if (winAnswers === 31) {
     createMonsterImg(monsterSelected.growth4, monsterSelected.alt4, 'monster');
   }
 }
