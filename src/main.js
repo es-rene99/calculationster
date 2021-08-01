@@ -185,16 +185,30 @@ let count = 0
 Here we activate the different effects
 */
 
-let effect1 = false
-let effect2 = false
-let effect4 = false
-let isClicked = false
+let effect1 = false;
+let effect2 = false;
+let effect4 = false;
+let isClicked = false;
 
 // background switcher
+// Note that src here sets the source for the background to be preloaded
 
-function changeBackground(src) {
-  document.body.style.background = `${src}no-repeat center center fixed`;
-  document.body.style.backgroundSize = 'cover';
+function preloadBackground(src) {
+  const nextScene = document.getElementsByClassName('background-image-div preload')[0];
+  nextScene.style.background = `${src}no-repeat center center fixed`;
+  nextScene.style.backgroundSize = 'cover';
+}
+
+function changeToPreloadedBackground() {
+  const currentBackground = document.getElementsByClassName('background-image-div current')[0];
+  const nextScene = document.getElementsByClassName('background-image-div preload')[0];
+  currentBackground.style.zIndex = -3;
+  nextScene.style.zIndex = -1;
+  nextScene.classList.remove('preload');
+  nextScene.classList.add('current');
+  currentBackground.classList.remove('current');
+  currentBackground.classList.add('preload');
+  currentBackground.style.zIndex = -2;
 }
 
 // functions for monsters and monster growth
@@ -288,7 +302,9 @@ function createMonsterImg(src, alt, id) {
 
 function monsterGrowth() {
   if (winAnswers === 10) {
-    changeBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
+    // Here is where we ould preload the next level's background
+    changeToPreloadedBackground();
+    preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
     createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1, 'monster');
   } else if (winAnswers === 11) {
     createMonsterImg(monsterSelected.growth1, monsterSelected.alt1, 'monster');
@@ -742,7 +758,8 @@ function sceneControl() {
   if (scene === 1) {
     egg.style.display = 'none';
     createMonsterImg('assets/monster/Extras/Wizard.png', 'wizard', 'wizard1');
-    changeBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')");
+    changeToPreloadedBackground();
+    preloadBackground("url('assets/Backgrounds/Cave/cave_edited.jpg')");
     typewriter();
     scene += 1;
     resetText();
@@ -755,7 +772,8 @@ function sceneControl() {
     storyContent[2] = 'He stole it and ran away into his castle';
     storyContent[3] = '"Whatever will come from it will serve me well!"';
     storyContent[4] = '- happilly thought the sorcerrer...';
-    changeBackground("url('assets/Backgrounds/Cave/cave_edited.jpg')");
+    changeToPreloadedBackground();
+    preloadBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
     createMonsterImg('assets/monster/Starter/01.png', 'egg2', 'egg2');
     scene += 1;
     typewriter();
@@ -769,7 +787,8 @@ function sceneControl() {
     storyContent[2] = '"When you will come out - you will be my favourite server!"';
     storyContent[3] = '-said the wizard till he left the creature inside the egg alone...';
     storyContent[4] = '';
-    changeBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
+    changeToPreloadedBackground();
+    preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
     scene += 1;
     resetText();
     typewriter();
@@ -851,7 +870,7 @@ const uiHandler = {
         displayProblem();
         askProblem();
         specialItems();
-        clickedItems()
+        clickedItems();
         createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
       }
     };
@@ -859,6 +878,7 @@ const uiHandler = {
 };
 // * This fun contains the funs executed when the game starts
 function main() {
+  preloadBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')");
   audioHandler.init();
   timer.updateTime();
   uiHandler.activateEventListeners();
