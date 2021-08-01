@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 /*
 Returns a random digit [0-9]
 I'm leaving this here because other people have been using it but
@@ -16,6 +17,14 @@ function getRandomInt(min, max) {
   const minInt = Math.ceil(min);
   const maxInt = Math.floor(max);
   return Math.floor(Math.random() * (maxInt - minInt) + minInt);
+}
+
+/*
+Gets a random element from an array
+*/
+
+function getRandomArrayElement(array) {
+  return array[getRandomInt(0, array.length)];
 }
 
 /*
@@ -197,6 +206,67 @@ let level = 1;
 let count = 0;
 const ANSWERS_PER_LEVEL = 5;
 
+function askProblem() {
+  level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
+  let operator;
+  let numDigits;
+
+  // further function for separation
+
+  if (level === 1) {
+    numDigits = 1;
+    operator = '+';
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 2) {
+    numDigits = 1;
+    operator = '-';
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 3) {
+    numDigits = 1;
+    operator = ['+', '-'][getRandomInt(0, 2)];
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 4) {
+    const operand1 = String(getRandomInt(10, 100));
+    const operand2 = getRandomInt(1, 10);
+    operator = ['+', '-'][getRandomInt(0, 2)];
+    problem = addTermToExpression(operand1, operand2, operator);
+  } else if (level === 5) {
+    numDigits = 1;
+    operator = 'x';
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 6) {
+    numDigits = 1;
+    operator = '/';
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 7) {
+    numDigits = 1;
+    operator = ['x', '/'][getRandomInt(0, 2)];
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 8) {
+    numDigits = 1;
+    operator = getRandomOperator();
+    if (['+', '-'].includes(operator)) {
+      numDigits = 2;
+    }
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level >= 9) {
+    operator = getRandomOperator();
+    numDigits = 1;
+    if (['+', '-'].includes(operator)) {
+      numDigits = 2;
+    }
+    problem = makeSimpleExpression(numDigits, operator);
+    operator = ['+', '-'][getRandomInt(0, 2)];
+    numDigits = 2;
+    problem = addTermToExpression(
+      problem,
+      getRandomInt(1, 10 ** numDigits),
+      operator
+    );
+  }
+  const question = document.getElementsByClassName('operation__question')[0];
+  question.textContent = problem;
+}
 /*
 Here we activate the different effects
 effect1 is the armor
@@ -207,6 +277,12 @@ let effect2 = false;
 let effect4 = false;
 let isClicked = false;
 
+function buildPower(domElement, enabled) {
+  return {
+    domElement, enabled,
+  };
+}
+
 const powers = {
   armor: buildPower(document.getElementById('specialEffect1'), false),
   timeFreeze: buildPower(document.getElementById('specialEffect2'), false),
@@ -216,15 +292,14 @@ const powers = {
 };
 
 const specialEffects = {
-  armorUsed: false,
+  armorClicked: false,
   armorHits: 0,
   maxArmorHits: 5,
   timeFrozen: false,
-  timeFreezeUsed: false,
   secondLifeUsed: false,
   clawsUsed: 0,
-  init() {
-  },
+  maxClawUses: 5,
+  wingFootTimeGain: 60,
   acquirePower(power) {
     powers[power].enabled = true;
     powers[power].domElement.style.display = 'block';
@@ -234,7 +309,7 @@ const specialEffects = {
     powers[power].domElement.style.display = 'none';
   },
   armorEnabled() {
-    if (powers.armor.enabled) {
+    if (this.armorClicked) {
       return this.armorHits <= this.maxArmorHits;
     }
     return false;
@@ -243,6 +318,7 @@ const specialEffects = {
     this.armorHits += 1;
     if (this.armorHits >= this.maxArmorHits) {
       powers.armor.domElement.style.display = 'none';
+      this.armorClicked = false;
     } else {
       powers.armor.domElement.style.animationPlayState = 'running';
       setTimeout(() => {
@@ -252,6 +328,25 @@ const specialEffects = {
   },
   useTimeFreeze() {
     this.timeFrozen = true;
+  },
+  useClaw() {
+    this.clawsUsed += 1;
+    if (this.clawsUsed >= this.maxClawUses) {
+      powers.sharpClaw.domElement.style.display = 'none';
+    }
+    askProblem();
+  },
+  useWingFoot() {
+    if (powers.wingFoot.enabled) {
+      this.removePower('wingFoot');
+      timer.gainSeconds(specialEffects.wingFootTimeGain);
+    }
+  },
+  init() {
+    powers.armor.domElement.addEventListener('click', () => { specialEffects.armorClicked = true; });
+    powers.timeFreeze.domElement.addEventListener('click', () => specialEffects.useTimeFreeze());
+    powers.sharpClaw.domElement.addEventListener('click', () => specialEffects.useClaw());
+    powers.wingFoot.domElement.addEventListener('click', () => specialEffects.useWingFoot());
   },
 
 };
@@ -393,68 +488,6 @@ function monsterGrowth() {
   } else if (winAnswers === 31) {
     createMonsterImg(monsterSelected.growth4, monsterSelected.alt4, 'monster');
   }
-}
-
-function askProblem() {
-  level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
-  let operator;
-  let numDigits;
-
-  // further function for separation
-
-  if (level === 1) {
-    numDigits = 1;
-    operator = '+';
-    problem = makeSimpleExpression(numDigits, operator);
-  } else if (level === 2) {
-    numDigits = 1;
-    operator = '-';
-    problem = makeSimpleExpression(numDigits, operator);
-  } else if (level === 3) {
-    numDigits = 1;
-    operator = ['+', '-'][getRandomInt(0, 2)];
-    problem = makeSimpleExpression(numDigits, operator);
-  } else if (level === 4) {
-    const operand1 = String(getRandomInt(10, 100));
-    const operand2 = getRandomInt(1, 10);
-    operator = ['+', '-'][getRandomInt(0, 2)];
-    problem = addTermToExpression(operand1, operand2, operator);
-  } else if (level === 5) {
-    numDigits = 1;
-    operator = 'x';
-    problem = makeSimpleExpression(numDigits, operator);
-  } else if (level === 6) {
-    numDigits = 1;
-    operator = '/';
-    problem = makeSimpleExpression(numDigits, operator);
-  } else if (level === 7) {
-    numDigits = 1;
-    operator = ['x', '/'][getRandomInt(0, 2)];
-    problem = makeSimpleExpression(numDigits, operator);
-  } else if (level === 8) {
-    numDigits = 1;
-    operator = getRandomOperator();
-    if (['+', '-'].includes(operator)) {
-      numDigits = 2;
-    }
-    problem = makeSimpleExpression(numDigits, operator);
-  } else if (level >= 9) {
-    operator = getRandomOperator();
-    numDigits = 1;
-    if (['+', '-'].includes(operator)) {
-      numDigits = 2;
-    }
-    problem = makeSimpleExpression(numDigits, operator);
-    operator = ['+', '-'][getRandomInt(0, 2)];
-    numDigits = 2;
-    problem = addTermToExpression(
-      problem,
-      getRandomInt(1, 10 ** numDigits),
-      operator
-    );
-  }
-  const question = document.getElementsByClassName('operation__question')[0];
-  question.textContent = problem;
 }
 
 /*
@@ -694,14 +727,6 @@ const timer = {
   },
 };
 
-function buildPower(domElement, enabled) {
-  return {
-    domElement, enabled,
-  };
-}
-
-
-
 function specialItems() {
   const image = document.getElementById('specialEffect1');
   const image1 = document.getElementById('specialEffect2');
@@ -766,13 +791,19 @@ function checkIfAnswerIsCorrect() {
   const userInputField = document.getElementById('answer');
   const userAnswer = parseInt(userInputField.value, 10);
   correctAnswer = solveExpression(problem);
+  specialEffects.timeFrozen = false;
+  specialEffects.removePower('timeFreeze');
   if (userAnswer === correctAnswer) {
     audioHandler.playNoise('correct');
     winAnswers += 1;
-    if (winAnswers % 10 === 0) {
+    if (winAnswers % ANSWERS_PER_LEVEL === 0) {
       level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
       timer.levelupHandling();
       audioHandler.levelUpHandling(level);
+      // Gives player a random new power
+      specialEffects.acquirePower(getRandomArrayElement(Object.keys(powers)));
+    } else {
+      timer.timerAnswerHandling('correct');
     }
     userInputField.value = '';
     askProblem();
@@ -780,7 +811,6 @@ function checkIfAnswerIsCorrect() {
     // console.log(
     //  `${userAnswer} was the correct answer!\nGood job! Correct answers: ${winAnswers}`
     // );
-    timer.timerAnswerHandling('correct');
   } else {
     userInputField.value = '';
     if (specialEffects.armorEnabled()) {
@@ -1000,7 +1030,7 @@ const uiHandler = {
         displayProblem();
         askProblem();
         specialItems();
-        clickedItems();
+        // clickedItems();
         createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
       }
     };
@@ -1012,6 +1042,7 @@ function main() {
     "url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')"
   );
   audioHandler.init();
+  specialEffects.init();
   timer.updateTime();
   uiHandler.activateEventListeners();
 }
