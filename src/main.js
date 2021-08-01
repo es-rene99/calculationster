@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable comma-dangle */
 /*
 Returns a random digit [0-9]
@@ -25,6 +26,20 @@ Gets a random element from an array
 
 function getRandomArrayElement(array) {
   return array[getRandomInt(0, array.length)];
+}
+
+/*
+Fisher-yates array shuffle
+*/
+function shuffle(inputArray) {
+  const array = [...inputArray];
+  for (let i = array.length - 1; i > 0; i -= 1) {
+    const j = getRandomInt(0, i + 1); // random index from 0 to i
+
+    // swap elements array[i] and array[j]
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
 
 /*
@@ -583,7 +598,7 @@ const audioHandler = {
     } else if (level === 5) {
       this.changeBGM('gameplayPhaseThreeBGM');
     } else if (level === 6) {
-      this.changeBGM('gameplayPhaseThreeBGM');
+      this.changeBGM('gameplayPhaseFourBGM');
     } else {
       bgmChanged = false;
     }
@@ -788,19 +803,27 @@ function checkIfAnswerIsCorrect() {
   const userInputField = document.getElementById('answer');
   const userAnswer = parseInt(userInputField.value, 10);
   correctAnswer = solveExpression(problem);
-  specialEffects.timeFrozen = false;
-  specialEffects.removePower('timeFreeze');
+  if (specialEffects.timeFrozen) {
+    specialEffects.timeFrozen = false;
+    specialEffects.removePower('timeFreeze');
+  }
   if (userAnswer === correctAnswer) {
-    audioHandler.playNoise('correct');
     winAnswers += 1;
     if (winAnswers % ANSWERS_PER_LEVEL === 0) {
       level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
       timer.levelupHandling();
       audioHandler.levelUpHandling(level);
-      // Gives player a random new power
-      specialEffects.acquirePower(getRandomArrayElement(Object.keys(powers)));
+      // Shuffle the array of powers and give the player the first one they don't already have
+      const shuffledPowers = shuffle(Object.keys(powers));
+      for (const power of shuffledPowers) {
+        if (!powers[power].enabled) {
+          specialEffects.acquirePower(power);
+          break;
+        }
+      }
     } else {
       timer.timerAnswerHandling('correct');
+      audioHandler.playNoise('correct');
     }
     userInputField.value = '';
     askProblem();
