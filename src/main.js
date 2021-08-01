@@ -568,12 +568,13 @@ const timer = {
       if (timer.status === 'running') {
         if (this.sec <= 0) {
           clearInterval(timeInterval);
+          this.sec = 0;
           this.gameOver();
-        } if (effect2 === true && isClicked === false) {
-          this.sec -= 0
+        } else if (effect2 === true && isClicked === false) {
+          this.sec -= 0;
         } else {
-        this.sec -= 1
-      }
+          this.sec -= 1;
+        }
         this.updateTime();
         if (this.sec <= 5 && this.sec > 0) {
           audioHandler.startTimeWarning();
