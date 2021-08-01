@@ -65,8 +65,7 @@ Returns a random operator
 
 function getRandomOperator() {
   const operators = ['+', '-', 'x', '/'];
-  const randomOperator =
-    operators[Math.floor(Math.random() * operators.length)];
+  const randomOperator = operators[Math.floor(Math.random() * operators.length)];
   return randomOperator;
 }
 
@@ -77,9 +76,7 @@ Returns an expression string with all multiplication and division resolved.
 
 function resolveMultAndDiv(expressionString) {
   const expressionArray = expressionString.split(' ');
-  let nextOperatorIndex = expressionArray.findIndex((o) =>
-    ['x', '/'].includes(o)
-  );
+  let nextOperatorIndex = expressionArray.findIndex((o) => ['x', '/'].includes(o));
   while (nextOperatorIndex !== -1) {
     const operator = expressionArray[nextOperatorIndex];
     const operandOne = Number(expressionArray[nextOperatorIndex - 1]);
@@ -90,9 +87,7 @@ function resolveMultAndDiv(expressionString) {
       operator
     );
     expressionArray.splice(nextOperatorIndex - 1, 3, resultOfNextOperation);
-    nextOperatorIndex = expressionArray.findIndex((o) =>
-      ['x', '/'].includes(o)
-    );
+    nextOperatorIndex = expressionArray.findIndex((o) => ['x', '/'].includes(o));
   }
   return expressionArray.join(' ');
 }
@@ -154,8 +149,7 @@ Avoids negative and fractional results at all points during evaluation of new ex
 function addTermToExpression(expression, operand, operator) {
   const expressionArray = expression.split(' ');
   const expressionSolution = solveExpression(expression);
-  const expressionArrayResolvedMultAndDiv =
-    resolveMultAndDiv(expression).split(' ');
+  const expressionArrayResolvedMultAndDiv = resolveMultAndDiv(expression).split(' ');
   if (['+', 'x'].includes(operator)) {
     expressionArray.unshift(operand, operator);
   } else if (operator === '-') {
@@ -165,8 +159,7 @@ function addTermToExpression(expression, operand, operator) {
     if (operand < expressionSolution) {
       expressionArray.push(operator, operand);
     } else {
-      const newTerm =
-        operand + 2 * Number(expressionArrayResolvedMultAndDiv[0]);
+      const newTerm = operand + 2 * Number(expressionArrayResolvedMultAndDiv[0]);
       expressionArray.unshift(newTerm, operator);
     }
   } else {
@@ -272,10 +265,10 @@ Here we activate the different effects
 effect1 is the armor
 */
 
-let effect1 = false;
-let effect2 = false;
-let effect4 = false;
-let isClicked = false;
+// let effect1 = false;
+// let effect2 = false;
+// let effect4 = false;
+// let isClicked = false;
 
 function buildPower(domElement, enabled) {
   return {
@@ -339,6 +332,8 @@ const specialEffects = {
   useWingFoot() {
     if (powers.wingFoot.enabled) {
       this.removePower('wingFoot');
+      // most likely, event listeners should just be added in main but for now i'm doing it here
+      // which is why timer is being used before it is defined
       timer.gainSeconds(specialEffects.wingFootTimeGain);
     }
   },
@@ -727,67 +722,67 @@ const timer = {
   },
 };
 
-function specialItems() {
-  const image = document.getElementById('specialEffect1');
-  const image1 = document.getElementById('specialEffect2');
-  const image2 = document.getElementById('specialEffect3');
-  const image3 = document.getElementById('specialEffect4');
-  const image4 = document.getElementById('specialEffect5');
-  // image.className = 'specialEffects__image';
-  // image1.className = 'specialEffects__image';
-  // image2.className = 'specialEffects__image';
-  // image3.className = 'specialEffects__image';
-  // image4.className = 'specialEffects__image';
-}
-
+// currently deprecated
+// function specialItems() {
+//   const image = document.getElementById('specialEffect1');
+//   const image1 = document.getElementById('specialEffect2');
+//   const image2 = document.getElementById('specialEffect3');
+//   const image3 = document.getElementById('specialEffect4');
+//   const image4 = document.getElementById('specialEffect5');
+// image.className = 'specialEffects__image';
+// image1.className = 'specialEffects__image';
+// image2.className = 'specialEffects__image';
+// image3.className = 'specialEffects__image';
+// image4.className = 'specialEffects__image';
+// }
 
 // currently deprecated
-function clickedItems() {
-  const getEffect1 = document.getElementById('specialEffect1');
-  getEffect1.addEventListener(
-    'click',
-    () => {
-      effect1 = true;
-      const getCount = document
-        .getElementById('enter-answer-btn')
-        .addEventListener('click', () => {
-          console.log((count += 1));
-        });
-    },
-    { once: true }
-  );
-  const getEffect2 = document.getElementById('specialEffect2');
-  getEffect2.addEventListener(
-    'click',
-    () => {
-      effect2 = true;
-      document
-        .getElementById('enter-answer-btn')
-        .addEventListener('click', () => {
-          isClicked = true;
-        });
-    },
-    { once: true }
-  );
+// function clickedItems() {
+//   const getEffect1 = document.getElementById('specialEffect1');
+//   getEffect1.addEventListener(
+//     'click',
+//     () => {
+//       effect1 = true;
+//       const getCount = document
+//         .getElementById('enter-answer-btn')
+//         .addEventListener('click', () => {
+//           console.log((count += 1));
+//         });
+//     },
+//     { once: true }
+//   );
+//   const getEffect2 = document.getElementById('specialEffect2');
+//   getEffect2.addEventListener(
+//     'click',
+//     () => {
+//       effect2 = true;
+//       document
+//         .getElementById('enter-answer-btn')
+//         .addEventListener('click', () => {
+//           isClicked = true;
+//         });
+//     },
+//     { once: true }
+//   );
 
-  const getEffect4 = document.getElementById('specialEffect4');
-  getEffect4.addEventListener(
-    'click',
-    () => {
-      askProblem();
-    },
-    { once: true }
-  );
+//   const getEffect4 = document.getElementById('specialEffect4');
+//   getEffect4.addEventListener(
+//     'click',
+//     () => {
+//       askProblem();
+//     },
+//     { once: true }
+//   );
 
-  const getEffect5 = document.getElementById('specialEffect5');
-  getEffect5.addEventListener(
-    'click',
-    () => {
-      timer.gainSeconds(60);
-    },
-    { once: true }
-  );
-}
+//   const getEffect5 = document.getElementById('specialEffect5');
+//   getEffect5.addEventListener(
+//     'click',
+//     () => {
+//       timer.gainSeconds(60);
+//     },
+//     { once: true }
+//   );
+// }
 
 function checkIfAnswerIsCorrect() {
   const userInputField = document.getElementById('answer');
@@ -1031,7 +1026,7 @@ const uiHandler = {
         this.toggleColorInSideBars(this.sidebars);
         displayProblem();
         askProblem();
-        specialItems();
+        // specialItems();
         // clickedItems();
         createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
       }
