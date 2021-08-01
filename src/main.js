@@ -740,6 +740,8 @@ function specialItems() {
   // image4.className = 'specialEffects__image';
 }
 
+
+// currently deprecated
 function clickedItems() {
   const getEffect1 = document.getElementById('specialEffect1');
   getEffect1.addEventListener(
