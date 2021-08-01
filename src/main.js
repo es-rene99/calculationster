@@ -56,7 +56,8 @@ Returns a random operator
 
 function getRandomOperator() {
   const operators = ['+', '-', 'x', '/'];
-  const randomOperator = operators[Math.floor(Math.random() * operators.length)];
+  const randomOperator =
+    operators[Math.floor(Math.random() * operators.length)];
   return randomOperator;
 }
 
@@ -67,14 +68,22 @@ Returns an expression string with all multiplication and division resolved.
 
 function resolveMultAndDiv(expressionString) {
   const expressionArray = expressionString.split(' ');
-  let nextOperatorIndex = expressionArray.findIndex((o) => ['x', '/'].includes(o));
+  let nextOperatorIndex = expressionArray.findIndex((o) =>
+    ['x', '/'].includes(o)
+  );
   while (nextOperatorIndex !== -1) {
     const operator = expressionArray[nextOperatorIndex];
     const operandOne = Number(expressionArray[nextOperatorIndex - 1]);
     const operandTwo = Number(expressionArray[nextOperatorIndex + 1]);
-    const resultOfNextOperation = getCorrectResult(operandOne, operandTwo, operator);
+    const resultOfNextOperation = getCorrectResult(
+      operandOne,
+      operandTwo,
+      operator
+    );
     expressionArray.splice(nextOperatorIndex - 1, 3, resultOfNextOperation);
-    nextOperatorIndex = expressionArray.findIndex((o) => ['x', '/'].includes(o));
+    nextOperatorIndex = expressionArray.findIndex((o) =>
+      ['x', '/'].includes(o)
+    );
   }
   return expressionArray.join(' ');
 }
@@ -91,7 +100,11 @@ function solveExpression(expressionString) {
     const operator = expressionArray[1];
     const operandOne = Number(expressionArray[0]);
     const operandTwo = Number(expressionArray[2]);
-    const resultOfNextOperation = getCorrectResult(operandOne, operandTwo, operator);
+    const resultOfNextOperation = getCorrectResult(
+      operandOne,
+      operandTwo,
+      operator
+    );
     expressionArray.splice(0, 3, resultOfNextOperation);
   }
   return parseInt(expressionArray[0], 10);
@@ -132,7 +145,8 @@ Avoids negative and fractional results at all points during evaluation of new ex
 function addTermToExpression(expression, operand, operator) {
   const expressionArray = expression.split(' ');
   const expressionSolution = solveExpression(expression);
-  const expressionArrayResolvedMultAndDiv = resolveMultAndDiv(expression).split(' ');
+  const expressionArrayResolvedMultAndDiv =
+    resolveMultAndDiv(expression).split(' ');
   if (['+', 'x'].includes(operator)) {
     expressionArray.unshift(operand, operator);
   } else if (operator === '-') {
@@ -142,7 +156,8 @@ function addTermToExpression(expression, operand, operator) {
     if (operand < expressionSolution) {
       expressionArray.push(operator, operand);
     } else {
-      const newTerm = operand + 2 * Number(expressionArrayResolvedMultAndDiv[0]);
+      const newTerm =
+        operand + 2 * Number(expressionArrayResolvedMultAndDiv[0]);
       expressionArray.unshift(newTerm, operator);
     }
   } else {
@@ -179,10 +194,11 @@ let winAnswers = 0;
 let problem;
 let correctAnswer;
 let level;
-let count = 0
+let count = 0;
 
 /*
 Here we activate the different effects
+effect1 is the armor
 */
 
 let effect1 = false;
@@ -194,14 +210,20 @@ let isClicked = false;
 // Note that src here sets the source for the background to be preloaded
 
 function preloadBackground(src) {
-  const nextScene = document.getElementsByClassName('background-image-div preload')[0];
+  const nextScene = document.getElementsByClassName(
+    'background-image-div preload'
+  )[0];
   nextScene.style.background = `${src}no-repeat center center fixed`;
   nextScene.style.backgroundSize = 'cover';
 }
 
 function changeToPreloadedBackground() {
-  const currentBackground = document.getElementsByClassName('background-image-div current')[0];
-  const nextScene = document.getElementsByClassName('background-image-div preload')[0];
+  const currentBackground = document.getElementsByClassName(
+    'background-image-div current'
+  )[0];
+  const nextScene = document.getElementsByClassName(
+    'background-image-div preload'
+  )[0];
   currentBackground.style.zIndex = -3;
   nextScene.style.zIndex = -1;
   nextScene.classList.remove('preload');
@@ -289,8 +311,8 @@ const monsters = [
     altTransform3: 'zombie to grumpy ogre',
     transformation4: 'assets/monsterTransformation/humanoid/humt04.gif',
     altTransform4: 'ogre ot dark knight',
-
-  }];
+  },
+];
 
 const monsterSelected = monsters[getRandomDigit(monsters.length)];
 
@@ -305,26 +327,42 @@ function monsterGrowth() {
     // Here is where we ould preload the next level's background
     changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
-    createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1, 'monster');
+    createMonsterImg(
+      monsterSelected.transformation1,
+      monsterSelected.altTransform1,
+      'monster'
+    );
   } else if (winAnswers === 11) {
     createMonsterImg(monsterSelected.growth1, monsterSelected.alt1, 'monster');
   } else if (winAnswers === 30) {
-    createMonsterImg(monsterSelected.transformation2, monsterSelected.altTransform2, 'monster');
+    createMonsterImg(
+      monsterSelected.transformation2,
+      monsterSelected.altTransform2,
+      'monster'
+    );
   } else if (winAnswers === 31) {
     createMonsterImg(monsterSelected.growth2, monsterSelected.alt2, 'monster');
   } else if (winAnswers === 50) {
-    createMonsterImg(monsterSelected.transformation3, monsterSelected.altTransform3, 'monster');
+    createMonsterImg(
+      monsterSelected.transformation3,
+      monsterSelected.altTransform3,
+      'monster'
+    );
   } else if (winAnswers === 51) {
     createMonsterImg(monsterSelected.growth3, monsterSelected.alt3, 'monster');
   } else if (winAnswers === 70) {
-    createMonsterImg(monsterSelected.transformation4, monsterSelected.altTransform4, 'monster');
+    createMonsterImg(
+      monsterSelected.transformation4,
+      monsterSelected.altTransform4,
+      'monster'
+    );
   } else if (winAnswers === 71) {
     createMonsterImg(monsterSelected.growth4, monsterSelected.alt4, 'monster');
   }
 }
 
 function askProblem() {
-  level = Math.floor((winAnswers / 10)) + 1;
+  level = Math.floor(winAnswers / 10) + 1;
   let operator;
   let numDigits;
 
@@ -375,7 +413,11 @@ function askProblem() {
     problem = makeSimpleExpression(numDigits, operator);
     operator = ['+', '-'][getRandomInt(0, 2)];
     numDigits = 2;
-    problem = addTermToExpression(problem, getRandomInt(1, 10 ** numDigits), operator);
+    problem = addTermToExpression(
+      problem,
+      getRandomInt(1, 10 ** numDigits),
+      operator
+    );
   }
   const question = document.getElementsByClassName('operation__question')[0];
   question.textContent = problem;
@@ -417,13 +459,28 @@ const audioHandler = {
     };
     this.loops = {
       introBGM: new Sound('./assets/sounds/loops/intro.mp3', true),
-      menuThemeBGM: new Sound('./assets/sounds/loops/start-menu-theme.mp3', true),
+      menuThemeBGM: new Sound(
+        './assets/sounds/loops/start-menu-theme.mp3',
+        true
+      ),
       gameOverBGM: new Sound('./assets/sounds/loops/game-over.mp3', true),
       timeWarning: new Sound('./assets/sounds/loops/time-warning.mp3', true),
-      gameplayPhaseOneBGM: new Sound('./assets/sounds/loops/gameplay-early.mp3', true),
-      gameplayPhaseTwoBGM: new Sound('./assets/sounds/loops/gameplay-mid-1.mp3', true),
-      gameplayPhaseThreeBGM: new Sound('./assets/sounds/loops/gameplay-mid-2.mp3', true),
-      gameplayPhaseFourBGM: new Sound('./assets/sounds/loops/gameplay-late.mp3', true),
+      gameplayPhaseOneBGM: new Sound(
+        './assets/sounds/loops/gameplay-early.mp3',
+        true
+      ),
+      gameplayPhaseTwoBGM: new Sound(
+        './assets/sounds/loops/gameplay-mid-1.mp3',
+        true
+      ),
+      gameplayPhaseThreeBGM: new Sound(
+        './assets/sounds/loops/gameplay-mid-2.mp3',
+        true
+      ),
+      gameplayPhaseFourBGM: new Sound(
+        './assets/sounds/loops/gameplay-late.mp3',
+        true
+      ),
     };
     this.bgm = this.loops.introBGM;
   },
@@ -522,10 +579,10 @@ const timer = {
     animatedText.onanimationend = () => {
       animatedText.remove();
     };
-    const image = document.getElementById("specialEffect1")
-    image.addEventListener("click", () => {
-      this.sec -= 0
-    })
+    const image = document.getElementById('specialEffect1');
+    image.addEventListener('click', () => {
+      this.sec -= 0;
+    });
     this.animationContainer.appendChild(animatedText);
     this.updateTime();
     const timerDiv = document.getElementById('game__timer');
@@ -535,7 +592,7 @@ const timer = {
     }, 500);
   },
   gameOver() {
-    this.updateDisplay('Time\'s up!');
+    this.updateDisplay("Time's up!");
     audioHandler.gameOver();
     document.getElementById('game-wrapper').innerHTML = '';
     const div = document.createElement('div');
@@ -544,7 +601,10 @@ const timer = {
     const points = document.createElement('p');
     const losingText = document.createElement('p');
     const image = document.createElement('img');
-    image.setAttribute('src', './assets/DeadSkeleton/Skeleton/SkeletonDead.gif');
+    image.setAttribute(
+      'src',
+      './assets/DeadSkeleton/Skeleton/SkeletonDead.gif'
+    );
     image.classList.add('gameover____image');
     text.classList.add('gameover____message');
     const newContent = document.createTextNode('Game Over');
@@ -569,11 +629,12 @@ const timer = {
         if (this.sec <= 0) {
           clearInterval(timeInterval);
           this.gameOver();
-        } if (effect2 === true && isClicked === false) {
-          this.sec -= 0
+        }
+        if (effect2 === true && isClicked === false) {
+          this.sec -= 0;
         } else {
-        this.sec -= 1
-      }
+          this.sec -= 1;
+        }
         this.updateTime();
         if (this.sec <= 5 && this.sec > 0) {
           audioHandler.startTimeWarning();
@@ -587,11 +648,11 @@ const timer = {
     if (typeOfAnswer === 'correct') {
       timer.gainSeconds(5);
     } else if (typeOfAnswer === 'wrong') {
-        if(effect1 === true && count < 5){
-        timer.loseSeconds(0)
+      if (effect1 === true && count < 5) {
+        timer.loseSeconds(0);
       } else {
-      timer.loseSeconds(5);
-    }
+        timer.loseSeconds(5);
+      }
     }
   },
   levelupHandling() {
@@ -599,31 +660,119 @@ const timer = {
   },
 };
 
+function buildPower(domElement, enabled) {
+  return {
+    domElement, enabled,
+  };
+}
+
+const powers = {
+  armor: buildPower(document.getElementById('specialEffect1'), false),
+  timeFreeze: buildPower(document.getElementById('specialEffect2'), false),
+  secondLife: buildPower(document.getElementById('specialEffect3'), false),
+  sharpClaw: buildPower(document.getElementById('specialEffect4'), false),
+  wingFoot: buildPower(document.getElementById('specialEffect5'), false),
+};
+
+const specialEffects = {
+  armorUsed: false,
+  armorHits: 0,
+  maxArmorHits: 5,
+  timeFrozen: false,
+  timeFreezeUsed: false,
+  secondLifeUsed: false,
+  clawsUsed: 0,
+  init() {
+  },
+  acquirePower(power) {
+    powers[power].enabled = true;
+    powers[power].domElement.style.display = 'block';
+  },
+  removePower(power) {
+    powers[power].enabled = false;
+    powers[power].domElement.style.display = 'none';
+  },
+  armorEnabled() {
+    if (powers.armor.enabled) {
+      return this.armorHits <= this.maxArmorHits;
+    }
+    return false;
+  },
+  useArmor() {
+    this.armorHits += 1;
+    if (this.armorHits >= this.maxArmorHits) {
+      powers.armor.domElement.style.display = 'none';
+    } else {
+      powers.armor.domElement.style.animationPlayState = 'running';
+      setTimeout(() => {
+        powers.armor.domElement.style.animationPlayState = 'paused';
+      }, 500);
+    }
+  },
+  useTimeFreeze() {
+    this.timeFrozen = true;
+  },
+
+};
+
+function specialItems() {
+  const image = document.getElementById('specialEffect1');
+  const image1 = document.getElementById('specialEffect2');
+  const image2 = document.getElementById('specialEffect3');
+  const image3 = document.getElementById('specialEffect4');
+  const image4 = document.getElementById('specialEffect5');
+  // image.className = 'specialEffects__image';
+  // image1.className = 'specialEffects__image';
+  // image2.className = 'specialEffects__image';
+  // image3.className = 'specialEffects__image';
+  // image4.className = 'specialEffects__image';
+}
+
 function clickedItems() {
-  const getEffect1 = document.getElementById("specialEffect1")
-  getEffect1.addEventListener("click", () => {
-      effect1 = true
-      var getCount = document.getElementById("enter-answer-btn").addEventListener("click", () => {
-        console.log(count += 1)
-      })
-  }, {once: true})
-  const getEffect2 = document.getElementById("specialEffect2")
-  getEffect2.addEventListener("click", () => {
-      effect2 = true
-      document.getElementById("enter-answer-btn").addEventListener("click", () => {
-        isClicked = true
-      })
-  }, {once: true})
+  const getEffect1 = document.getElementById('specialEffect1');
+  getEffect1.addEventListener(
+    'click',
+    () => {
+      effect1 = true;
+      const getCount = document
+        .getElementById('enter-answer-btn')
+        .addEventListener('click', () => {
+          console.log((count += 1));
+        });
+    },
+    { once: true }
+  );
+  const getEffect2 = document.getElementById('specialEffect2');
+  getEffect2.addEventListener(
+    'click',
+    () => {
+      effect2 = true;
+      document
+        .getElementById('enter-answer-btn')
+        .addEventListener('click', () => {
+          isClicked = true;
+        });
+    },
+    { once: true }
+  );
 
-  const getEffect4 = document.getElementById("specialEffect4")
-  getEffect4.addEventListener("click", () => {
-      askProblem()
-  }, {once: true})
+  const getEffect4 = document.getElementById('specialEffect4');
+  getEffect4.addEventListener(
+    'click',
+    () => {
+      askProblem();
+    },
+    { once: true }
+  );
 
-  const getEffect5 = document.getElementById("specialEffect5")
-  getEffect5.addEventListener("click", () => {
-      timer.gainSeconds(60)
-  }, {once: true})
+  const getEffect5 = document.getElementById('specialEffect5');
+  getEffect5.addEventListener(
+    'click',
+    () => {
+      timer.gainSeconds(60);
+    },
+    { once: true }
+  );
 }
 
 function checkIfAnswerIsCorrect() {
@@ -634,7 +783,7 @@ function checkIfAnswerIsCorrect() {
     audioHandler.playNoise('correct');
     winAnswers += 1;
     if (winAnswers % 10 === 0) {
-      level = Math.floor((winAnswers / 10)) + 1;
+      level = Math.floor(winAnswers / 10) + 1;
       timer.levelupHandling();
       audioHandler.levelUpHandling(level);
     }
@@ -647,8 +796,14 @@ function checkIfAnswerIsCorrect() {
     timer.timerAnswerHandling('correct');
   } else {
     userInputField.value = '';
-    audioHandler.playNoise('incorrect');
-    timer.timerAnswerHandling('wrong');
+    if (specialEffects.armorEnabled()) {
+      // The following noise has not been implemented yet
+      // audioHandler.playNoise('armor');
+      specialEffects.useArmor();
+    } else {
+      audioHandler.playNoise('incorrect');
+      timer.timerAnswerHandling('wrong');
+    }
     // console.log(
     //  `Ouch! ${userAnswer} was not the correct answer.\n Try again! (correct : ${correctAnswer})`,
     // );
@@ -656,32 +811,14 @@ function checkIfAnswerIsCorrect() {
   userInputField.focus();
 }
 
-function specialItems() {
-  const image = document.getElementById("specialEffect1")
-  const image1 = document.getElementById('specialEffect2')
-  const image2 = document.getElementById('specialEffect3')
-  const image3 = document.getElementById('specialEffect4')
-  const image4 = document.getElementById('specialEffect5')
-  image.className = "specialEffects__image"
-  image1.className = "specialEffects__image"
-  image2.className = "specialEffects__image"
-  image3.className = "specialEffects__image"
-  image4.className = "specialEffects__image"
-  image.setAttribute('src', './assets/specialEffects/breastplate.png')
-  image1.setAttribute('src', './assets/specialEffects/emptyhourglass.png')
-  image2.setAttribute('src', './assets/specialEffects/halfdead.png')
-  image3.setAttribute('src', './assets/specialEffects/top-paw.png')
-  image4.setAttribute('src', './assets/specialEffects/wingfoot.png')
-}
-
 // display the problem, add input field and a button to check the result
 function displayProblem() {
   const operationPanel = document.getElementById('operation__panel');
   const answerInputWrapper = document.createElement('form');
-     answerInputWrapper.addEventListener('click', (e) => {
-       e.preventDefault();
-     });
- answerInputWrapper.autocomplete = 'off';
+  answerInputWrapper.addEventListener('click', (e) => {
+    e.preventDefault();
+  });
+  answerInputWrapper.autocomplete = 'off';
   answerInputWrapper.classList.add('answer-input-wrapper');
   const answerInput = document.createElement('input');
   answerInput.id = 'answer';
@@ -724,13 +861,15 @@ function typewriter() {
   while (iRow < iIndex) {
     sContents += `${storyContent[iRow++]}<br />`;
   }
-  destination.innerHTML = `${sContents + storyContent[iIndex].substring(0, iTextPos)}`;
+  destination.innerHTML = `${
+    sContents + storyContent[iIndex].substring(0, iTextPos)
+  }`;
   if (iTextPos++ == iArrLength) {
     iTextPos = 0;
     iIndex++;
     if (iIndex != storyContent.length) {
       iArrLength = storyContent[iIndex].length;
-  // eslint-disable-next-line no-implied-eval
+      // eslint-disable-next-line no-implied-eval
       setTimeout('typewriter()', 500);
     }
   } else {
@@ -784,8 +923,10 @@ function sceneControl() {
     wizard.style.bottom = '8%';
     storyContent[0] = 'He locked  the egg in his dungeon';
     storyContent[1] = 'where he used to make his experiments...';
-    storyContent[2] = '"When you will come out - you will be my favourite server!"';
-    storyContent[3] = '-said the wizard till he left the creature inside the egg alone...';
+    storyContent[2] =
+      '"When you will come out - you will be my favourite server!"';
+    storyContent[3] =
+      '-said the wizard till he left the creature inside the egg alone...';
     storyContent[4] = '';
     changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
@@ -793,10 +934,12 @@ function sceneControl() {
     resetText();
     typewriter();
   } else if (scene === 4) {
-    storyContent[0] = 'As soon as he left the beast withing tried to break away...';
+    storyContent[0] =
+      'As soon as he left the beast withing tried to break away...';
     storyContent[1] = 'but the shackles of the egg were not letting him out';
     storyContent[2] = 'Then the creature within heard a voice:';
-    storyContent[3] = '"Eat the knowledge! Solve the problems and you will become stronger...';
+    storyContent[3] =
+      '"Eat the knowledge! Solve the problems and you will become stronger...';
     storyContent[4] = '"...Grow enough to get your freedom!"';
     egg.style.animation = 'shake 3s infinite';
     wizard.style.display = 'none';
@@ -878,7 +1021,9 @@ const uiHandler = {
 };
 // * This fun contains the funs executed when the game starts
 function main() {
-  preloadBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')");
+  preloadBackground(
+    "url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')"
+  );
   audioHandler.init();
   timer.updateTime();
   uiHandler.activateEventListeners();

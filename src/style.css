@@ -302,9 +302,23 @@ img.egg{
 }
 
 /* special effects */
-.specialEffects__image {
+.special-ability {
   width: 100px;
   cursor: pointer;
+  display: none;
+}
+
+.armor {
+  animation: shake 0.5s;
+  animation-iteration-count: 1;
+  animation-play-state: running;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+}
+
+.power-used {
+  opacity: 0.7;
+  fill: grey;
 }
 
 .game-right-panel {
