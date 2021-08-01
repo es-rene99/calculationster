@@ -193,8 +193,14 @@ So far we are tracking the number correct in this variable, winAnswers.
 let winAnswers = 0;
 let problem;
 let correctAnswer;
+<<<<<<< HEAD
 let level;
 let count = 0;
+=======
+let level = 1;
+let count = 0;
+const ANSWERS_PER_LEVEL = 5;
+>>>>>>> main
 
 /*
 Here we activate the different effects
@@ -323,10 +329,11 @@ function createMonsterImg(src, alt, id) {
 }
 
 function monsterGrowth() {
-  if (winAnswers === 10) {
+  if (winAnswers === 5) {
     // Here is where we ould preload the next level's background
     changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
+<<<<<<< HEAD
     createMonsterImg(
       monsterSelected.transformation1,
       monsterSelected.altTransform1,
@@ -357,12 +364,32 @@ function monsterGrowth() {
       'monster'
     );
   } else if (winAnswers === 71) {
+=======
+    createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1, 'monster');
+  } else if (winAnswers === 6) {
+    createMonsterImg(monsterSelected.growth1, monsterSelected.alt1, 'monster');
+  } else if (winAnswers === 10) {
+    createMonsterImg(monsterSelected.transformation2, monsterSelected.altTransform2, 'monster');
+  } else if (winAnswers === 11) {
+    createMonsterImg(monsterSelected.growth2, monsterSelected.alt2, 'monster');
+  } else if (winAnswers === 20) {
+    createMonsterImg(monsterSelected.transformation3, monsterSelected.altTransform3, 'monster');
+  } else if (winAnswers === 21) {
+    createMonsterImg(monsterSelected.growth3, monsterSelected.alt3, 'monster');
+  } else if (winAnswers === 30) {
+    createMonsterImg(monsterSelected.transformation4, monsterSelected.altTransform4, 'monster');
+  } else if (winAnswers === 31) {
+>>>>>>> main
     createMonsterImg(monsterSelected.growth4, monsterSelected.alt4, 'monster');
   }
 }
 
 function askProblem() {
+<<<<<<< HEAD
   level = Math.floor(winAnswers / 10) + 1;
+=======
+  level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
+>>>>>>> main
   let operator;
   let numDigits;
 
@@ -628,9 +655,14 @@ const timer = {
       if (timer.status === 'running') {
         if (this.sec <= 0) {
           clearInterval(timeInterval);
+          this.sec = 0;
           this.gameOver();
+<<<<<<< HEAD
         }
         if (effect2 === true && isClicked === false) {
+=======
+        } else if (effect2 === true && isClicked === false) {
+>>>>>>> main
           this.sec -= 0;
         } else {
           this.sec -= 1;
@@ -783,7 +815,11 @@ function checkIfAnswerIsCorrect() {
     audioHandler.playNoise('correct');
     winAnswers += 1;
     if (winAnswers % 10 === 0) {
+<<<<<<< HEAD
       level = Math.floor(winAnswers / 10) + 1;
+=======
+      level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
+>>>>>>> main
       timer.levelupHandling();
       audioHandler.levelUpHandling(level);
     }
