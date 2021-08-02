@@ -4,10 +4,10 @@ body,
 main {
   min-height: 100vh;
   overflow: hidden;
-  background-color: #36454f;
 }
 
 body {
+  background-color: #36454f;
   opacity: 0;
   margin: 0;
   min-height: 100vh;
