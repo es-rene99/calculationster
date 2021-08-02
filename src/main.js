@@ -485,17 +485,17 @@ function monsterGrowth() {
     createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1, 'monster');
   } else if (winAnswers === 6) {
     createMonsterImg(monsterSelected.growth1, monsterSelected.alt1, 'monster');
-  } else if (winAnswers === 10) {
+  } else if (winAnswers === 15) {
     createMonsterImg(monsterSelected.transformation2, monsterSelected.altTransform2, 'monster');
-  } else if (winAnswers === 11) {
+  } else if (winAnswers === 16) {
     createMonsterImg(monsterSelected.growth2, monsterSelected.alt2, 'monster');
-  } else if (winAnswers === 20) {
+  } else if (winAnswers === 25) {
     createMonsterImg(monsterSelected.transformation3, monsterSelected.altTransform3, 'monster');
-  } else if (winAnswers === 21) {
+  } else if (winAnswers === 26) {
     createMonsterImg(monsterSelected.growth3, monsterSelected.alt3, 'monster');
-  } else if (winAnswers === 30) {
+  } else if (winAnswers === 35) {
     createMonsterImg(monsterSelected.transformation4, monsterSelected.altTransform4, 'monster');
-  } else if (winAnswers === 31) {
+  } else if (winAnswers === 36) {
     createMonsterImg(monsterSelected.growth4, monsterSelected.alt4, 'monster');
   }
 }
