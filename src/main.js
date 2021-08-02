@@ -210,7 +210,7 @@ let winAnswers = 0;
 let problem;
 let correctAnswer;
 let level = 1;
-let count = 0;
+const count = 0;
 const ANSWERS_PER_LEVEL = 5;
 
 function askProblem() {
@@ -707,9 +707,9 @@ const timer = {
     text.classList.add('gameover____message');
     const newContent = document.createTextNode('Game Over');
     // const result = document.getElementById('game____overdiv');
-    const leaderBoard = document.createElement('button');
-    leaderBoard.classList.add('gameover____button');
-    leaderBoard.innerHTML = 'Go to leaderboard';
+    const restartGame = document.createElement('button');
+    restartGame.classList.add('gameover____button');
+    restartGame.innerHTML = 'Start New Game!';
     points.innerHTML = `Score: ${scoreboard.score}`;
     losingText.innerHTML = 'You will get better.';
     div.appendChild(image);
@@ -718,7 +718,7 @@ const timer = {
     div.appendChild(losingText);
     text.appendChild(newContent);
     // result.appendChild(div);
-    div.appendChild(leaderBoard);
+    div.appendChild(restartGame);
     document.getElementById('game-wrapper').appendChild(div);
   },
   startTimer() {
@@ -916,9 +916,8 @@ function typewriter() {
   while (iRow < iIndex) {
     sContents += `${storyContent[iRow++]}<br />`;
   }
-  destination.innerHTML = `${
-    sContents + storyContent[iIndex].substring(0, iTextPos)
-  }`;
+  destination.innerHTML = `${sContents + storyContent[iIndex].substring(0, iTextPos)
+    }`;
   if (iTextPos++ == iArrLength) {
     iTextPos = 0;
     iIndex++;
@@ -978,10 +977,8 @@ function sceneControl() {
     wizard.style.bottom = '8%';
     storyContent[0] = 'He locked  the egg in his dungeon';
     storyContent[1] = 'where he used to make his experiments...';
-    storyContent[2] =
-      '"When you will come out - you will be my favourite server!"';
-    storyContent[3] =
-      '-said the wizard till he left the creature inside the egg alone...';
+    storyContent[2] = '"When you will come out - you will be my favourite server!"';
+    storyContent[3] = '-said the wizard till he left the creature inside the egg alone...';
     storyContent[4] = '';
     changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
@@ -989,12 +986,10 @@ function sceneControl() {
     resetText();
     typewriter();
   } else if (scene === 4) {
-    storyContent[0] =
-      'As soon as he left the beast withing tried to break away...';
+    storyContent[0] = 'As soon as he left the beast withing tried to break away...';
     storyContent[1] = 'but the shackles of the egg were not letting him out';
     storyContent[2] = 'Then the creature within heard a voice:';
-    storyContent[3] =
-      '"Eat the knowledge! Solve the problems and you will become stronger...';
+    storyContent[3] = '"Eat the knowledge! Solve the problems and you will become stronger...';
     storyContent[4] = '"...Grow enough to get your freedom!"';
     egg.style.animation = 'shake 3s infinite';
     wizard.style.display = 'none';
