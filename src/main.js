@@ -1067,6 +1067,12 @@ function main() {
   preloadBackground(
     "url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')"
   );
+  // fade in title screen when background loads
+  const backgroundImage = document.getElementsByClassName('background-image-div current')[0];
+  backgroundImage.addEventListener('load', () => {
+    console.log(this);
+    backgroundImage.style.animationPlayState = 'running';
+  }, { once: true });
   audioHandler.init();
   specialEffects.init();
   timer.updateTime();
