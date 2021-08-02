@@ -691,9 +691,11 @@ const timer = {
   },
   gameOver() {
     this.updateDisplay("Time's up!");
+    // TODO need to refactor uiReferences in a constant object
+    uiHandler.toggleHiddenElement(document.getElementById('game-wrapper'));
     audioHandler.gameOver();
-    document.getElementById('game-wrapper').innerHTML = '';
     const div = document.createElement('div');
+    div.id = 'gameover___div';
     div.classList.add('gameover____div');
     const text = document.createElement('h1');
     const points = document.createElement('p');
@@ -707,9 +709,17 @@ const timer = {
     text.classList.add('gameover____message');
     const newContent = document.createTextNode('Game Over');
     // const result = document.getElementById('game____overdiv');
-    const restartGame = document.createElement('button');
-    restartGame.classList.add('gameover____button');
-    restartGame.innerHTML = 'Start New Game!';
+    const restartGameBtn = document.createElement('button');
+    restartGameBtn.id = 'gameover____button';
+    restartGameBtn.classList.add('gameover____button');
+    restartGameBtn.innerHTML = 'Start New Game!';
+    function restartGame() {
+      uiHandler.toggleHiddenElement(document.getElementById('game-wrapper'));
+      uiHandler.toggleHiddenElement(document.getElementById('gameover____div'));
+    }
+    restartGameBtn.addEventListener('click', () => {
+      restartGame();
+    });
     points.innerHTML = `Score: ${scoreboard.score}`;
     losingText.innerHTML = 'You will get better.';
     div.appendChild(image);
@@ -718,8 +728,8 @@ const timer = {
     div.appendChild(losingText);
     text.appendChild(newContent);
     // result.appendChild(div);
-    div.appendChild(restartGame);
-    document.getElementById('game-wrapper').appendChild(div);
+    div.appendChild(restartGameBtn);
+    document.getElementById('main__game').appendChild(div);
   },
   startTimer() {
     const timeInterval = setInterval(() => {
@@ -1072,6 +1082,7 @@ const uiHandler = {
     };
   },
 };
+
 // * This fun contains the funs executed when the game starts
 function main() {
   preloadBackground(

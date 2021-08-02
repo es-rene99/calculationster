@@ -593,5 +593,5 @@ img.egg {
 }
 
 .hidden-element {
-  display: none;
+  display: none !important;
 }
