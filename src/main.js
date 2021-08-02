@@ -379,6 +379,7 @@ function changeToPreloadedBackground() {
   const nextScene = document.getElementsByClassName(
     'background-image-div preload'
   )[0];
+  nextScene.style.visibility = 'visible';
   currentBackground.style.zIndex = -3;
   nextScene.style.zIndex = -1;
   nextScene.classList.remove('preload');
@@ -386,6 +387,7 @@ function changeToPreloadedBackground() {
   currentBackground.classList.remove('current');
   currentBackground.classList.add('preload');
   currentBackground.style.zIndex = -2;
+  currentBackground.style.visibility = 'hidden';
 }
 
 // functions for monsters and monster growth

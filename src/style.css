@@ -24,6 +24,7 @@ body {
   right: 0;
   top: 0;
   z-index: -1;
+  visibility: visible;
   background: url("../assets/Backgrounds/Castle/castle01.jpg") no-repeat
   center center fixed;
   -webkit-background-size: cover;
@@ -34,6 +35,7 @@ body {
 
 .background-image-div.preload {
   z-index: -2;
+  visibility: hidden;
   background: url('../assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')  no-repeat
   center center fixed;
   -webkit-background-size: cover;
@@ -448,7 +450,6 @@ img.egg{
   bottom: 5%;
   }
 }
-
 
 @keyframes shake {
   0% {
