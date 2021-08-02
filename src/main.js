@@ -325,7 +325,7 @@ const specialEffects = {
   useArmor() {
     this.armorHits += 1;
     if (this.armorHits >= this.maxArmorHits) {
-      powers.armor.domElement.style.display = 'none';
+      this.removePower('armor');
       this.armorClicked = false;
     } else {
       powers.armor.domElement.style.animationPlayState = 'running';
@@ -340,7 +340,7 @@ const specialEffects = {
   useClaw() {
     this.clawsUsed += 1;
     if (this.clawsUsed >= this.maxClawUses) {
-      powers.sharpClaw.domElement.style.display = 'none';
+      this.removePower('claw');
     }
     askProblem();
   },
@@ -357,6 +357,15 @@ const specialEffects = {
     powers.timeFreeze.domElement.addEventListener('click', () => specialEffects.useTimeFreeze());
     powers.sharpClaw.domElement.addEventListener('click', () => specialEffects.useClaw());
     powers.wingFoot.domElement.addEventListener('click', () => specialEffects.useWingFoot());
+  },
+  addNewRandomPower() {
+    const shuffledPowers = shuffle(Object.keys(powers));
+    for (const power of shuffledPowers) {
+      if (!powers[power].enabled) {
+        specialEffects.acquirePower(power);
+        break;
+      }
+    }
   },
 
 };
@@ -813,13 +822,8 @@ function checkIfAnswerIsCorrect() {
       level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
       timer.levelupHandling();
       audioHandler.levelUpHandling(level);
-      // Shuffle the array of powers and give the player the first one they don't already have
-      const shuffledPowers = shuffle(Object.keys(powers));
-      for (const power of shuffledPowers) {
-        if (!powers[power].enabled) {
-          specialEffects.acquirePower(power);
-          break;
-        }
+      if (level % 2 === 0) {
+        specialEffects.addNewRandomPower();
       }
     } else {
       timer.timerAnswerHandling('correct');
