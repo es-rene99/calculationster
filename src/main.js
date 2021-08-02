@@ -1,9 +1,8 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable comma-dangle */
 /*
-Returns a random digit [0-9]
-I'm leaving this here because other people have been using it but
-I feel like getRandomDigit shouldn't be used for generating operands because it returns 0.
+getRandomDigit has been refactored to return a random integer between 0 and num
+includes 0, excludes num
 */
 
 function getRandomDigit(num) {
@@ -470,7 +469,7 @@ const monsters = [
   },
 ];
 
-const monsterSelected = monsters[getRandomDigit(monsters.length)];
+const monsterSelected = getRandomArrayElement(monsters);
 
 function createMonsterImg(src, alt, id) {
   const monsterPlacement = document.getElementById(id);
