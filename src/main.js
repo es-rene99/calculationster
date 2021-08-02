@@ -5,6 +5,8 @@ getRandomDigit has been refactored to return a random integer between 0 and num
 includes 0, excludes num
 */
 
+let gameOverViewWasAlreadyCreated;
+
 function getRandomDigit(num) {
   return Math.floor(Math.random() * num);
 }
@@ -694,40 +696,47 @@ const timer = {
     // TODO need to refactor uiReferences in a constant object
     uiHandler.toggleHiddenElement(document.getElementById('game-wrapper'));
     audioHandler.gameOver();
-    const div = document.createElement('div');
-    div.id = 'gameover___div';
-    div.classList.add('gameover____div');
-    const text = document.createElement('h1');
-    const points = document.createElement('p');
-    const losingText = document.createElement('p');
-    const image = document.createElement('img');
-    image.setAttribute(
-      'src',
-      './assets/DeadSkeleton/Skeleton/SkeletonDead.gif'
-    );
-    image.classList.add('gameover____image');
-    text.classList.add('gameover____message');
-    const newContent = document.createTextNode('Game Over');
-    // const result = document.getElementById('game____overdiv');
-    const restartGameBtn = document.createElement('button');
-    restartGameBtn.id = 'gameover____button';
-    restartGameBtn.classList.add('gameover____button');
-    restartGameBtn.innerHTML = 'Start New Game!';
+    debugger;
+    if (gameOverViewWasAlreadyCreated !== true) {
+      const div = document.createElement('div');
+      div.id = 'gameover___div';
+      div.classList.add('gameover____div');
+      const text = document.createElement('h1');
+      const points = document.createElement('p');
+      const losingText = document.createElement('p');
+      const image = document.createElement('img');
+      image.setAttribute(
+        'src',
+        './assets/DeadSkeleton/Skeleton/SkeletonDead.gif'
+      );
+      image.classList.add('gameover____image');
+      text.classList.add('gameover____message');
+      const newContent = document.createTextNode('Game Over');
+      // const result = document.getElementById('game____overdiv');
+      const restartGameBtn = document.createElement('button');
+      restartGameBtn.id = 'gameover____button';
+      restartGameBtn.classList.add('gameover____button');
+      restartGameBtn.innerHTML = 'Start New Game!';
 
-    restartGameBtn.addEventListener('click', () => {
-      restartGame();
-    });
-    points.innerHTML = `Score: ${scoreboard.score}`;
-    losingText.innerHTML = 'You will get better.';
-    div.appendChild(image);
-    div.appendChild(text);
-    div.appendChild(points);
-    div.appendChild(losingText);
-    text.appendChild(newContent);
-    // result.appendChild(div);
-    div.appendChild(restartGameBtn);
-    document.getElementById('main__game').appendChild(div);
+      restartGameBtn.addEventListener('click', () => {
+        restartGame();
+      });
+      points.innerHTML = `Score: ${scoreboard.score}`;
+      losingText.innerHTML = 'You will get better.';
+      div.appendChild(image);
+      div.appendChild(text);
+      div.appendChild(points);
+      div.appendChild(losingText);
+      text.appendChild(newContent);
+      // result.appendChild(div);
+      div.appendChild(restartGameBtn);
+      document.getElementById('main__game').appendChild(div);
+    } else {
+      uiHandler.toggleHiddenElement(document.querySelector('.gameover____div'));
+    }
+
     function restartGame() {
+      gameOverViewWasAlreadyCreated = true;
       uiHandler.toggleHiddenElement(document.getElementById('game-wrapper'));
       // TODO: bug, unable to search by ID
       uiHandler.toggleHiddenElement(document.querySelector('.gameover____div'));
@@ -737,6 +746,7 @@ const timer = {
       scoreboard.score = 0;
       askProblem();
       createMonsterImg();
+      // TODO need to test once monster has transformed
     }
   },
   startTimer() {
