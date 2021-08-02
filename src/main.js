@@ -1,7 +1,8 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable comma-dangle */
 /*
-Returns a random digit [0-9]
-I'm leaving this here because other people have been using it but
-I feel like getRandomDigit shouldn't be used for generating operands because it returns 0.
+getRandomDigit has been refactored to return a random integer between 0 and num
+includes 0, excludes num
 */
 
 function getRandomDigit(num) {
@@ -16,6 +17,28 @@ function getRandomInt(min, max) {
   const minInt = Math.ceil(min);
   const maxInt = Math.floor(max);
   return Math.floor(Math.random() * (maxInt - minInt) + minInt);
+}
+
+/*
+Gets a random element from an array
+*/
+
+function getRandomArrayElement(array) {
+  return array[getRandomInt(0, array.length)];
+}
+
+/*
+Fisher-yates array shuffle, implemented to not be in place.
+*/
+function shuffle(inputArray) {
+  const array = [...inputArray];
+  for (let i = array.length - 1; i > 0; i -= 1) {
+    const j = getRandomInt(0, i + 1); // random index from 0 to i
+
+    // swap elements array[i] and array[j]
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
 
 /*
@@ -56,7 +79,7 @@ Returns a random operator
 
 function getRandomOperator() {
   const operators = ['+', '-', 'x', '/'];
-  const randomOperator = operators[Math.floor(Math.random() * operators.length)];
+  const randomOperator = getRandomArrayElement(operators);
   return randomOperator;
 }
 
@@ -72,7 +95,11 @@ function resolveMultAndDiv(expressionString) {
     const operator = expressionArray[nextOperatorIndex];
     const operandOne = Number(expressionArray[nextOperatorIndex - 1]);
     const operandTwo = Number(expressionArray[nextOperatorIndex + 1]);
-    const resultOfNextOperation = getCorrectResult(operandOne, operandTwo, operator);
+    const resultOfNextOperation = getCorrectResult(
+      operandOne,
+      operandTwo,
+      operator
+    );
     expressionArray.splice(nextOperatorIndex - 1, 3, resultOfNextOperation);
     nextOperatorIndex = expressionArray.findIndex((o) => ['x', '/'].includes(o));
   }
@@ -91,7 +118,11 @@ function solveExpression(expressionString) {
     const operator = expressionArray[1];
     const operandOne = Number(expressionArray[0]);
     const operandTwo = Number(expressionArray[2]);
-    const resultOfNextOperation = getCorrectResult(operandOne, operandTwo, operator);
+    const resultOfNextOperation = getCorrectResult(
+      operandOne,
+      operandTwo,
+      operator
+    );
     expressionArray.splice(0, 3, resultOfNextOperation);
   }
   return parseInt(expressionArray[0], 10);
@@ -136,11 +167,14 @@ function addTermToExpression(expression, operand, operator) {
   if (['+', 'x'].includes(operator)) {
     expressionArray.unshift(operand, operator);
   } else if (operator === '-') {
-    if (operand >= expressionSolution) {
-      const newTerm = operand + Number(expressionArrayResolvedMultAndDiv[0]);
-      expressionArray.unshift(newTerm, operator);
-    } else {
+    // if we always add to the end of the expression
+    // when the new operand is less than the current answer
+    // things get kind of boring so we flip a coin about it
+    if (operand < expressionSolution) {
       expressionArray.push(operator, operand);
+    } else {
+      const newTerm = operand + 2 * Number(expressionArrayResolvedMultAndDiv[0]);
+      expressionArray.unshift(newTerm, operator);
     }
   } else {
     // If we're here we are adding a division operator
@@ -175,23 +209,204 @@ So far we are tracking the number correct in this variable, winAnswers.
 let winAnswers = 0;
 let problem;
 let correctAnswer;
-let level;
-let count = 0
+let level = 1;
+let count = 0;
+const ANSWERS_PER_LEVEL = 5;
 
+function askProblem() {
+  level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
+  let operator;
+  let numDigits;
+
+  // further function for separation
+
+  if (level === 1) {
+    numDigits = 1;
+    operator = '+';
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 2) {
+    numDigits = 1;
+    operator = '-';
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 3) {
+    numDigits = 1;
+    operator = getRandomArrayElement(['+', '-']);
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 4) {
+    // We are converting operand1 to a string because it acts as a stub problem string here
+    const operand1 = String(getRandomInt(10, 100));
+    const operand2 = getRandomInt(1, 10);
+    operator = getRandomArrayElement(['+', '-']);
+    problem = addTermToExpression(operand1, operand2, operator);
+  } else if (level === 5) {
+    numDigits = 1;
+    operator = 'x';
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 6) {
+    numDigits = 1;
+    operator = '/';
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 7) {
+    numDigits = 1;
+    operator = getRandomArrayElement(['x', '/']);
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level === 8) {
+    numDigits = 1;
+    operator = getRandomOperator();
+    if (['+', '-'].includes(operator)) {
+      numDigits = 2;
+    }
+    problem = makeSimpleExpression(numDigits, operator);
+  } else if (level >= 9) {
+    operator = getRandomOperator();
+    numDigits = 1;
+    if (['+', '-'].includes(operator)) {
+      numDigits = 2;
+    }
+    problem = makeSimpleExpression(numDigits, operator);
+    operator = getRandomArrayElement(['+', '-']);
+    numDigits = 2;
+    problem = addTermToExpression(
+      problem,
+      getRandomInt(1, 10 ** numDigits),
+      operator
+    );
+  }
+  const question = document.getElementsByClassName('operation__question')[0];
+  question.textContent = problem;
+}
 /*
 Here we activate the different effects
+effect1 is the armor
 */
 
-let effect1 = false
-let effect2 = false
-let effect4 = false
-let isClicked = false
+// let effect1 = false;
+// let effect2 = false;
+// let effect4 = false;
+// let isClicked = false;
+
+function buildPower(domElement, enabled) {
+  return {
+    domElement, enabled,
+  };
+}
+
+const powers = {
+  armor: buildPower(document.getElementById('specialEffect1'), false),
+  timeFreeze: buildPower(document.getElementById('specialEffect2'), false),
+  secondLife: buildPower(document.getElementById('specialEffect3'), false),
+  sharpClaw: buildPower(document.getElementById('specialEffect4'), false),
+  wingFoot: buildPower(document.getElementById('specialEffect5'), false),
+};
+
+const specialEffects = {
+  armorClicked: false,
+  armorHits: 0,
+  maxArmorHits: 5,
+  timeFrozen: false,
+  secondLifeUsed: false,
+  clawsUsed: 0,
+  maxClawUses: 5,
+  wingFootTimeGain: 60,
+  acquirePower(power) {
+    powers[power].enabled = true;
+    powers[power].domElement.style.display = 'block';
+  },
+  removePower(power) {
+    powers[power].enabled = false;
+    powers[power].domElement.style.display = 'none';
+  },
+  armorEnabled() {
+    if (this.armorClicked) {
+      return this.armorHits <= this.maxArmorHits;
+    }
+    return false;
+  },
+  useArmor() {
+    this.armorHits += 1;
+    if (this.armorHits >= this.maxArmorHits) {
+      this.removePower('armor');
+      this.armorClicked = false;
+    } else {
+      powers.armor.domElement.style.animationPlayState = 'running';
+      setTimeout(() => {
+        powers.armor.domElement.style.animationPlayState = 'paused';
+      }, 500);
+    }
+  },
+  useTimeFreeze() {
+    this.timeFrozen = true;
+  },
+  useClaw() {
+    this.clawsUsed += 1;
+    if (this.clawsUsed >= this.maxClawUses) {
+      this.removePower('sharpClaw');
+    }
+    askProblem();
+  },
+  useWingFoot() {
+    if (powers.wingFoot.enabled) {
+      this.removePower('wingFoot');
+      // most likely, event listeners should just be added in main but for now i'm doing it here
+      // which is why timer is being used before it is defined
+      timer.gainSeconds(specialEffects.wingFootTimeGain);
+    }
+  },
+  init() {
+    powers.armor.domElement.addEventListener('click', () => { specialEffects.armorClicked = true; });
+    powers.timeFreeze.domElement.addEventListener('click', () => specialEffects.useTimeFreeze());
+    powers.sharpClaw.domElement.addEventListener('click', () => specialEffects.useClaw());
+    powers.wingFoot.domElement.addEventListener('click', () => specialEffects.useWingFoot());
+  },
+  addNewRandomPower() {
+    const shuffledPowers = shuffle(Object.keys(powers));
+    for (const power of shuffledPowers) {
+      if (!powers[power].enabled) {
+        specialEffects.acquirePower(power);
+        break;
+      }
+    }
+  },
+
+};
+
+// scoreboard handler
+
+const scoreboard = {
+  score: 0,
+  gameScore: document.getElementById('gameScore'),
+  updateDisplay() {
+    this.gameScore.innerHTML = this.score;
+  }
+};
 
 // background switcher
+// Note that src here sets the source for the background to be preloaded
 
-function changeBackground(src) {
-  document.body.style.background = `${src}no-repeat center center fixed`;
-  document.body.style.backgroundSize = 'cover';
+function preloadBackground(src) {
+  const nextScene = document.getElementsByClassName(
+    'background-image-div preload'
+  )[0];
+  nextScene.style.background = `${src}no-repeat center center fixed`;
+  nextScene.style.backgroundSize = 'cover';
+}
+
+function changeToPreloadedBackground() {
+  const currentBackground = document.getElementsByClassName(
+    'background-image-div current'
+  )[0];
+  const nextScene = document.getElementsByClassName(
+    'background-image-div preload'
+  )[0];
+  nextScene.style.visibility = 'visible';
+  currentBackground.style.zIndex = -3;
+  nextScene.style.zIndex = -1;
+  nextScene.classList.remove('preload');
+  nextScene.classList.add('current');
+  currentBackground.classList.remove('current');
+  currentBackground.classList.add('preload');
+  currentBackground.style.zIndex = -2;
+  currentBackground.style.visibility = 'hidden';
 }
 
 // functions for monsters and monster growth
@@ -272,10 +487,10 @@ const monsters = [
     altTransform3: 'zombie to grumpy ogre',
     transformation4: 'assets/monsterTransformation/humanoid/humt04.gif',
     altTransform4: 'ogre ot dark knight',
+  },
+];
 
-  }];
-
-const monsterSelected = monsters[getRandomDigit(monsters.length)];
+const monsterSelected = getRandomArrayElement(monsters);
 
 function createMonsterImg(src, alt, id) {
   const monsterPlacement = document.getElementById(id);
@@ -284,92 +499,26 @@ function createMonsterImg(src, alt, id) {
 }
 
 function monsterGrowth() {
-  if (winAnswers === 10) {
-    changeBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
+  if (winAnswers === 5) {
+    // Here is where we ould preload the next level's background
+    changeToPreloadedBackground();
+    preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
     createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1, 'monster');
-  } else if (winAnswers === 11) {
+  } else if (winAnswers === 6) {
     createMonsterImg(monsterSelected.growth1, monsterSelected.alt1, 'monster');
-  } else if (winAnswers === 30) {
+  } else if (winAnswers === 15) {
     createMonsterImg(monsterSelected.transformation2, monsterSelected.altTransform2, 'monster');
-  } else if (winAnswers === 31) {
+  } else if (winAnswers === 16) {
     createMonsterImg(monsterSelected.growth2, monsterSelected.alt2, 'monster');
-  } else if (winAnswers === 50) {
+  } else if (winAnswers === 25) {
     createMonsterImg(monsterSelected.transformation3, monsterSelected.altTransform3, 'monster');
-  } else if (winAnswers === 51) {
+  } else if (winAnswers === 26) {
     createMonsterImg(monsterSelected.growth3, monsterSelected.alt3, 'monster');
-  } else if (winAnswers === 70) {
+  } else if (winAnswers === 35) {
     createMonsterImg(monsterSelected.transformation4, monsterSelected.altTransform4, 'monster');
-  } else if (winAnswers === 71) {
+  } else if (winAnswers === 36) {
     createMonsterImg(monsterSelected.growth4, monsterSelected.alt4, 'monster');
   }
-}
-
-function askProblem() {
-  level = Math.floor((winAnswers / 10)) + 1;
-  let operator;
-  let numDigits;
-
-  // further function for separation
-
-  if (level === 1) {
-    numDigits = 1;
-    operator = '+';
-    problem = makeSimpleExpression(numDigits, operator);
-  } else if (level === 2) {
-    numDigits = 1;
-    operator = '-';
-    problem = makeSimpleExpression(numDigits, operator);
-  } else if (level === 3) {
-    const operand1 = getRandomInt(1, 10);
-    const operand2 = getRandomInt(1, 10);
-    operator = ['+', '-'][getRandomInt(0, 2)];
-    problem = addTermToExpression(String(operand1), operand2, operator);
-  } else if (level === 4) {
-    const operand1 = getRandomInt(1, 100);
-    const operand2 = getRandomInt(1, 10);
-    operator = ['+', '-'][getRandomInt(0, 2)];
-    problem = addTermToExpression(String(operand1), operand2, operator);
-  } else if (level === 5) {
-    numDigits = 1;
-    operator = 'x';
-    problem = makeSimpleExpression(numDigits, operator);
-  } else if (level === 6) {
-    numDigits = 1;
-    operator = '/';
-    problem = makeSimpleExpression(numDigits, operator);
-  } else if (level === 7) {
-    numDigits = 1;
-    operator = ['x', '/'][getRandomInt(0, 2)];
-    problem = makeSimpleExpression(numDigits, operator);
-  } else if (level === 8) {
-    numDigits = 1;
-    operator = getRandomOperator();
-    if (['+', '-'].includes(operator)) {
-      numDigits = 2;
-    }
-    problem = makeSimpleExpression(numDigits, operator);
-  } else if (level === 9) {
-    numDigits = 1;
-    operator = getRandomOperator();
-    if (['+', '-'].includes(operator)) {
-      numDigits = 2;
-    }
-    problem = makeSimpleExpression(numDigits, operator);
-    // we don't want both operations to be multiplication
-    // I don't think
-    if (['x', '/'].includes(operator)) {
-      operator = ['+', '-'][getRandomInt(0, 2)];
-    } else {
-      operator = getRandomOperator();
-    }
-    numDigits = 1;
-    if (['+', '-'].includes(operator)) {
-      numDigits = 2;
-    }
-    problem = addTermToExpression(problem, getRandomInt(1, 10 ** numDigits), operator);
-  }
-  const question = document.getElementsByClassName('operation__question')[0];
-  question.textContent = problem;
 }
 
 /*
@@ -408,13 +557,28 @@ const audioHandler = {
     };
     this.loops = {
       introBGM: new Sound('./assets/sounds/loops/intro.mp3', true),
-      menuThemeBGM: new Sound('./assets/sounds/loops/start-menu-theme.mp3', true),
+      menuThemeBGM: new Sound(
+        './assets/sounds/loops/start-menu-theme.mp3',
+        true
+      ),
       gameOverBGM: new Sound('./assets/sounds/loops/game-over.mp3', true),
       timeWarning: new Sound('./assets/sounds/loops/time-warning.mp3', true),
-      gameplayPhaseOneBGM: new Sound('./assets/sounds/loops/gameplay-early.mp3', true),
-      gameplayPhaseTwoBGM: new Sound('./assets/sounds/loops/gameplay-mid-1.mp3', true),
-      gameplayPhaseThreeBGM: new Sound('./assets/sounds/loops/gameplay-mid-2.mp3', true),
-      gameplayPhaseFourBGM: new Sound('./assets/sounds/loops/gameplay-late.mp3', true),
+      gameplayPhaseOneBGM: new Sound(
+        './assets/sounds/loops/gameplay-early.mp3',
+        true
+      ),
+      gameplayPhaseTwoBGM: new Sound(
+        './assets/sounds/loops/gameplay-mid-1.mp3',
+        true
+      ),
+      gameplayPhaseThreeBGM: new Sound(
+        './assets/sounds/loops/gameplay-mid-2.mp3',
+        true
+      ),
+      gameplayPhaseFourBGM: new Sound(
+        './assets/sounds/loops/gameplay-late.mp3',
+        true
+      ),
     };
     this.bgm = this.loops.introBGM;
   },
@@ -455,7 +619,7 @@ const audioHandler = {
     } else if (level === 5) {
       this.changeBGM('gameplayPhaseThreeBGM');
     } else if (level === 6) {
-      this.changeBGM('gameplayPhaseThreeBGM');
+      this.changeBGM('gameplayPhaseFourBGM');
     } else {
       bgmChanged = false;
     }
@@ -513,10 +677,10 @@ const timer = {
     animatedText.onanimationend = () => {
       animatedText.remove();
     };
-    const image = document.getElementById("specialEffect1")
-    image.addEventListener("click", () => {
-      this.sec -= 0
-    })
+    const image = document.getElementById('specialEffect1');
+    image.addEventListener('click', () => {
+      this.sec -= 0;
+    });
     this.animationContainer.appendChild(animatedText);
     this.updateTime();
     const timerDiv = document.getElementById('game__timer');
@@ -526,7 +690,7 @@ const timer = {
     }, 500);
   },
   gameOver() {
-    this.updateDisplay('Time\'s up!');
+    this.updateDisplay("Time's up!");
     audioHandler.gameOver();
     document.getElementById('game-wrapper').innerHTML = '';
     const div = document.createElement('div');
@@ -535,7 +699,10 @@ const timer = {
     const points = document.createElement('p');
     const losingText = document.createElement('p');
     const image = document.createElement('img');
-    image.setAttribute('src', './assets/DeadSkeleton/Skeleton/SkeletonDead.gif');
+    image.setAttribute(
+      'src',
+      './assets/DeadSkeleton/Skeleton/SkeletonDead.gif'
+    );
     image.classList.add('gameover____image');
     text.classList.add('gameover____message');
     const newContent = document.createTextNode('Game Over');
@@ -543,7 +710,7 @@ const timer = {
     const leaderBoard = document.createElement('button');
     leaderBoard.classList.add('gameover____button');
     leaderBoard.innerHTML = 'Go to leaderboard';
-    points.innerHTML = `Score: ${winAnswers}`;
+    points.innerHTML = `Score: ${scoreboard.score}`;
     losingText.innerHTML = 'You will get better.';
     div.appendChild(image);
     div.appendChild(text);
@@ -559,12 +726,13 @@ const timer = {
       if (timer.status === 'running') {
         if (this.sec <= 0) {
           clearInterval(timeInterval);
+          this.sec = 0;
           this.gameOver();
-        } if (effect2 === true && isClicked === false) {
-          this.sec -= 0
+        } else if (specialEffects.timeFrozen) {
+          this.sec -= 0;
         } else {
-        this.sec -= 1
-      }
+          this.sec -= 1;
+        }
         this.updateTime();
         if (this.sec <= 5 && this.sec > 0) {
           audioHandler.startTimeWarning();
@@ -578,11 +746,11 @@ const timer = {
     if (typeOfAnswer === 'correct') {
       timer.gainSeconds(5);
     } else if (typeOfAnswer === 'wrong') {
-        if(effect1 === true && count < 5){
-        timer.loseSeconds(0)
+      if (specialEffects.armorEnabled()) {
+        timer.loseSeconds(0);
       } else {
-      timer.loseSeconds(5);
-    }
+        timer.loseSeconds(5);
+      }
     }
   },
   levelupHandling() {
@@ -590,55 +758,107 @@ const timer = {
   },
 };
 
-function clickedItems() {
-  const getEffect1 = document.getElementById("specialEffect1")
-  getEffect1.addEventListener("click", () => {
-      effect1 = true
-      var getCount = document.getElementById("enter-answer-btn").addEventListener("click", () => {
-        console.log(count += 1)
-      })
-  }, {once: true})
-  const getEffect2 = document.getElementById("specialEffect2")
-  getEffect2.addEventListener("click", () => {
-      effect2 = true
-      document.getElementById("enter-answer-btn").addEventListener("click", () => {
-        isClicked = true
-      })
-  }, {once: true})
+// currently deprecated
+// function specialItems() {
+//   const image = document.getElementById('specialEffect1');
+//   const image1 = document.getElementById('specialEffect2');
+//   const image2 = document.getElementById('specialEffect3');
+//   const image3 = document.getElementById('specialEffect4');
+//   const image4 = document.getElementById('specialEffect5');
+// image.className = 'specialEffects__image';
+// image1.className = 'specialEffects__image';
+// image2.className = 'specialEffects__image';
+// image3.className = 'specialEffects__image';
+// image4.className = 'specialEffects__image';
+// }
 
-  const getEffect4 = document.getElementById("specialEffect4")
-  getEffect4.addEventListener("click", () => {
-      askProblem()
-  }, {once: true})
+// currently deprecated
+// function clickedItems() {
+//   const getEffect1 = document.getElementById('specialEffect1');
+//   getEffect1.addEventListener(
+//     'click',
+//     () => {
+//       effect1 = true;
+//       const getCount = document
+//         .getElementById('enter-answer-btn')
+//         .addEventListener('click', () => {
+//           console.log((count += 1));
+//         });
+//     },
+//     { once: true }
+//   );
+//   const getEffect2 = document.getElementById('specialEffect2');
+//   getEffect2.addEventListener(
+//     'click',
+//     () => {
+//       effect2 = true;
+//       document
+//         .getElementById('enter-answer-btn')
+//         .addEventListener('click', () => {
+//           isClicked = true;
+//         });
+//     },
+//     { once: true }
+//   );
 
-  const getEffect5 = document.getElementById("specialEffect5")
-  getEffect5.addEventListener("click", () => {
-      timer.gainSeconds(60)
-  }, {once: true})
-}
+//   const getEffect4 = document.getElementById('specialEffect4');
+//   getEffect4.addEventListener(
+//     'click',
+//     () => {
+//       askProblem();
+//     },
+//     { once: true }
+//   );
+
+//   const getEffect5 = document.getElementById('specialEffect5');
+//   getEffect5.addEventListener(
+//     'click',
+//     () => {
+//       timer.gainSeconds(60);
+//     },
+//     { once: true }
+//   );
+// }
 
 function checkIfAnswerIsCorrect() {
   const userInputField = document.getElementById('answer');
   const userAnswer = parseInt(userInputField.value, 10);
   correctAnswer = solveExpression(problem);
+  if (specialEffects.timeFrozen) {
+    specialEffects.timeFrozen = false;
+    specialEffects.removePower('timeFreeze');
+  }
   if (userAnswer === correctAnswer) {
-    audioHandler.playNoise('correct');
     winAnswers += 1;
-    if (winAnswers % 10 === 0) {
-      level = Math.floor((winAnswers / 10)) + 1;
+    if (winAnswers % ANSWERS_PER_LEVEL === 0) {
+      level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
       timer.levelupHandling();
       audioHandler.levelUpHandling(level);
+      if (level % 2 === 0) {
+        specialEffects.addNewRandomPower();
+      }
+    } else {
+      timer.timerAnswerHandling('correct');
+      audioHandler.playNoise('correct');
     }
+    scoreboard.score += 10 * level;
+    scoreboard.updateDisplay();
     userInputField.value = '';
     askProblem();
     monsterGrowth(level);
     // console.log(
     //  `${userAnswer} was the correct answer!\nGood job! Correct answers: ${winAnswers}`
     // );
-    timer.timerAnswerHandling('correct');
   } else {
-    audioHandler.playNoise('incorrect');
-    timer.timerAnswerHandling('wrong');
+    userInputField.value = '';
+    if (specialEffects.armorEnabled()) {
+      // The following noise has not been implemented yet
+      // audioHandler.playNoise('armor');
+      specialEffects.useArmor();
+    } else {
+      audioHandler.playNoise('incorrect');
+      timer.timerAnswerHandling('wrong');
+    }
     // console.log(
     //  `Ouch! ${userAnswer} was not the correct answer.\n Try again! (correct : ${correctAnswer})`,
     // );
@@ -646,32 +866,14 @@ function checkIfAnswerIsCorrect() {
   userInputField.focus();
 }
 
-function specialItems() {
-  const image = document.getElementById("specialEffect1")
-  const image1 = document.getElementById('specialEffect2')
-  const image2 = document.getElementById('specialEffect3')
-  const image3 = document.getElementById('specialEffect4')
-  const image4 = document.getElementById('specialEffect5')
-  image.className = "specialEffects__image"
-  image1.className = "specialEffects__image"
-  image2.className = "specialEffects__image"
-  image3.className = "specialEffects__image"
-  image4.className = "specialEffects__image"
-  image.setAttribute('src', './assets/specialEffects/breastplate.png')
-  image1.setAttribute('src', './assets/specialEffects/emptyhourglass.png')
-  image2.setAttribute('src', './assets/specialEffects/halfdead.png')
-  image3.setAttribute('src', './assets/specialEffects/top-paw.png')
-  image4.setAttribute('src', './assets/specialEffects/wingfoot.png')
-}
-
 // display the problem, add input field and a button to check the result
 function displayProblem() {
   const operationPanel = document.getElementById('operation__panel');
   const answerInputWrapper = document.createElement('form');
-     answerInputWrapper.addEventListener('click', (e) => {
-       e.preventDefault();
-     });
- answerInputWrapper.autocomplete = 'off';
+  answerInputWrapper.addEventListener('click', (e) => {
+    e.preventDefault();
+  });
+  answerInputWrapper.autocomplete = 'off';
   answerInputWrapper.classList.add('answer-input-wrapper');
   const answerInput = document.createElement('input');
   answerInput.id = 'answer';
@@ -714,13 +916,15 @@ function typewriter() {
   while (iRow < iIndex) {
     sContents += `${storyContent[iRow++]}<br />`;
   }
-  destination.innerHTML = `${sContents + storyContent[iIndex].substring(0, iTextPos)}`;
+  destination.innerHTML = `${
+    sContents + storyContent[iIndex].substring(0, iTextPos)
+  }`;
   if (iTextPos++ == iArrLength) {
     iTextPos = 0;
     iIndex++;
     if (iIndex != storyContent.length) {
       iArrLength = storyContent[iIndex].length;
-  // eslint-disable-next-line no-implied-eval
+      // eslint-disable-next-line no-implied-eval
       setTimeout('typewriter()', 500);
     }
   } else {
@@ -748,7 +952,8 @@ function sceneControl() {
   if (scene === 1) {
     egg.style.display = 'none';
     createMonsterImg('assets/monster/Extras/Wizard.png', 'wizard', 'wizard1');
-    changeBackground("url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')");
+    changeToPreloadedBackground();
+    preloadBackground("url('assets/Backgrounds/Cave/cave_edited.jpg')");
     typewriter();
     scene += 1;
     resetText();
@@ -761,7 +966,8 @@ function sceneControl() {
     storyContent[2] = 'He stole it and ran away into his castle';
     storyContent[3] = '"Whatever will come from it will serve me well!"';
     storyContent[4] = '- happilly thought the sorcerrer...';
-    changeBackground("url('assets/Backgrounds/Cave/cave_edited.jpg')");
+    changeToPreloadedBackground();
+    preloadBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
     createMonsterImg('assets/monster/Starter/01.png', 'egg2', 'egg2');
     scene += 1;
     typewriter();
@@ -772,18 +978,23 @@ function sceneControl() {
     wizard.style.bottom = '8%';
     storyContent[0] = 'He locked  the egg in his dungeon';
     storyContent[1] = 'where he used to make his experiments...';
-    storyContent[2] = '"When you will come out - you will be my favourite server!"';
-    storyContent[3] = '-said the wizard till he left the creature inside the egg alone...';
+    storyContent[2] =
+      '"When you will come out - you will be my favourite server!"';
+    storyContent[3] =
+      '-said the wizard till he left the creature inside the egg alone...';
     storyContent[4] = '';
-    changeBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
+    changeToPreloadedBackground();
+    preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
     scene += 1;
     resetText();
     typewriter();
   } else if (scene === 4) {
-    storyContent[0] = 'As soon as he left the beast withing tried to break away...';
+    storyContent[0] =
+      'As soon as he left the beast withing tried to break away...';
     storyContent[1] = 'but the shackles of the egg were not letting him out';
     storyContent[2] = 'Then the creature within heard a voice:';
-    storyContent[3] = '"Eat the knowledge! Solve the problems and you will become stronger...';
+    storyContent[3] =
+      '"Eat the knowledge! Solve the problems and you will become stronger...';
     storyContent[4] = '"...Grow enough to get your freedom!"';
     egg.style.animation = 'shake 3s infinite';
     wizard.style.display = 'none';
@@ -859,8 +1070,8 @@ const uiHandler = {
         this.toggleColorInSideBars(this.sidebars);
         displayProblem();
         askProblem();
-        specialItems();
-        clickedItems()
+        // specialItems();
+        // clickedItems();
         createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
       }
     };
@@ -868,7 +1079,17 @@ const uiHandler = {
 };
 // * This fun contains the funs executed when the game starts
 function main() {
+  preloadBackground(
+    "url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')"
+  );
+  // fade in title screen when background loads
+  const backgroundImage = document.getElementsByClassName('background-image-div current')[0];
+  backgroundImage.addEventListener('load', () => {
+    console.log(this);
+    backgroundImage.style.animationPlayState = 'running';
+  }, { once: true });
   audioHandler.init();
+  specialEffects.init();
   timer.updateTime();
   uiHandler.activateEventListeners();
 }

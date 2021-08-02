@@ -7,10 +7,40 @@ main {
 }
 
 body {
+  background-color: #36454f;
+  opacity: 0;
   margin: 0;
   min-height: 100vh;
+  /* background: url("../assets/Backgrounds/Castle/castle01.jpg") no-repeat
+    center center fixed; */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  animation: fade-in 3s ease-in 0.5s 1 forwards;
+}
+
+.background-image-div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  right: 0;
+  top: 0;
+  z-index: -1;
+  visibility: visible;
   background: url("../assets/Backgrounds/Castle/castle01.jpg") no-repeat center
     center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.background-image-div.preload {
+  z-index: -2;
+  visibility: hidden;
+  background: url("../assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg")
+    no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -338,9 +368,23 @@ img.egg {
 }
 
 /* special effects */
-.specialEffects__image {
+.special-ability {
   width: 100px;
   cursor: pointer;
+  display: none;
+}
+
+.armor {
+  animation: shake 0.5s;
+  animation-iteration-count: 1;
+  animation-play-state: running;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+}
+
+.power-used {
+  opacity: 0.7;
+  fill: grey;
 }
 
 .game-right-panel {
@@ -467,6 +511,15 @@ img.egg {
   100% {
     transform: scale(120%);
     bottom: 5%;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
