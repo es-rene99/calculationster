@@ -1,9 +1,8 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable comma-dangle */
 /*
-Returns a random digit [0-9]
-I'm leaving this here because other people have been using it but
-I feel like getRandomDigit shouldn't be used for generating operands because it returns 0.
+getRandomDigit has been refactored to return a random integer between 0 and num
+includes 0, excludes num
 */
 
 function getRandomDigit(num) {
@@ -29,7 +28,7 @@ function getRandomArrayElement(array) {
 }
 
 /*
-Fisher-yates array shuffle
+Fisher-yates array shuffle, implemented to not be in place.
 */
 function shuffle(inputArray) {
   const array = [...inputArray];
@@ -80,7 +79,7 @@ Returns a random operator
 
 function getRandomOperator() {
   const operators = ['+', '-', 'x', '/'];
-  const randomOperator = operators[Math.floor(Math.random() * operators.length)];
+  const randomOperator = getRandomArrayElement(operators);
   return randomOperator;
 }
 
@@ -231,12 +230,13 @@ function askProblem() {
     problem = makeSimpleExpression(numDigits, operator);
   } else if (level === 3) {
     numDigits = 1;
-    operator = ['+', '-'][getRandomInt(0, 2)];
+    operator = getRandomArrayElement(['+', '-']);
     problem = makeSimpleExpression(numDigits, operator);
   } else if (level === 4) {
+    // We are converting operand1 to a string because it acts as a stub problem string here
     const operand1 = String(getRandomInt(10, 100));
     const operand2 = getRandomInt(1, 10);
-    operator = ['+', '-'][getRandomInt(0, 2)];
+    operator = getRandomArrayElement(['+', '-']);
     problem = addTermToExpression(operand1, operand2, operator);
   } else if (level === 5) {
     numDigits = 1;
@@ -248,7 +248,7 @@ function askProblem() {
     problem = makeSimpleExpression(numDigits, operator);
   } else if (level === 7) {
     numDigits = 1;
-    operator = ['x', '/'][getRandomInt(0, 2)];
+    operator = getRandomArrayElement(['x', '/']);
     problem = makeSimpleExpression(numDigits, operator);
   } else if (level === 8) {
     numDigits = 1;
@@ -264,7 +264,7 @@ function askProblem() {
       numDigits = 2;
     }
     problem = makeSimpleExpression(numDigits, operator);
-    operator = ['+', '-'][getRandomInt(0, 2)];
+    operator = getRandomArrayElement(['+', '-']);
     numDigits = 2;
     problem = addTermToExpression(
       problem,
@@ -480,7 +480,7 @@ const monsters = [
   },
 ];
 
-const monsterSelected = monsters[getRandomDigit(monsters.length)];
+const monsterSelected = getRandomArrayElement(monsters);
 
 function createMonsterImg(src, alt, id) {
   const monsterPlacement = document.getElementById(id);
