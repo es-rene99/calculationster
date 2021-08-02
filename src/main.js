@@ -750,7 +750,6 @@ const timer = {
       createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
       preloadBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
       changeToPreloadedBackground();
-      // TODO need to test once monster has transformed
     }
   },
   startTimer() {
@@ -860,7 +859,7 @@ function checkIfAnswerIsCorrect() {
     specialEffects.timeFrozen = false;
     specialEffects.removePower('timeFreeze');
   }
-  if (userAnswer === 0) {
+  if (userAnswer === correctAnswer) {
     winAnswers += 1;
     if (winAnswers % ANSWERS_PER_LEVEL === 0) {
       level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
