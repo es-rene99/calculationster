@@ -340,7 +340,7 @@ const specialEffects = {
   useClaw() {
     this.clawsUsed += 1;
     if (this.clawsUsed >= this.maxClawUses) {
-      this.removePower('claw');
+      this.removePower('sharpClaw');
     }
     askProblem();
   },
