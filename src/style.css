@@ -4,9 +4,11 @@ body,
 main {
   min-height: 100vh;
   overflow: hidden;
+  background-color: #36454f;
 }
 
 body {
+  opacity: 0;
   margin: 0;
   min-height: 100vh;
   /* background: url("../assets/Backgrounds/Castle/castle01.jpg") no-repeat
@@ -15,6 +17,7 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  animation: fade-in 3s ease-in 0.5s 1 forwards;
 }
 
 .background-image-div {
@@ -448,6 +451,15 @@ img.egg{
   {
   transform: scale(120%); 
   bottom: 5%;
+  }
+}
+
+@keyframes fade-in{
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
