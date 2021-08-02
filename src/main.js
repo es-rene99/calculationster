@@ -370,6 +370,16 @@ const specialEffects = {
 
 };
 
+// scoreboard handler
+
+const scoreboard = {
+  score: 0,
+  gameScore: document.getElementById('gameScore'),
+  updateDisplay() {
+    this.gameScore.innerHTML = this.score;
+  }
+};
+
 // background switcher
 // Note that src here sets the source for the background to be preloaded
 
@@ -700,7 +710,7 @@ const timer = {
     const leaderBoard = document.createElement('button');
     leaderBoard.classList.add('gameover____button');
     leaderBoard.innerHTML = 'Go to leaderboard';
-    points.innerHTML = `Score: ${winAnswers}`;
+    points.innerHTML = `Score: ${scoreboard.score}`;
     losingText.innerHTML = 'You will get better.';
     div.appendChild(image);
     div.appendChild(text);
@@ -831,6 +841,8 @@ function checkIfAnswerIsCorrect() {
       timer.timerAnswerHandling('correct');
       audioHandler.playNoise('correct');
     }
+    scoreboard.score += 10 * level;
+    scoreboard.updateDisplay();
     userInputField.value = '';
     askProblem();
     monsterGrowth(level);
