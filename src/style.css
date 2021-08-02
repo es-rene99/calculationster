@@ -202,6 +202,10 @@ body {
 
 .credits__list {
   list-style-type: none;
+  padding: 0;
+  margin: 0;
+  padding: 1rem;
+  margin-top: -2rem;
 }
 
 /* cut scene */
@@ -462,6 +466,7 @@ img.egg {
   text-align: center;
   margin: 0 auto;
   margin-top: 35%;
+  color: #000;
 }
 
 .gameover____image {
