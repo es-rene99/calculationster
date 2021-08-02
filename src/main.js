@@ -503,8 +503,8 @@ function createMonsterImg(src, alt, id) {
 function monsterGrowth() {
   if (winAnswers === 5) {
     // Here is where we ould preload the next level's background
-    changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
+    changeToPreloadedBackground();
     createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1, 'monster');
   } else if (winAnswers === 6) {
     createMonsterImg(monsterSelected.growth1, monsterSelected.alt1, 'monster');
@@ -744,8 +744,12 @@ const timer = {
       timer.startTimer();
       timer.sec = 30;
       scoreboard.score = 0;
+      scoreboard.updateDisplay();
+      winAnswers = 0;
       askProblem();
-      createMonsterImg();
+      createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
+      preloadBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
+      changeToPreloadedBackground();
       // TODO need to test once monster has transformed
     }
   },
@@ -856,7 +860,7 @@ function checkIfAnswerIsCorrect() {
     specialEffects.timeFrozen = false;
     specialEffects.removePower('timeFreeze');
   }
-  if (userAnswer === correctAnswer) {
+  if (userAnswer === 0) {
     winAnswers += 1;
     if (winAnswers % ANSWERS_PER_LEVEL === 0) {
       level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
