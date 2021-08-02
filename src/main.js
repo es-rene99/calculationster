@@ -713,10 +713,7 @@ const timer = {
     restartGameBtn.id = 'gameover____button';
     restartGameBtn.classList.add('gameover____button');
     restartGameBtn.innerHTML = 'Start New Game!';
-    function restartGame() {
-      uiHandler.toggleHiddenElement(document.getElementById('game-wrapper'));
-      uiHandler.toggleHiddenElement(document.getElementById('gameover____div'));
-    }
+
     restartGameBtn.addEventListener('click', () => {
       restartGame();
     });
@@ -730,6 +727,17 @@ const timer = {
     // result.appendChild(div);
     div.appendChild(restartGameBtn);
     document.getElementById('main__game').appendChild(div);
+    function restartGame() {
+      uiHandler.toggleHiddenElement(document.getElementById('game-wrapper'));
+      // TODO: bug, unable to search by ID
+      uiHandler.toggleHiddenElement(document.querySelector('.gameover____div'));
+      audioHandler.changeBGM('gameplayPhaseOneBGM', 'play');
+      timer.startTimer();
+      timer.sec = 30;
+      scoreboard.score = 0;
+      askProblem();
+      createMonsterImg();
+    }
   },
   startTimer() {
     const timeInterval = setInterval(() => {
@@ -1065,14 +1073,14 @@ const uiHandler = {
         this.toggleHiddenElement(this.appWrapper);
         this.toggleHiddenElement(this.nextBtn);
         this.toggleHiddenElement(this.gameWrapper);
-        timer.startTimer();
-        audioHandler.changeBGM('gameplayPhaseOneBGM', 'play');
         this.toggleHiddenElement(this.asideLeft);
         this.toggleHiddenElement(this.asideRight);
         this.toggleHiddenElement(this.gameLeftPanel);
         this.toggleHiddenElement(this.gameRightPanel);
         this.toggleHiddenElement(this.gameTimer);
         this.toggleColorInSideBars(this.sidebars);
+        timer.startTimer();
+        audioHandler.changeBGM('gameplayPhaseOneBGM', 'play');
         displayProblem();
         askProblem();
         // specialItems();
