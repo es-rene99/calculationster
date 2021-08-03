@@ -924,10 +924,10 @@ let scene = 1;
 
 const storyContent = new Array();
 
-storyContent[0] = 'A long time ago lived';
-storyContent[1] = 'an evil wizard who dreamt ';
-storyContent[2] = 'to conquer the world';
-storyContent[3] = 'and force everyone to serve him...';
+storyContent[0] = 'A long time ago, ';
+storyContent[1] = 'there liven an evil wizard ';
+storyContent[2] = 'who dreamt of conquering the world';
+storyContent[3] = 'and forcing everyone to serve him...';
 
 const iSpeed = 100; // time delay of print out
 let iIndex = 0; // start printing array at this posision
@@ -992,9 +992,9 @@ function sceneControl() {
     textFrame.style.paddingTop = '2%';
     storyContent[0] = 'One night he found a cave';
     storyContent[1] = 'and in the cave there was an egg...';
-    storyContent[2] = 'He stole it and ran away into his castle';
-    storyContent[3] = '"Whatever will come from it will serve me well!"';
-    storyContent[4] = '- happilly thought the sorcerrer...';
+    storyContent[2] = 'He stole it and ran to his castle';
+    storyContent[3] = '"Whatever grows from this egg will serve me well!"';
+    storyContent[4] = '- happily thought the sorcerer...';
     changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
     createMonsterImg('assets/monster/Starter/01.png', 'egg2', 'egg2');
@@ -1007,8 +1007,8 @@ function sceneControl() {
     wizard.style.bottom = '8%';
     storyContent[0] = 'He locked  the egg in his dungeon';
     storyContent[1] = 'where he used to make his experiments...';
-    storyContent[2] = '"When you will come out - you will be my favourite server!"';
-    storyContent[3] = '-said the wizard till he left the creature inside the egg alone...';
+    storyContent[2] = '"When you come out - you will be my favourite servant!"';
+    storyContent[3] = '-said the wizard and he left the creature inside the egg alone...';
     storyContent[4] = '';
     changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
@@ -1016,10 +1016,10 @@ function sceneControl() {
     resetText();
     typewriter();
   } else if (scene === 4) {
-    storyContent[0] = 'As soon as he left the beast withing tried to break away...';
-    storyContent[1] = 'but the shackles of the egg were not letting him out';
+    storyContent[0] = 'As soon as he left the beast within tried to break away...';
+    storyContent[1] = 'but the shackles of the egg would not break';
     storyContent[2] = 'Then the creature within heard a voice:';
-    storyContent[3] = '"Eat the knowledge! Solve the problems and you will become stronger...';
+    storyContent[3] = '"Eat the knowledge! Solve these problems and you will become stronger...';
     storyContent[4] = '"...Grow enough to get your freedom!"';
     egg.style.animation = 'shake 3s infinite';
     wizard.style.display = 'none';
@@ -1029,9 +1029,9 @@ function sceneControl() {
   } else if (scene === 5) {
     storyContent[0] = 'And then the creature saw...';
     storyContent[1] = '5 + 5 = ?';
-    storyContent[2] = 'He thought hard and he answered: 10!';
-    storyContent[3] = '2 + 2 = 4! He grew more!';
-    storyContent[4] = 'Once again he heard - "Grow as fast as you can..."';
+    storyContent[2] = 'It thought hard and answered: 10!';
+    storyContent[3] = '2 + 2 = 4! It grew more!';
+    storyContent[4] = 'Once again it heard - "Grow as fast as you can..."';
     storyContent[5] = '...escape the castle before the wizard catches you!';
     egg.style.animation = 'grow 10s forwards';
     scene += 1;
