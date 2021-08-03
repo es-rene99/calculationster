@@ -437,7 +437,7 @@ img.egg {
   animation-timing-function: ease;
 }
 
-.game__score {
+.standard-indicator__container {
   margin-top: 2rem;
   float: left;
   margin-left: 2%;
@@ -448,12 +448,12 @@ img.egg {
   display: flex;
 }
 
-.score__title {
+.standard-indicator__header {
   font-size: 1rem;
   margin-right: 5%;
 }
 
-.score__label {
+.standard-indicator__label {
   font-size: 1rem;
 }
 
