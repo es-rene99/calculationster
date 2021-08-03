@@ -350,6 +350,12 @@ img.egg {
   outline: 0 none;
 }
 
+.number-shadow-color {
+  -webkit-text-stroke: 1px #23430c;
+  text-shadow: -1px 1px 2px #23430c, 1px 1px 2px #23430c, 1px -1px 0 #23430c,
+    -1px -1px 0 #23430c;
+}
+
 #enter-answer-btn {
   margin-top: 15px;
   margin-bottom: 10px;
