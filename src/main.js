@@ -5,6 +5,8 @@ getRandomDigit has been refactored to return a random integer between 0 and num
 includes 0, excludes num
 */
 
+let gameOverViewWasAlreadyCreated;
+
 function getRandomDigit(num) {
   return Math.floor(Math.random() * num);
 }
@@ -210,7 +212,7 @@ let winAnswers = 0;
 let problem;
 let correctAnswer;
 let level = 1;
-let count = 0;
+const count = 0;
 const ANSWERS_PER_LEVEL = 5;
 
 function askProblem() {
@@ -501,8 +503,8 @@ function createMonsterImg(src, alt, id) {
 function monsterGrowth() {
   if (winAnswers === 5) {
     // Here is where we ould preload the next level's background
-    changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
+    changeToPreloadedBackground();
     createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1, 'monster');
   } else if (winAnswers === 6) {
     createMonsterImg(monsterSelected.growth1, monsterSelected.alt1, 'monster');
@@ -691,35 +693,64 @@ const timer = {
   },
   gameOver() {
     this.updateDisplay("Time's up!");
+    // TODO need to refactor uiReferences in a constant object
+    uiHandler.toggleHiddenElement(document.getElementById('game-wrapper'));
     audioHandler.gameOver();
-    document.getElementById('game-wrapper').innerHTML = '';
-    const div = document.createElement('div');
-    div.classList.add('gameover____div');
-    const text = document.createElement('h1');
-    const points = document.createElement('p');
-    const losingText = document.createElement('p');
-    const image = document.createElement('img');
-    image.setAttribute(
-      'src',
-      './assets/DeadSkeleton/Skeleton/SkeletonDead.gif'
-    );
-    image.classList.add('gameover____image');
-    text.classList.add('gameover____message');
-    const newContent = document.createTextNode('Game Over');
-    // const result = document.getElementById('game____overdiv');
-    const leaderBoard = document.createElement('button');
-    leaderBoard.classList.add('gameover____button');
-    leaderBoard.innerHTML = 'Go to leaderboard';
-    points.innerHTML = `Score: ${scoreboard.score}`;
-    losingText.innerHTML = 'You will get better.';
-    div.appendChild(image);
-    div.appendChild(text);
-    div.appendChild(points);
-    div.appendChild(losingText);
-    text.appendChild(newContent);
-    // result.appendChild(div);
-    div.appendChild(leaderBoard);
-    document.getElementById('game-wrapper').appendChild(div);
+    debugger;
+    if (gameOverViewWasAlreadyCreated !== true) {
+      const div = document.createElement('div');
+      div.id = 'gameover___div';
+      div.classList.add('gameover____div');
+      const text = document.createElement('h1');
+      const points = document.createElement('p');
+      const losingText = document.createElement('p');
+      const image = document.createElement('img');
+      image.setAttribute(
+        'src',
+        './assets/DeadSkeleton/Skeleton/SkeletonDead.gif'
+      );
+      image.classList.add('gameover____image');
+      text.classList.add('gameover____message');
+      const newContent = document.createTextNode('Game Over');
+      // const result = document.getElementById('game____overdiv');
+      const restartGameBtn = document.createElement('button');
+      restartGameBtn.id = 'gameover____button';
+      restartGameBtn.classList.add('gameover____button');
+      restartGameBtn.innerHTML = 'Start New Game!';
+
+      restartGameBtn.addEventListener('click', () => {
+        restartGame();
+      });
+      points.innerHTML = `Score: ${scoreboard.score}`;
+      losingText.innerHTML = 'You will get better.';
+      div.appendChild(image);
+      div.appendChild(text);
+      div.appendChild(points);
+      div.appendChild(losingText);
+      text.appendChild(newContent);
+      // result.appendChild(div);
+      div.appendChild(restartGameBtn);
+      document.getElementById('main__game').appendChild(div);
+    } else {
+      uiHandler.toggleHiddenElement(document.querySelector('.gameover____div'));
+    }
+
+    function restartGame() {
+      gameOverViewWasAlreadyCreated = true;
+      uiHandler.toggleHiddenElement(document.getElementById('game-wrapper'));
+      // TODO: bug, unable to search by ID
+      uiHandler.toggleHiddenElement(document.querySelector('.gameover____div'));
+      audioHandler.changeBGM('gameplayPhaseOneBGM', 'play');
+      timer.startTimer();
+      timer.sec = 30;
+      scoreboard.score = 0;
+      scoreboard.updateDisplay();
+      winAnswers = 0;
+      askProblem();
+      createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
+      preloadBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
+      changeToPreloadedBackground();
+    }
   },
   startTimer() {
     const timeInterval = setInterval(() => {
@@ -916,9 +947,8 @@ function typewriter() {
   while (iRow < iIndex) {
     sContents += `${storyContent[iRow++]}<br />`;
   }
-  destination.innerHTML = `${
-    sContents + storyContent[iIndex].substring(0, iTextPos)
-  }`;
+  destination.innerHTML = `${sContents + storyContent[iIndex].substring(0, iTextPos)
+    }`;
   if (iTextPos++ == iArrLength) {
     iTextPos = 0;
     iIndex++;
@@ -978,10 +1008,8 @@ function sceneControl() {
     wizard.style.bottom = '8%';
     storyContent[0] = 'He locked  the egg in his dungeon';
     storyContent[1] = 'where he used to make his experiments...';
-    storyContent[2] =
-      '"When you will come out - you will be my favourite server!"';
-    storyContent[3] =
-      '-said the wizard till he left the creature inside the egg alone...';
+    storyContent[2] = '"When you will come out - you will be my favourite server!"';
+    storyContent[3] = '-said the wizard till he left the creature inside the egg alone...';
     storyContent[4] = '';
     changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
@@ -989,12 +1017,10 @@ function sceneControl() {
     resetText();
     typewriter();
   } else if (scene === 4) {
-    storyContent[0] =
-      'As soon as he left the beast withing tried to break away...';
+    storyContent[0] = 'As soon as he left the beast withing tried to break away...';
     storyContent[1] = 'but the shackles of the egg were not letting him out';
     storyContent[2] = 'Then the creature within heard a voice:';
-    storyContent[3] =
-      '"Eat the knowledge! Solve the problems and you will become stronger...';
+    storyContent[3] = '"Eat the knowledge! Solve the problems and you will become stronger...';
     storyContent[4] = '"...Grow enough to get your freedom!"';
     egg.style.animation = 'shake 3s infinite';
     wizard.style.display = 'none';
@@ -1060,14 +1086,14 @@ const uiHandler = {
         this.toggleHiddenElement(this.appWrapper);
         this.toggleHiddenElement(this.nextBtn);
         this.toggleHiddenElement(this.gameWrapper);
-        timer.startTimer();
-        audioHandler.changeBGM('gameplayPhaseOneBGM', 'play');
         this.toggleHiddenElement(this.asideLeft);
         this.toggleHiddenElement(this.asideRight);
         this.toggleHiddenElement(this.gameLeftPanel);
         this.toggleHiddenElement(this.gameRightPanel);
         this.toggleHiddenElement(this.gameTimer);
         this.toggleColorInSideBars(this.sidebars);
+        timer.startTimer();
+        audioHandler.changeBGM('gameplayPhaseOneBGM', 'play');
         displayProblem();
         askProblem();
         // specialItems();
@@ -1077,6 +1103,7 @@ const uiHandler = {
     };
   },
 };
+
 // * This fun contains the funs executed when the game starts
 function main() {
   preloadBackground(
