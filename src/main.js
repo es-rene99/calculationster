@@ -925,7 +925,7 @@ let scene = 1;
 const storyContent = new Array();
 
 storyContent[0] = 'A long time ago, ';
-storyContent[1] = 'there liven an evil wizard ';
+storyContent[1] = 'there lived an evil wizard ';
 storyContent[2] = 'who dreamt of conquering the world';
 storyContent[3] = 'and forcing everyone to serve him...';
 
@@ -1008,7 +1008,7 @@ function sceneControl() {
     storyContent[0] = 'He locked  the egg in his dungeon';
     storyContent[1] = 'where he used to make his experiments...';
     storyContent[2] = '"When you come out - you will be my favourite servant!"';
-    storyContent[3] = '-said the wizard and he left the creature inside the egg alone...';
+    storyContent[3] = '-the wizard said as he left the creature inside the egg, alone...';
     storyContent[4] = '';
     changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
@@ -1016,8 +1016,8 @@ function sceneControl() {
     resetText();
     typewriter();
   } else if (scene === 4) {
-    storyContent[0] = 'As soon as he left the beast within tried to break away...';
-    storyContent[1] = 'but the shackles of the egg would not break';
+    storyContent[0] = 'As soon as he left, the beast within tried to break away...';
+    storyContent[1] = 'but the shackles of the egg would not break.';
     storyContent[2] = 'Then the creature within heard a voice:';
     storyContent[3] = '"Eat the knowledge! Solve these problems and you will become stronger...';
     storyContent[4] = '"...Grow enough to get your freedom!"';
