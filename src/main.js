@@ -382,6 +382,15 @@ const scoreboard = {
   }
 };
 
+// level handler
+
+const levelUIHandler = {
+  levelIndicator: document.getElementById('levelIndicator'),
+  updateDisplay() {
+    this.levelIndicator.innerHTML = level;
+  }
+};
+
 // background switcher
 // Note that src here sets the source for the background to be preloaded
 
@@ -858,7 +867,7 @@ function checkIfAnswerIsCorrect() {
     specialEffects.timeFrozen = false;
     specialEffects.removePower('timeFreeze');
   }
-  if (userAnswer === correctAnswer) {
+  if (userAnswer === 0) {
     winAnswers += 1;
     if (winAnswers % ANSWERS_PER_LEVEL === 0) {
       level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
@@ -873,6 +882,7 @@ function checkIfAnswerIsCorrect() {
     }
     scoreboard.score += 10 * level;
     scoreboard.updateDisplay();
+    levelUIHandler.updateDisplay();
     userInputField.value = '';
     askProblem();
     monsterGrowth(level);
