@@ -696,7 +696,6 @@ const timer = {
     // TODO need to refactor uiReferences in a constant object
     uiHandler.toggleHiddenElement(document.getElementById('game-wrapper'));
     audioHandler.gameOver();
-    debugger;
     if (gameOverViewWasAlreadyCreated !== true) {
       const div = document.createElement('div');
       div.id = 'gameover___div';
