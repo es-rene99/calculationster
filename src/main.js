@@ -382,6 +382,15 @@ const scoreboard = {
   }
 };
 
+// level handler
+
+const levelUIHandler = {
+  levelIndicator: document.getElementById('levelIndicator'),
+  updateDisplay() {
+    this.levelIndicator.innerHTML = level;
+  }
+};
+
 // background switcher
 // Note that src here sets the source for the background to be preloaded
 
@@ -873,6 +882,7 @@ function checkIfAnswerIsCorrect() {
     }
     scoreboard.score += 10 * level;
     scoreboard.updateDisplay();
+    levelUIHandler.updateDisplay();
     userInputField.value = '';
     askProblem();
     monsterGrowth(level);
