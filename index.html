@@ -58,11 +58,26 @@
             <div class="items__container">
               <!-- TODO generate a list of items in JS -->
                 <div id="special-items" class="specialItem__div">
-                  <img src="./assets/specialEffects/breastplate.png" class="special-ability armor" id="specialEffect1" />
-                  <img src="./assets/specialEffects/emptyhourglass.png" class="special-ability time-freeze" id="specialEffect2" />
-                  <img src="./assets/specialEffects/halfdead.png" class="special-ability second-life" id="specialEffect3" />
-                  <img src="./assets/specialEffects/top-paw.png" class="special-ability claw" id="specialEffect4" />
-                  <img src="./assets/specialEffects/wingfoot.png" class="special-ability wing-foot" id="specialEffect5" />
+                  <div id="armor-container" class="power-container">
+                    <img src="./assets/specialEffects/breastplate.png" class="special-ability armor" id="specialEffect1" alt="armor special ability"/>
+                    <p id="armor-description">Prevents the timer from decreasing on the next 5 wrong answers. Click to activate.</p>
+                  </div>
+                  <div id="time-freeze-container" class="power-container">  
+                    <img src="./assets/specialEffects/emptyhourglass.png" class="special-ability time-freeze" id="specialEffect2" alt="time freeze special item"/>
+                    <p id="time-freeze-description">Freeze time until the next time you enter an answer. Click to activate.</p>
+                  </div>
+                  <div id="resurrection-container"  class="power-container">
+                    <img src="./assets/specialEffects/halfdead.png" class="special-ability second-life" id="specialEffect3" alt="resurrection special item"/>
+                    <p id="resurrection-description">Instead of losing, come back to life with 30 seconds on the clock! Only works once.</p>
+                  </div>
+                  <div id="claw-container" class="power-container">
+                    <img src="./assets/specialEffects/top-paw.png" class="special-ability claw" id="specialEffect4" alt="claw special item"/>
+                    <p id="claw-description">Slash away a problem you don't like! 5 more uses left. Click to activate.</p>
+                  </div>
+                  <div id="wingfoot-container" class="power-container">  
+                    <img src="./assets/specialEffects/wingfoot.png" class="special-ability wing-foot" id="specialEffect5" alt="special item wingfoot"/>
+                    <p id="wingfoot-description">Go fast! Add 60 seconds to the clock! Click to activate.</p>
+                  </div>
               </div>
             </div>
           </div>

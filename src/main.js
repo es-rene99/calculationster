@@ -287,18 +287,43 @@ effect1 is the armor
 // let effect4 = false;
 // let isClicked = false;
 
-function buildPower(domElement, enabled) {
+function buildPower(domContainer, image, description, enabled) {
   return {
-    domElement, enabled,
+    domContainer, image, description, enabled,
   };
 }
 
 const powers = {
-  armor: buildPower(document.getElementById('specialEffect1'), false),
-  timeFreeze: buildPower(document.getElementById('specialEffect2'), false),
-  secondLife: buildPower(document.getElementById('specialEffect3'), false),
-  sharpClaw: buildPower(document.getElementById('specialEffect4'), false),
-  wingFoot: buildPower(document.getElementById('specialEffect5'), false),
+  armor: buildPower(
+    document.getElementById('armor-container'),
+    document.getElementById('specialEffect1'),
+    document.getElementById('armor-description'),
+    false
+  ),
+  timeFreeze: buildPower(
+    document.getElementById('time-freeze-container'),
+    document.getElementById('specialEffect2'),
+    document.getElementById('time-freeze-description'),
+    false
+  ),
+  secondLife: buildPower(
+    document.getElementById('resurrection-container'),
+    document.getElementById('specialEffect3'),
+    document.getElementById('resurrection-description'),
+    false
+  ),
+  sharpClaw: buildPower(
+    document.getElementById('claw-container'),
+    document.getElementById('specialEffect4'),
+    document.getElementById('claw-description'),
+    false
+  ),
+  wingFoot: buildPower(
+    document.getElementById('wingfoot-container'),
+    document.getElementById('specialEffect5'),
+    document.getElementById('armor-description'),
+    false
+  ),
 };
 
 const specialEffects = {
@@ -312,11 +337,11 @@ const specialEffects = {
   wingFootTimeGain: 60,
   acquirePower(power) {
     powers[power].enabled = true;
-    powers[power].domElement.style.display = 'block';
+    powers[power].domContainer.style.display = 'flex';
   },
   removePower(power) {
     powers[power].enabled = false;
-    powers[power].domElement.style.display = 'none';
+    powers[power].domContainer.style.display = 'none';
   },
   armorEnabled() {
     if (this.armorClicked) {
@@ -329,22 +354,28 @@ const specialEffects = {
     if (this.armorHits >= this.maxArmorHits) {
       this.removePower('armor');
       this.armorClicked = false;
+      powers.armor.description.innerHTML = 'Prevents the timer from decreasing on the next 5 wrong answers. Click to activate.';
     } else {
-      powers.armor.domElement.style.animationPlayState = 'running';
+      powers.armor.description.innerHTML = `Prevents the timer from decreasing on the next ${this.maxArmorHits - this.armorHits} wrong answers. Currently active.`;
+      powers.armor.image.style.animationPlayState = 'running';
       setTimeout(() => {
-        powers.armor.domElement.style.animationPlayState = 'paused';
+        powers.armor.image.style.animationPlayState = 'paused';
       }, 500);
     }
   },
   useTimeFreeze() {
     audioHandler.playNoise('timestop');
+    powers.timeFreeze.description.innerHTML = 'Freeze time until the next time you enter an answer. Currently active.';
     this.timeFrozen = true;
   },
   useClaw() {
     audioHandler.playNoise('claws');
     this.clawsUsed += 1;
+    powers.sharpClaw.description.innerHTML = `Slash away a problem you don't like! ${this.maxClawUses - this.clawsUsed} more uses left. Click to activate.`;
     if (this.clawsUsed >= this.maxClawUses) {
       this.removePower('sharpClaw');
+      this.clawsUsed = 0;
+      powers.sharpClaw.description.innerHTML = `Slash away a problem you don't like! ${this.maxClawUses - this.clawsUsed} more uses left. Click to activate.`;
     }
     askProblem();
   },
@@ -363,10 +394,13 @@ const specialEffects = {
     audioHandler.playNoise('resurrection');
   },
   init() {
-    powers.armor.domElement.addEventListener('click', () => { specialEffects.armorClicked = true; });
-    powers.timeFreeze.domElement.addEventListener('click', () => specialEffects.useTimeFreeze());
-    powers.sharpClaw.domElement.addEventListener('click', () => specialEffects.useClaw());
-    powers.wingFoot.domElement.addEventListener('click', () => specialEffects.useWingFoot());
+    powers.armor.image.addEventListener('click', () => {
+      specialEffects.armorClicked = true;
+      powers.armor.description.innerHTML = `Prevents the timer from decreasing on the next ${5 - this.armorHits} wrong answers. Currently active.`;
+    });
+    powers.timeFreeze.image.addEventListener('click', () => specialEffects.useTimeFreeze());
+    powers.sharpClaw.image.addEventListener('click', () => specialEffects.useClaw());
+    powers.wingFoot.image.addEventListener('click', () => specialEffects.useWingFoot());
   },
   addNewRandomPower() {
     const shuffledPowers = shuffle(Object.keys(powers));
@@ -894,6 +928,7 @@ function checkIfAnswerIsCorrect() {
   if (specialEffects.timeFrozen) {
     specialEffects.timeFrozen = false;
     specialEffects.removePower('timeFreeze');
+    powers.timeFreeze.description.innerHTML = 'Freeze time until the next time you enter an answer. Click to activate.';
   }
   if (userAnswer === correctAnswer) {
     winAnswers += 1;
