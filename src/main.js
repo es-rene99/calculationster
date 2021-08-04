@@ -337,9 +337,11 @@ const specialEffects = {
     }
   },
   useTimeFreeze() {
+    audioHandler.playNoise('timestop');
     this.timeFrozen = true;
   },
   useClaw() {
+    audioHandler.playNoise('claws');
     this.clawsUsed += 1;
     if (this.clawsUsed >= this.maxClawUses) {
       this.removePower('sharpClaw');
@@ -349,10 +351,16 @@ const specialEffects = {
   useWingFoot() {
     if (powers.wingFoot.enabled) {
       this.removePower('wingFoot');
+      audioHandler.playNoise('fastShoes');
       // most likely, event listeners should just be added in main but for now i'm doing it here
       // which is why timer is being used before it is defined
       timer.gainSeconds(specialEffects.wingFootTimeGain);
     }
+  },
+  useSecondLife() {
+    timer.gainSeconds(30);
+    this.removePower('secondLife');
+    audioHandler.playNoise('resurrection');
   },
   init() {
     powers.armor.domElement.addEventListener('click', () => { specialEffects.armorClicked = true; });
@@ -571,6 +579,11 @@ const audioHandler = {
       gameOver: new Sound('./assets/sounds/noises/game-over.mp3'),
       incorrect: new Sound('./assets/sounds/noises/incorrect.mp3'),
       reward: new Sound('./assets/sounds/noises/reward.mp3'),
+      armorHit: new Sound('./assets/sounds/noises/powers/armor.mp3'),
+      fastShoes: new Sound('./assets/sounds/noises/powers/fastshoes.mp3'),
+      resurrection: new Sound('./assets/sounds/noises/powers/resurrect.mp3'),
+      claws: new Sound('./assets/sounds/noises/powers/slash.mp3'),
+      timestop: new Sound('./assets/sounds/noises/powers/timestop.mp3'),
     };
     this.loops = {
       introBGM: new Sound('./assets/sounds/loops/intro.mp3', true),
@@ -771,9 +784,13 @@ const timer = {
     const timeInterval = setInterval(() => {
       if (timer.status === 'running') {
         if (this.sec <= 0) {
-          clearInterval(timeInterval);
-          this.sec = 0;
-          this.gameOver();
+          if (powers.secondLife.enabled === true) {
+            specialEffects.useSecondLife();
+          } else {
+            clearInterval(timeInterval);
+            this.sec = 0;
+            this.gameOver();
+          }
         } else if (specialEffects.timeFrozen) {
           this.sec -= 0;
         } else {
@@ -902,8 +919,7 @@ function checkIfAnswerIsCorrect() {
   } else {
     userInputField.value = '';
     if (specialEffects.armorEnabled()) {
-      // The following noise has not been implemented yet
-      // audioHandler.playNoise('armor');
+      audioHandler.playNoise('armorHit');
       specialEffects.useArmor();
     } else {
       audioHandler.playNoise('incorrect');
