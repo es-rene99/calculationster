@@ -378,10 +378,18 @@ img.egg {
 }
 
 /* special effects */
+
+.power-container {
+  display: none;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+
+
 .special-ability {
   width: 100px;
   cursor: pointer;
-  display: none;
 }
 
 .armor {
