@@ -878,6 +878,9 @@ function checkIfAnswerIsCorrect() {
     winAnswers += 1;
     if (winAnswers % ANSWERS_PER_LEVEL === 0) {
       level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
+      if (level === 10) {
+        uiHandler.finalScene();
+      }
       timer.levelupHandling();
       audioHandler.levelUpHandling(level);
       if (level % 2 === 0) {
