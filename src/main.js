@@ -583,7 +583,7 @@ const audioHandler = {
       fastShoes: new Sound('./assets/sounds/noises/powers/fastshoes.mp3'),
       resurrection: new Sound('./assets/sounds/noises/powers/resurrect.mp3'),
       claws: new Sound('./assets/sounds/noises/powers/slash.mp3'),
-      timestop: new Sound('./assets/sounds/noises/timestop.mp3'),
+      timestop: new Sound('./assets/sounds/noises/powers/timestop.mp3'),
     };
     this.loops = {
       introBGM: new Sound('./assets/sounds/loops/intro.mp3', true),
