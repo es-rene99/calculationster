@@ -609,6 +609,10 @@ const audioHandler = {
         './assets/sounds/loops/gameplay-late.mp3',
         true
       ),
+      finalBattleBGM: new Sound(
+        './assets/sounds/loops/final-battle.mp3',
+        true
+      ),
     };
     this.bgm = this.loops.introBGM;
   },
@@ -1169,6 +1173,7 @@ const uiHandler = {
   },
   finalScene() {
     timer.pause();
+    audioHandler.changeBGM('finalBattleBGM', 'play');
     preloadBackground("url('assets/Backgrounds/Interior/interior01.jpg')");
     changeToPreloadedBackground();
     this.toggleHiddenElement(this.appWrapper);
