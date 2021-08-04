@@ -995,8 +995,9 @@ function sceneControl() {
   const textFrame = document.getElementById('story');
   const wizard = document.getElementById('wizard1');
   const egg = document.getElementById('egg2');
-
+  const playerMonster = document.getElementById('player-monster');
   if (scene === 1) {
+    playerMonster.style.display = 'none';
     egg.style.display = 'none';
     createMonsterImg('assets/monster/Extras/Wizard.png', 'wizard', 'wizard1');
     changeToPreloadedBackground();
@@ -1056,7 +1057,35 @@ function sceneControl() {
     resetText();
     typewriter();
   } else if (scene === 6) {
-    sceneDiv.querySelectorAll('*').forEach((n) => n.remove());
+    sceneDiv.style.display = 'none';
+    scene += 1;
+  } else if (scene === 8) {
+    playerMonster.src = document.getElementById('monster').src;
+    egg.style.display = 'none';
+    playerMonster.style.display = 'block';
+    textFrame.style.visibility = 'hidden';
+    sceneDiv.style.display = 'block';
+    storyContent[0] = 'Good job little creature!';
+    storyContent[1] = 'You have learned and grown so much!';
+    storyContent[2] = 'Now we will help you escape the castle';
+    storyContent[3] = 'And live with us, ';
+    storyContent[4] = 'Your new family of calculationsters';
+    storyContent[5] = 'Just like you!';
+    resetText();
+    typewriter();
+    textFrame.style.visibility = 'visible';
+    scene += 1;
+  } else if (scene === 9) {
+    textFrame.style.visibility = 'hidden';
+    storyContent[0] = `You escaped with ${timer.sec} seconds to spare!`;
+    storyContent[1] = 'For each remaining second you get 5 bonus points';
+    storyContent[2] = `Your final score is ${scoreboard.score + timer.sec * 5}`;
+    storyContent[3] = '';
+    storyContent[4] = '';
+    storyContent[5] = '';
+    resetText();
+    typewriter();
+    textFrame.style.visibility = 'visible';
     scene += 1;
   }
 }
@@ -1119,7 +1148,24 @@ const uiHandler = {
       }
     };
   },
+  finalScene() {
+    timer.pause();
+    preloadBackground("url('assets/Backgrounds/Interior/interior01.jpg')");
+    changeToPreloadedBackground();
+    this.toggleHiddenElement(this.appWrapper);
+    this.toggleHiddenElement(this.nextBtn);
+    this.toggleHiddenElement(this.gameWrapper);
+    this.toggleHiddenElement(this.asideLeft);
+    this.toggleHiddenElement(this.asideRight);
+    this.toggleHiddenElement(this.gameLeftPanel);
+    this.toggleHiddenElement(this.gameRightPanel);
+    this.toggleHiddenElement(this.gameTimer);
+    this.toggleColorInSideBars(this.sidebars);
+    scene = 8;
+    sceneControl();
+  },
 };
+
 
 // * This fun contains the funs executed when the game starts
 function main() {
