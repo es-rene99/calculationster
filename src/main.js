@@ -867,7 +867,7 @@ function checkIfAnswerIsCorrect() {
     specialEffects.timeFrozen = false;
     specialEffects.removePower('timeFreeze');
   }
-  if (userAnswer === 0) {
+  if (userAnswer === correctAnswer) {
     winAnswers += 1;
     if (winAnswers % ANSWERS_PER_LEVEL === 0) {
       level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
