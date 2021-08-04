@@ -369,7 +369,13 @@ const specialEffects = {
       }
     }
   },
-
+  removeAllPowers() {
+    for (const power of Object.keys(powers)) {
+      if (powers[power].enabled) {
+        this.removePower(power);
+      }
+    }
+  },
 };
 
 // scoreboard handler
@@ -702,6 +708,7 @@ const timer = {
   },
   gameOver() {
     this.updateDisplay("Time's up!");
+    specialEffects.removeAllPowers();
     // TODO need to refactor uiReferences in a constant object
     uiHandler.toggleHiddenElement(document.getElementById('game-wrapper'));
     audioHandler.gameOver();
