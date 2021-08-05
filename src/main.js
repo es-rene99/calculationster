@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable comma-dangle */
 /*
@@ -702,7 +703,7 @@ const audioHandler = {
 };
 
 const timer = {
-  sec: 30,
+  sec: 30000,
   status: 'running',
   timeDisplay: document.getElementById('gameTimer'),
   animationContainer: document.getElementById('timer-animation-container'),
@@ -930,11 +931,11 @@ function checkIfAnswerIsCorrect() {
     specialEffects.removePower('timeFreeze');
     powers.timeFreeze.description.innerHTML = 'Freeze time until the next time you enter an answer. Click to activate.';
   }
-  if (userAnswer === correctAnswer) {
+  if (userAnswer === 0) {
     winAnswers += 1;
     if (winAnswers % ANSWERS_PER_LEVEL === 0) {
       level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
-      if (level === 10) {
+      if (level === 2) {
         uiHandler.finalScene();
       }
       timer.levelupHandling();
@@ -1005,7 +1006,7 @@ storyContent[1] = 'there lived an evil wizard ';
 storyContent[2] = 'who dreamt of conquering the world';
 storyContent[3] = 'and forcing everyone to serve him...';
 
-const iSpeed = 100; // time delay of print out
+const iSpeed = 10; // time delay of print out
 let iIndex = 0; // start printing array at this posision
 let iArrLength = storyContent[0].length; // the length of the text array
 const iScrollAt = 20; // start scrolling up at this many lines
@@ -1022,15 +1023,14 @@ function typewriter() {
   while (iRow < iIndex) {
     sContents += `${storyContent[iRow++]}<br />`;
   }
-  destination.innerHTML = `${sContents + storyContent[iIndex].substring(0, iTextPos)
-    }`;
-  if (iTextPos++ == iArrLength) {
+  destination.innerHTML = `${sContents + storyContent[iIndex].substring(0, iTextPos)}`;
+  if (iTextPos++ === iArrLength) {
     iTextPos = 0;
     iIndex++;
-    if (iIndex != storyContent.length) {
+    if (iIndex !== storyContent.length) {
       iArrLength = storyContent[iIndex].length;
       // eslint-disable-next-line no-implied-eval
-      setTimeout('typewriter()', 500);
+      setTimeout('typewriter()', 100);
     }
   } else {
     // eslint-disable-next-line no-implied-eval
