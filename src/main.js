@@ -982,7 +982,7 @@ function displayProblem() {
   answerInputWrapper.classList.add('answer-input-wrapper');
   const answerInput = document.createElement('input');
   answerInput.id = 'answer';
-  answerInput.classList.add('number-shadow-color');
+  answerInput.classList.add('shadow-color');
   const enterAnswerBtn = document.createElement('button');
   enterAnswerBtn.id = 'enter-answer-btn';
   enterAnswerBtn.classList.add('enter-answer-btn');
