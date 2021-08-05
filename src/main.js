@@ -618,6 +618,7 @@ const audioHandler = {
       resurrection: new Sound('./assets/sounds/noises/powers/resurrect.mp3'),
       claws: new Sound('./assets/sounds/noises/powers/slash.mp3'),
       timestop: new Sound('./assets/sounds/noises/powers/timestop.mp3'),
+      gameStartClick: new Sound('./assets/sounds/noises/start-game-click.mp3'),
     };
     this.loops = {
       introBGM: new Sound('./assets/sounds/loops/intro.mp3', true),
@@ -1175,6 +1176,7 @@ const uiHandler = {
   },
   activateEventListeners() {
     this.gameStartBtn.onclick = () => {
+      audioHandler.playNoise('gameStartClick');
       this.toggleHiddenElement(this.cutScene);
       this.toggleHiddenElement(this.nextBtn);
       this.toggleHiddenElement(this.gameTitle);
