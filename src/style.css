@@ -363,6 +363,21 @@ img.egg {
   border-radius: 1em;
   box-shadow: 2px 2px #888888;
   font-family: "Press Start 2P";
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.enter-answer-btn__label {
+  display: block;
+}
+
+.enter-answer-btn__icon {
+  display: block;
+  font-size: 2.5rem;
+  margin-bottom: 1.12rem;
+  margin-left: 0.31rem;
+  color: #808080;
 }
 
 .monster-container {
@@ -384,8 +399,6 @@ img.egg {
   flex-wrap: nowrap;
   justify-content: space-between;
 }
-
-
 
 .special-ability {
   width: 100px;
