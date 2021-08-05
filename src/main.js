@@ -1150,6 +1150,9 @@ function sceneControl() {
     typewriter();
     textFrame.style.visibility = 'visible';
     scene += 1;
+  } else if (scene === 10) {
+    // * Refresh the game to title screen
+    window.location.reload();
   }
 }
 
