@@ -986,11 +986,16 @@ function displayProblem() {
   const enterAnswerBtn = document.createElement('button');
   enterAnswerBtn.id = 'enter-answer-btn';
   enterAnswerBtn.classList.add('enter-answer-btn');
-  enterAnswerBtn.textContent = 'Enter';
+  enterAnswerBtn.innerHTML = '<span class="enter-answer-btn__label">Enter</span><span class="enter-answer-btn__icon">&#8629;</span>';
   answerInputWrapper.appendChild(answerInput);
   answerInputWrapper.appendChild(enterAnswerBtn);
   operationPanel.appendChild(answerInputWrapper);
   enterAnswerBtn.addEventListener('click', checkIfAnswerIsCorrect);
+  enterAnswerBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      checkIfAnswerIsCorrect();
+    }
+  });
   answerInput.focus();
 }
 
@@ -1224,7 +1229,6 @@ const uiHandler = {
     sceneControl();
   },
 };
-
 
 // * This fun contains the funs executed when the game starts
 function main() {
