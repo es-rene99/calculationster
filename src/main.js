@@ -991,6 +991,11 @@ function displayProblem() {
   answerInputWrapper.appendChild(enterAnswerBtn);
   operationPanel.appendChild(answerInputWrapper);
   enterAnswerBtn.addEventListener('click', checkIfAnswerIsCorrect);
+  enterAnswerBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      checkIfAnswerIsCorrect();
+    }
+  });
   answerInput.focus();
 }
 
