@@ -375,9 +375,17 @@ img.egg {
 .enter-answer-btn__icon {
   display: block;
   font-size: 2.5rem;
-  margin-bottom: 1.12rem;
+  margin-bottom: 0.12rem;
   margin-left: 0.31rem;
   color: #808080;
+}
+
+/* * Maintain consistent look in arrow in Firefox  */
+/* https://stackoverflow.com/questions/48505236/load-different-css-rule-depending-on-the-browser-in-an-angular-4-component */
+@-moz-document url-prefix() {
+  .enter-answer-btn__icon {
+    margin-bottom: 1.12rem;
+  }
 }
 
 .monster-container {
