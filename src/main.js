@@ -451,7 +451,7 @@ function preloadBackground(src) {
   nextScene.style.backgroundSize = 'cover';
   setTimeout(() => {
     nextScene.style.visibility = 'visible';
-  }, 200);
+  }, 400);
 }
 
 function changeToPreloadedBackground() {
