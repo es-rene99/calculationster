@@ -117,8 +117,6 @@ body {
 .title-screen-btn {
   background-color: Transparent;
   border: none;
-  width: fit-content;
-  height: fit-content;
   cursor: pointer;
   outline: none;
   font-family: "Just Another Hand", cursive;
@@ -130,6 +128,8 @@ body {
   padding-right: 5%;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
+  display: block;
+  width: 105%;
 }
 .title-screen-btn:hover {
   color: rgba(246, 255, 244, 0.905);
