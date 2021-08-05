@@ -1241,4 +1241,5 @@ function main() {
   timer.updateTime();
   uiHandler.activateEventListeners();
 }
-main();
+
+window.addEventListener('load', main);
