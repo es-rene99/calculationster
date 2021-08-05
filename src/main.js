@@ -432,10 +432,23 @@ const scoreboard = {
 
 // level handler
 
+const levelDescriptions = {
+  0: '',
+  1: 'Addition',
+  2: 'Subtraction',
+  3: 'Addition or Subtraction',
+  4: 'Addition or Subtraction',
+  5: 'Multiplication',
+  6: 'Division',
+  7: 'Multiplication or Division',
+  8: 'Everything we\'ve done up until now',
+  9: 'FINAL LEVEL: More numbers!!!',
+};
+
 const levelUIHandler = {
   levelIndicator: document.getElementById('levelIndicator'),
   updateDisplay() {
-    this.levelIndicator.innerHTML = level;
+    this.levelIndicator.innerHTML = `${level}   ${levelDescriptions[level]}`;
   }
 };
 
