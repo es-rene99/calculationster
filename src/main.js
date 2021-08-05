@@ -21,6 +21,16 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (maxInt - minInt) + minInt);
 }
 
+/* 
+Get random n digit integer
+*/
+
+function getRandomNumDigitInt(numberOfDigits) {
+  const minInt = 10 ** (numberOfDigits - 1);
+  const maxInt = 10 ** numberOfDigits;
+  return getRandomInt(minInt, maxInt);
+}
+
 /*
 Gets a random element from an array
 */
@@ -139,7 +149,7 @@ For division, avoids fractions.
 function makeSimpleExpression(numDigits, operator, numTerms = 2) {
   const operands = [];
   for (let i = 0; i < numTerms; i += 1) {
-    operands.push(getRandomInt(1, 10 ** numDigits));
+    operands.push(getRandomNumDigitInt(numDigits));
   }
   /*
   When doing subtraction, we set the first operand equal to the sum of the current set of operands,
@@ -197,7 +207,7 @@ function makeRandomExpression(numTerms, numDigits) {
   }
   let expression = makeSimpleExpression(numDigits, getRandomOperator());
   for (let i = 2; i < numTerms; i += 1) {
-    const nextOperand = getRandomInt(1, 10 ** numDigits);
+    const nextOperand = getRandomNumDigitInt(numDigits);
     const nextOperator = getRandomOperator();
     expression = addTermToExpression(expression, nextOperand, nextOperator);
   }
@@ -212,65 +222,60 @@ let winAnswers = 0;
 let problem;
 let correctAnswer;
 let level = 1;
+let reincarnation = 0;
 const count = 0;
 const ANSWERS_PER_LEVEL = 5;
 
 function askProblem() {
   level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
   let operator;
-  let numDigits;
+  let numDigits = 1 + Math.floor(reincarnation / 2);
+  const numTerms = 2 + Math.ceil(reincarnation / 2);
 
   // further function for separation
 
   if (level === 1) {
-    numDigits = 1;
     operator = '+';
-    problem = makeSimpleExpression(numDigits, operator);
+    problem = makeSimpleExpression(numDigits, operator, numTerms);
   } else if (level === 2) {
-    numDigits = 1;
     operator = '-';
-    problem = makeSimpleExpression(numDigits, operator);
+    problem = makeSimpleExpression(numDigits, operator, numTerms);
   } else if (level === 3) {
-    numDigits = 1;
     operator = getRandomArrayElement(['+', '-']);
-    problem = makeSimpleExpression(numDigits, operator);
+    problem = makeSimpleExpression(numDigits, operator, numTerms);
   } else if (level === 4) {
+    numDigits += 1;
     // We are converting operand1 to a string because it acts as a stub problem string here
-    const operand1 = String(getRandomInt(10, 100));
-    const operand2 = getRandomInt(1, 10);
+    const operand1 = String(getRandomNumDigitInt(numDigits));
+    const operand2 = getRandomNumDigitInt(numDigits - 1);
     operator = getRandomArrayElement(['+', '-']);
     problem = addTermToExpression(operand1, operand2, operator);
   } else if (level === 5) {
-    numDigits = 1;
     operator = 'x';
-    problem = makeSimpleExpression(numDigits, operator);
+    problem = makeSimpleExpression(numDigits, operator, numTerms);
   } else if (level === 6) {
-    numDigits = 1;
     operator = '/';
-    problem = makeSimpleExpression(numDigits, operator);
+    problem = makeSimpleExpression(numDigits, operator, numTerms);
   } else if (level === 7) {
-    numDigits = 1;
     operator = getRandomArrayElement(['x', '/']);
-    problem = makeSimpleExpression(numDigits, operator);
+    problem = makeSimpleExpression(numDigits, operator, numTerms);
   } else if (level === 8) {
-    numDigits = 1;
     operator = getRandomOperator();
     if (['+', '-'].includes(operator)) {
-      numDigits = 2;
+      numDigits += 1;
     }
-    problem = makeSimpleExpression(numDigits, operator);
+    problem = makeSimpleExpression(numDigits, operator, numTerms);
   } else if (level >= 9) {
     operator = getRandomOperator();
-    numDigits = 1;
     if (['+', '-'].includes(operator)) {
-      numDigits = 2;
+      numDigits += 1;
     }
-    problem = makeSimpleExpression(numDigits, operator);
+    problem = makeSimpleExpression(numDigits, operator, numTerms);
     operator = getRandomArrayElement(['+', '-']);
     numDigits = 2;
     problem = addTermToExpression(
       problem,
-      getRandomInt(1, 10 ** numDigits),
+      getRandomNumDigitInt(numDigits),
       operator
     );
   }
