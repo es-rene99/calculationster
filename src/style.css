@@ -17,7 +17,7 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  animation: fade-in 3s ease-in 0.6s 1 forwards;
+  animation: fade-in 3s ease-in 0.3s 1 forwards;
 }
 
 .background-image-div {

@@ -455,7 +455,7 @@ const levelUIHandler = {
 // background switcher
 // Note that src here sets the source for the background to be preloaded
 
-function preloadBackground(src) {
+function preloadBackground(src, timeoutSec = 400) {
   const nextScene = document.getElementsByClassName(
     'background-image-div preload'
   )[0];
@@ -463,7 +463,7 @@ function preloadBackground(src) {
   nextScene.style.backgroundSize = 'cover';
   setTimeout(() => {
     nextScene.style.visibility = 'visible';
-  }, 400);
+  }, timeoutSec);
 }
 
 function changeToPreloadedBackground() {
@@ -1246,7 +1246,7 @@ const uiHandler = {
 // * This fun contains the funs executed when the game starts
 function main() {
   preloadBackground(
-    "url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')"
+    "url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')", 700
   );
   // fade in title screen when background loads
   const backgroundImage = document.getElementsByClassName('background-image-div current')[0];
