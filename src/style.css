@@ -286,12 +286,35 @@ img.egg {
 .game-left-panel,
 .game-right-panel {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  
 }
 
-.sidebar-colors {
+.game-left-panel {
+  justify-content: space-between;
+}
+
+.game-right-panel {
+  justify-content:flex-end;
+  align-items: flex-end;
+  
+}
+
+#timer-and-score-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#level__container {
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+/* .sidebar-colors {
   background-color: rgba(64, 10, 64, 0.6);
   border: 4px solid #791a40;
-}
+} */
 
 .game-left-panel__title {
   margin-top: 2rem;
@@ -301,7 +324,7 @@ img.egg {
   width: 80%;
   background-color: rgba(59, 27, 102, 0.6);
   display: inline-block;
-  height: 70%;
+  min-height: 20%;
 }
 
 .main__game {
@@ -410,6 +433,7 @@ img.egg {
 
 .special-ability {
   width: 100px;
+  height: 100px;
   cursor: pointer;
 }
 
@@ -426,18 +450,13 @@ img.egg {
   fill: grey;
 }
 
-.game-right-panel {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
-
 /* timer */
 
 .game__timer {
   margin-top: 2rem;
   float: left;
   margin-left: 2%;
+  margin-right: 20px;
   font-size: 1rem;
   padding: 0 1rem;
   font-family: "Press Start 2P";
