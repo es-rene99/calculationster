@@ -952,7 +952,7 @@ function checkIfAnswerIsCorrect() {
     winAnswers += 1;
     if (winAnswers % ANSWERS_PER_LEVEL === 0) {
       level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
-      if (level === 3) {
+      if (level === 4) {
         uiHandler.finalScene();
       }
       timer.levelupHandling();
@@ -1174,6 +1174,7 @@ function sceneControl() {
     storyContent[3] = '';
     storyContent[4] = '';
     storyContent[5] = '';
+    audioHandler.playNoise('incorrect');
     calculationsterMagicAttack.style.animation = 'expand-magic 1.2s forwards';
     wizard.style.animation = 'send-flying 4s forwards';
     endSceneActions();
