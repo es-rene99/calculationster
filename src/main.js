@@ -935,7 +935,7 @@ function checkIfAnswerIsCorrect() {
     winAnswers += 1;
     if (winAnswers % ANSWERS_PER_LEVEL === 0) {
       level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
-      if (level === 2) {
+      if (level === 3) {
         uiHandler.finalScene();
       }
       timer.levelupHandling();
@@ -1123,17 +1123,60 @@ function sceneControl() {
     playerMonster.style.display = 'block';
     textFrame.style.visibility = 'hidden';
     sceneDiv.style.display = 'block';
-    storyContent[0] = 'Good job little creature!';
+    storyContent[0] = 'Your final transformation caused destruction all around you.';
     storyContent[1] = 'You have learned and grown so much!';
-    storyContent[2] = 'Now we will help you escape the castle';
-    storyContent[3] = 'And live with us, ';
-    storyContent[4] = 'Your new family of calculationsters';
-    storyContent[5] = 'Just like you!';
+    storyContent[2] = "While you're getting used to your full power ";
+    storyContent[3] = 'you feel someone approaching...';
+    storyContent[4] = '';
+    storyContent[5] = '';
     resetText();
     typewriter();
     textFrame.style.visibility = 'visible';
     scene += 1;
   } else if (scene === 9) {
+    wizard.style.display = 'block';
+    storyContent[0] = '"That sound, my monster!"';
+    storyContent[1] = '"You have more power that I had imagined"';
+    storyContent[2] = '"Now come forth as my soldier';
+    storyContent[3] = 'you will allow me to conquer the world!"';
+    storyContent[4] = '...';
+    storyContent[5] = '...';
+    resetText();
+    typewriter();
+    textFrame.style.visibility = 'visible';
+    scene += 1;
+  } else if (scene === 10) {
+    wizard.style.display = 'block';
+    storyContent[0] = '"... Aren\'t you listening? Come towards me!"';
+    storyContent[1] = '"You will need to be disciplined!"';
+    storyContent[2] = '';
+    storyContent[3] = '';
+    storyContent[4] = '';
+    storyContent[5] = '';
+    resetText();
+    typewriter();
+    textFrame.style.visibility = 'visible';
+    wizard.style.animation = 'move-right 1s forwards';
+    scene += 1;
+  } else if (scene === 11) {
+    let calculationsterMagicAttack = document.createElement('div');
+    calculationsterMagicAttack.className = 'calculationster-magic-attack';
+    calculationsterMagicAttack.textContent = '2+2=4';
+    sceneDiv.appendChild(calculationsterMagicAttack);
+    calculationsterMagicAttack = document.querySelector('.calculationster-magic-attack');
+    storyContent[0] = '"AAAH-"';
+    storyContent[1] = 'You defeated the wizard easily';
+    storyContent[2] = 'and decided to finally escape from this castle.';
+    storyContent[3] = '';
+    storyContent[4] = '';
+    storyContent[5] = '';
+    resetText();
+    typewriter();
+    textFrame.style.visibility = 'visible';
+    calculationsterMagicAttack.style.animation = 'expand-magic 1.2s forwards';
+    wizard.style.animation = 'send-flying 4s forwards';
+    scene += 1;
+  } else if (scene === 19) {
     textFrame.style.visibility = 'hidden';
     storyContent[0] = `You escaped with ${timer.sec} seconds to spare!`;
     storyContent[1] = 'For each remaining second you get 5 bonus points';
@@ -1145,7 +1188,7 @@ function sceneControl() {
     typewriter();
     textFrame.style.visibility = 'visible';
     scene += 1;
-  } else if (scene === 10) {
+  } else if (scene === 99) {
     // * Refresh the game to title screen
     window.location.reload();
   }
