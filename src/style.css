@@ -298,17 +298,12 @@ img.egg {
 .game-right-panel {
   justify-content:flex-end;
   align-items: flex-end;
-  
+  margin-right: 20px;
 }
 
-#timer-and-score-container {
-  display: flex;
-  justify-content: space-between;
-}
 
 #level__container {
   margin-bottom: 20px;
-  margin-right: 20px;
 }
 
 /* .sidebar-colors {
@@ -456,7 +451,6 @@ img.egg {
   margin-top: 2rem;
   float: left;
   margin-left: 2%;
-  margin-right: 20px;
   font-size: 1rem;
   padding: 0 1rem;
   font-family: "Press Start 2P";
