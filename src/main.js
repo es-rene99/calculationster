@@ -1246,7 +1246,7 @@ const uiHandler = {
 // * This fun contains the funs executed when the game starts
 function main() {
   preloadBackground(
-    "url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')", 700
+    "url('assets/Backgrounds/road/12Z_2104.w026.n002.312B.p1.312.jpg')", 2000
   );
   // fade in title screen when background loads
   const backgroundImage = document.getElementsByClassName('background-image-div current')[0];
