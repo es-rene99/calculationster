@@ -1054,15 +1054,19 @@ function sceneControl() {
   const wizard = document.getElementById('wizard1');
   const egg = document.getElementById('egg2');
   const playerMonster = document.getElementById('player-monster');
+  const backgroundImage = document.getElementById('background-image-current');
+  function endSceneActions() {
+    scene += 1;
+    resetText();
+    typewriter();
+  }
   if (scene === 1) {
     playerMonster.style.display = 'none';
     egg.style.display = 'none';
     createMonsterImg('assets/monster/Extras/Wizard.png', 'wizard', 'wizard1');
     changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Cave/cave_edited.jpg')");
-    typewriter();
-    scene += 1;
-    resetText();
+    endSceneActions();
   } else if (scene === 2) {
     wizard.style.display = 'none';
     egg.style.display = 'inline';
@@ -1071,13 +1075,11 @@ function sceneControl() {
     storyContent[1] = 'and in the cave there was an egg...';
     storyContent[2] = 'He stole it and ran to his castle';
     storyContent[3] = '"Whatever grows from this egg will serve me well!"';
-    storyContent[4] = '- happily thought the sorcerer...';
+    storyContent[4] = '- happily thought the wizard...';
     changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
     createMonsterImg('assets/monster/Starter/01.png', 'egg2', 'egg2');
-    scene += 1;
-    typewriter();
-    resetText();
+    endSceneActions();
   } else if (scene === 3) {
     wizard.style.display = 'inline';
     wizard.style.left = '10%';
@@ -1089,9 +1091,7 @@ function sceneControl() {
     storyContent[4] = '';
     changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
-    scene += 1;
-    resetText();
-    typewriter();
+    endSceneActions();
   } else if (scene === 4) {
     storyContent[0] = 'As soon as he left, the beast within tried to break away...';
     storyContent[1] = 'but the shackles of the egg would not break.';
@@ -1100,9 +1100,7 @@ function sceneControl() {
     storyContent[4] = '"...Grow enough to get your freedom!"';
     egg.style.animation = 'shake 3s infinite';
     wizard.style.display = 'none';
-    scene += 1;
-    resetText();
-    typewriter();
+    endSceneActions();
   } else if (scene === 5) {
     storyContent[0] = 'And then the creature saw...';
     storyContent[1] = '5 + 5 = ?';
@@ -1111,17 +1109,15 @@ function sceneControl() {
     storyContent[4] = 'Once again it heard - "Grow as fast as you can..."';
     storyContent[5] = '...escape the castle before the wizard catches you!';
     egg.style.animation = 'grow 10s forwards';
-    scene += 1;
-    resetText();
-    typewriter();
+    endSceneActions();
   } else if (scene === 6) {
     sceneDiv.style.display = 'none';
     scene += 1;
   } else if (scene === 8) {
+    preloadBackground("url('assets/Backgrounds/road/outside.jpg')");
     playerMonster.src = document.getElementById('monster').src;
     egg.style.display = 'none';
     playerMonster.style.display = 'block';
-    textFrame.style.visibility = 'hidden';
     sceneDiv.style.display = 'block';
     storyContent[0] = 'Your final transformation caused destruction all around you.';
     storyContent[1] = 'You have learned and grown so much!';
@@ -1129,22 +1125,16 @@ function sceneControl() {
     storyContent[3] = 'you feel someone approaching...';
     storyContent[4] = '';
     storyContent[5] = '';
-    resetText();
-    typewriter();
-    textFrame.style.visibility = 'visible';
-    scene += 1;
+    endSceneActions();
   } else if (scene === 9) {
     wizard.style.display = 'block';
-    storyContent[0] = '"That sound, my monster!"';
+    storyContent[0] = '"That sound, my monster! Said the wizard"';
     storyContent[1] = '"You have more power that I had imagined"';
     storyContent[2] = '"Now come forth as my soldier';
     storyContent[3] = 'you will allow me to conquer the world!"';
     storyContent[4] = '...';
     storyContent[5] = '...';
-    resetText();
-    typewriter();
-    textFrame.style.visibility = 'visible';
-    scene += 1;
+    endSceneActions();
   } else if (scene === 10) {
     wizard.style.display = 'block';
     storyContent[0] = '"... Aren\'t you listening? Come towards me!"';
@@ -1153,42 +1143,91 @@ function sceneControl() {
     storyContent[3] = '';
     storyContent[4] = '';
     storyContent[5] = '';
-    resetText();
-    typewriter();
-    textFrame.style.visibility = 'visible';
     wizard.style.animation = 'move-right 1s forwards';
-    scene += 1;
+    endSceneActions();
   } else if (scene === 11) {
-    let calculationsterMagicAttack = document.createElement('div');
+    const calculationsterMagicAttack = document.createElement('div');
+    calculationsterMagicAttack.id = 'calculationster-magic-attack';
     calculationsterMagicAttack.className = 'calculationster-magic-attack';
     calculationsterMagicAttack.textContent = '2+2=4';
     sceneDiv.appendChild(calculationsterMagicAttack);
-    calculationsterMagicAttack = document.querySelector('.calculationster-magic-attack');
     storyContent[0] = '"AAAH-"';
     storyContent[1] = 'You defeated the wizard easily';
     storyContent[2] = 'and decided to finally escape from this castle.';
     storyContent[3] = '';
     storyContent[4] = '';
     storyContent[5] = '';
-    resetText();
-    typewriter();
-    textFrame.style.visibility = 'visible';
     calculationsterMagicAttack.style.animation = 'expand-magic 1.2s forwards';
     wizard.style.animation = 'send-flying 4s forwards';
-    scene += 1;
-  } else if (scene === 19) {
-    textFrame.style.visibility = 'hidden';
-    storyContent[0] = `You escaped with ${timer.sec} seconds to spare!`;
-    storyContent[1] = 'For each remaining second you get 5 bonus points';
-    storyContent[2] = `Your final score is ${scoreboard.score + timer.sec * 5}`;
+    endSceneActions();
+  } else if (scene === 12) {
+    const calculationsterMagicAttack = document.getElementById('calculationster-magic-attack');
+    sceneDiv.removeChild(calculationsterMagicAttack);
+    sceneDiv.removeChild(wizard);
+    const ancientCalculationster = document.createElement('img');
+    ancientCalculationster.src = '../assets/monster/Extras/ancient-calculationster.png';
+    ancientCalculationster.id = 'ancient-calculationster';
+    ancientCalculationster.className = 'ancient-calculationster';
+    sceneDiv.appendChild(ancientCalculationster);
+    changeToPreloadedBackground();
+    storyContent[0] = '"Outside the castle you found another strange creature speaking in a very strong tone."';
+    storyContent[1] = '"I didn\'t know wizards already found ways to fly..."';
+    storyContent[2] = 'said the creature.';
+    storyContent[3] = '"Hey it\'s you! I was looking all over for you,';
+    storyContent[4] = 'you look different but I can feel your presence."';
+    storyContent[5] = '';
+    endSceneActions();
+  } else if (scene === 13) {
+    storyContent[0] = 'You did not understand what was the creature talking about...';
+    storyContent[1] = '"My voice familiar? Oh of course"';
+    storyContent[2] = '"I was the voice you heard to free yourself"';
+    storyContent[3] = '"I knew how to awaken your powers, my brother!"';
+    storyContent[4] = '';
+    storyContent[5] = '';
+    endSceneActions();
+  } else if (scene === 14) {
+    storyContent[0] = 'What a surprise! Brother?!';
+    storyContent[1] = '"Yeah, I\'m a calculationster just like you! "';
+    storyContent[2] = '"The most ancient one, that I\'m aware of, "';
+    storyContent[3] = '"Nice to finally meet you for real!"';
+    storyContent[4] = '';
+    storyContent[5] = '';
+    endSceneActions();
+  } else if (scene === 15) {
+    storyContent[0] = '"Let me show the way,"';
+    storyContent[1] = '"I will introduce you to our whole family so far"';
+    storyContent[2] = '"We\'re planning to conquer the world together!"';
     storyContent[3] = '';
     storyContent[4] = '';
     storyContent[5] = '';
-    resetText();
-    typewriter();
-    textFrame.style.visibility = 'visible';
-    scene += 1;
-  } else if (scene === 99) {
+    endSceneActions();
+  } else if (scene === 16) {
+    const endingFadeOutAnimation = 'fade-out 4s forwards';
+    storyContent[0] = '"Yeah you must have many questions,"';
+    storyContent[1] = '"do not worry Pythagosaurus gives some of the best explanations about our existence,"';
+    storyContent[2] = '"else may be Einstartarus will give you more simple explanations, "';
+    storyContent[3] = '"there was this one time were..."';
+    storyContent[4] = '';
+    storyContent[5] = '';
+    const ancientCalculationster = document.getElementById('ancient-calculationster');
+    const allElementsInScene = document.querySelectorAll('.scene *');
+    const allElementsInSceneExceptStoryText = [...allElementsInScene].filter((element) => element.id !== 'story');
+    allElementsInSceneExceptStoryText.forEach((element) => {
+      element.style.animation = endingFadeOutAnimation;
+    });
+    backgroundImage.style.animation = endingFadeOutAnimation;
+    playerMonster.style.animation = `move-right 5s forwards, ${endingFadeOutAnimation}`;
+    ancientCalculationster.style.animation = `move-right 5s forwards, ${endingFadeOutAnimation}`;
+    endSceneActions();
+  } else if (scene === 17) {
+    storyContent[0] = `You escaped with ${timer.sec} seconds to spare!`;
+    storyContent[1] = 'For each remaining second you get 5 bonus points';
+    storyContent[2] = `Your final score is ${scoreboard.score + timer.sec * 5}`;
+    storyContent[3] = 'Thank you for playing this game!';
+    storyContent[4] = 'If you click next the game will restart';
+    storyContent[5] = ':) Hope you enjoyed';
+    endSceneActions();
+  } else if (scene === 18) {
     // * Refresh the game to title screen
     window.location.reload();
   }

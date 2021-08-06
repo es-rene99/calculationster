@@ -537,6 +537,12 @@ img.egg {
   left: 41%;
 }
 
+.ancient-calculationster {
+  position: absolute;
+  bottom: -2%;
+  right: 10%;
+}
+
 @keyframes addedSeconds {
   0% {
     color: green;
@@ -614,6 +620,15 @@ img.egg {
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 
