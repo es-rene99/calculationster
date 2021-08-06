@@ -720,7 +720,7 @@ const audioHandler = {
 };
 
 const timer = {
-  sec: 30000,
+  sec: 30,
   status: 'running',
   timeDisplay: document.getElementById('gameTimer'),
   animationContainer: document.getElementById('timer-animation-container'),
@@ -948,11 +948,11 @@ function checkIfAnswerIsCorrect() {
     specialEffects.removePower('timeFreeze');
     powers.timeFreeze.description.innerHTML = 'Freeze time until the next time you enter an answer. Click to activate.';
   }
-  if (userAnswer === 0) {
+  if (userAnswer === correctAnswer) {
     winAnswers += 1;
     if (winAnswers % ANSWERS_PER_LEVEL === 0) {
       level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
-      if (level === 4) {
+      if (level === 10) {
         uiHandler.finalScene();
       }
       timer.levelupHandling();
