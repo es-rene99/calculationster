@@ -461,6 +461,9 @@ function preloadBackground(src) {
   )[0];
   nextScene.style.background = `${src}no-repeat center center fixed`;
   nextScene.style.backgroundSize = 'cover';
+  setTimeout(() => {
+    nextScene.style.visibility = 'visible';
+  }, 400);
 }
 
 function changeToPreloadedBackground() {
