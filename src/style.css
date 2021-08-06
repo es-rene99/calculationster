@@ -117,8 +117,6 @@ body {
 .title-screen-btn {
   background-color: Transparent;
   border: none;
-  width: fit-content;
-  height: fit-content;
   cursor: pointer;
   outline: none;
   font-family: "Just Another Hand", cursive;
@@ -130,6 +128,8 @@ body {
   padding-right: 5%;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
+  display: block;
+  width: 105%;
 }
 .title-screen-btn:hover {
   color: rgba(246, 255, 244, 0.905);
@@ -375,9 +375,17 @@ img.egg {
 .enter-answer-btn__icon {
   display: block;
   font-size: 2.5rem;
-  margin-bottom: 1.12rem;
+  margin-bottom: 0.12rem;
   margin-left: 0.31rem;
   color: #808080;
+}
+
+/* * Maintain consistent look in arrow in Firefox  */
+/* https://stackoverflow.com/questions/48505236/load-different-css-rule-depending-on-the-browser-in-an-angular-4-component */
+@-moz-document url-prefix() {
+  .enter-answer-btn__icon {
+    margin-bottom: 1.12rem;
+  }
 }
 
 .monster-container {

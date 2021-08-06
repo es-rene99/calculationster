@@ -608,44 +608,44 @@ Here's an object to handle our audio stuff
 const audioHandler = {
   init() {
     this.noises = {
-      button: new Sound('./assets/sounds/noises/button-input.mp3'),
-      correct: new Sound('./assets/sounds/noises/correct.mp3'),
-      gameOver: new Sound('./assets/sounds/noises/game-over.mp3'),
-      incorrect: new Sound('./assets/sounds/noises/incorrect.mp3'),
-      reward: new Sound('./assets/sounds/noises/reward.mp3'),
-      armorHit: new Sound('./assets/sounds/noises/powers/armor.mp3'),
-      fastShoes: new Sound('./assets/sounds/noises/powers/fastshoes.mp3'),
-      resurrection: new Sound('./assets/sounds/noises/powers/resurrect.mp3'),
-      claws: new Sound('./assets/sounds/noises/powers/slash.mp3'),
-      timestop: new Sound('./assets/sounds/noises/powers/timestop.mp3'),
-      gameStartClick: new Sound('./assets/sounds/noises/evil-laugh-game-start.mp3'),
+      button: new Sound('./assets/sounds/noises/button-input.ogg'),
+      correct: new Sound('./assets/sounds/noises/correct.ogg'),
+      gameOver: new Sound('./assets/sounds/noises/game-over.ogg'),
+      incorrect: new Sound('./assets/sounds/noises/incorrect.ogg'),
+      reward: new Sound('./assets/sounds/noises/reward.ogg'),
+      armorHit: new Sound('./assets/sounds/noises/powers/armor.ogg'),
+      fastShoes: new Sound('./assets/sounds/noises/powers/fastshoes.ogg'),
+      resurrection: new Sound('./assets/sounds/noises/powers/resurrect.ogg'),
+      claws: new Sound('./assets/sounds/noises/powers/slash.ogg'),
+      timestop: new Sound('./assets/sounds/noises/powers/timestop.ogg'),
+      gameStartClick: new Sound('./assets/sounds/noises/evil-laugh-game-start.ogg'),
     };
     this.loops = {
-      introBGM: new Sound('./assets/sounds/loops/intro.mp3', true),
+      introBGM: new Sound('./assets/sounds/loops/intro.ogg', true),
       menuThemeBGM: new Sound(
-        './assets/sounds/loops/start-menu-theme.mp3',
+        './assets/sounds/loops/start-menu-theme.ogg',
         true
       ),
-      gameOverBGM: new Sound('./assets/sounds/loops/game-over.mp3', true),
-      timeWarning: new Sound('./assets/sounds/loops/time-warning.mp3', true),
+      gameOverBGM: new Sound('./assets/sounds/loops/game-over.ogg', true),
+      timeWarning: new Sound('./assets/sounds/loops/time-warning.ogg', true),
       gameplayPhaseOneBGM: new Sound(
-        './assets/sounds/loops/gameplay-early.mp3',
+        './assets/sounds/loops/gameplay-early.ogg',
         true
       ),
       gameplayPhaseTwoBGM: new Sound(
-        './assets/sounds/loops/gameplay-mid-1.mp3',
+        './assets/sounds/loops/gameplay-mid-1.ogg',
         true
       ),
       gameplayPhaseThreeBGM: new Sound(
-        './assets/sounds/loops/gameplay-mid-2.mp3',
+        './assets/sounds/loops/gameplay-mid-2.ogg',
         true
       ),
       gameplayPhaseFourBGM: new Sound(
-        './assets/sounds/loops/gameplay-late.mp3',
+        './assets/sounds/loops/gameplay-late.ogg',
         true
       ),
       finalBattleBGM: new Sound(
-        './assets/sounds/loops/final-battle.mp3',
+        './assets/sounds/loops/final-battle.ogg',
         true
       ),
     };
