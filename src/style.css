@@ -527,6 +527,30 @@ img.egg {
   box-shadow: 1px 1px 10px;
 }
 
+.calculationster-magic-attack {
+  display: block;
+  position: absolute;
+  font-size: 2rem;
+  color: #fb15fb;
+  text-shadow: -1px 1px 2px #23430c, 1px 1px 2px #23430c, 1px -1px 0 #23430c,
+    -1px -1px 0 #23430c;
+  -webkit-text-stroke: 1px #23430c;
+  border: 10px darkmagenta;
+  border-top-style: none;
+  border-right-style: none;
+  border-bottom-style: none;
+  border-left-style: none;
+  border-style: double;
+  bottom: 10%;
+  left: 41%;
+}
+
+.ancient-calculationster {
+  position: absolute;
+  bottom: -2%;
+  right: 10%;
+}
+
 @keyframes addedSeconds {
   0% {
     color: green;
@@ -561,13 +585,58 @@ img.egg {
     bottom: 5%;
   }
 }
+@keyframes move-right {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(12.5rem);
+    transform: translateX(12.5rem);
+  }
+}
+
+@keyframes expand-magic {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(5);
+    transform: scale(5);
+    opacity: 0;
+  }
+}
+@keyframes send-flying {
+  0% {
+    -webkit-transform: translateX(0) translateY(0) rotate(0deg);
+    transform: translateX(0) translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(-1000px) translateY(-3000px) rotate(-540deg);
+    transform: translateX(-1000px) translateY(-3000px) rotate(-540deg);
+    opacity: 0;
+  }
+}
 
 @keyframes fade-in {
   0% {
-    opacity: 0;
+    /* TODO need to set as 0 added as testing */
+    opacity: 1;
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 
