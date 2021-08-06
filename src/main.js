@@ -1023,7 +1023,7 @@ storyContent[1] = 'there lived an evil wizard ';
 storyContent[2] = 'who dreamt of conquering the world';
 storyContent[3] = 'and forcing everyone to serve him...';
 
-const iSpeed = 10; // time delay of print out
+const iSpeed = 18; // time delay of print out
 let iIndex = 0; // start printing array at this posision
 let iArrLength = storyContent[0].length; // the length of the text array
 const iScrollAt = 20; // start scrolling up at this many lines
@@ -1047,7 +1047,7 @@ function typewriter() {
     if (iIndex !== storyContent.length) {
       iArrLength = storyContent[iIndex].length;
       // eslint-disable-next-line no-implied-eval
-      setTimeout('typewriter()', 100);
+      setTimeout('typewriter()', 1);
     }
   } else {
     // eslint-disable-next-line no-implied-eval
