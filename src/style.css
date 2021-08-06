@@ -294,8 +294,13 @@ img.egg {
 }
 
 .game-left-panel__title {
+  font-family: "Metal Mania";
+  text-transform: uppercase;
+  letter-spacing: 7px;
+  color: rgb(223, 193, 138);
+  text-shadow: 4px 4px rgba(81, 49, 49, 0.905);
   margin-top: 2rem;
-  font-size: 3.1rem;
+  font-size: 2.5rem;
 }
 .game-left-panel__items {
   width: 80%;
