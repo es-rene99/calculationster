@@ -1234,6 +1234,7 @@ function sceneControl() {
     storyContent[3] = '"Hey it\'s you! I was looking all over for you,';
     storyContent[4] = 'you look different but I can feel your presence."';
     storyContent[5] = '';
+    audioHandler.gameOver();
     endSceneActions();
   } else if (scene === 13) {
     storyContent[0] = 'You did not understand what was the creature talking about...';
