@@ -1321,7 +1321,7 @@ const uiHandler = {
   },
   activateEventListeners() {
     this.gameStartBtn.onclick = () => {
-      audioHandler.playNoise('gameStartClick');
+      audioHandler.playNoise('button');
       this.toggleHiddenElement(this.cutScene);
       this.toggleHiddenElement(this.nextBtn);
       this.toggleHiddenElement(this.gameTitle);
