@@ -1347,6 +1347,7 @@ const uiHandler = {
         this.toggleHiddenElement(this.gameRightPanel);
         this.toggleHiddenElement(this.gameTimer);
         this.toggleColorInSideBars(this.sidebars);
+        createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
         timer.startTimer();
         audioHandler.changeBGM('gameplayPhaseOneBGM', 'play');
         displayProblem();
