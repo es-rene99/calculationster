@@ -990,7 +990,9 @@ function checkIfAnswerIsCorrect() {
     winAnswers += 1;
     if (winAnswers % ANSWERS_PER_LEVEL === 0) {
       level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
-      if (level === 10) {
+      if (level === 9) {
+        preloadBackground("url('assets/Backgrounds/Interior/interior01.jpg')");
+      } else if (level === 10) {
         uiHandler.finalScene();
       }
       timer.levelupHandling();
@@ -1353,7 +1355,6 @@ const uiHandler = {
   finalScene() {
     timer.pause();
     audioHandler.changeBGM('finalBattleBGM', 'play');
-    preloadBackground("url('assets/Backgrounds/Interior/interior01.jpg')");
     changeToPreloadedBackground();
     this.toggleHiddenElement(this.appWrapper);
     this.toggleHiddenElement(this.nextBtn);
