@@ -575,6 +575,7 @@ function createMonsterImg(src, alt, id) {
 }
 
 function monsterGrowth() {
+  const sentence = document.getElementById('monsterComments');
   if (winAnswers === 5) {
     // Here is where we ould preload the next level's background
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
@@ -947,7 +948,11 @@ const monsterSentencesWin = [
   'I feel my power raising...',
   "I'm unstoppable!",
   'The wiser the stronger!',
-  "I'll find my way out of here!"
+  "I'll find my way out of here!",
+  'Game on!',
+  "That's all they got?!",
+  'No wizard can stop me!',
+  "I'm just starting!"
 ];
 
 const monsterSentencesLoose = [
@@ -955,18 +960,26 @@ const monsterSentencesLoose = [
   'Got to focus more',
   'My power is decreasing',
   'My brain is still growing...',
-  'The harder the better when I get it'
+  'The harder the better when I get it',
+  'Ouch! It hurts!',
+  'Let me out!',
+  "I think I'm not feeling well...",
+  "That doesn't look good..."
 ];
 
 let declareCorrect = true;
 
 function monsterTalks() {
   const sentence = document.getElementById('monsterComments');
-  let usedSentence = sentence.textContent;
+  const usedSentence = sentence.textContent;
   if (declareCorrect === true && sentence !== usedSentence) {
     sentence.textContent = monsterSentencesWin[getRandomDigit(monsterSentencesLoose.length)];
+    sentence.classList.remove('loosingComment');
+    sentence.classList.add('winningComment')
   } else if (declareCorrect === false && sentence !== usedSentence) {
-    sentence.textContent = monsterSentencesLoose[getRandomDigit(monsterSentencesLoose.length)]; 
+    sentence.textContent = monsterSentencesLoose[getRandomDigit(monsterSentencesLoose.length)];
+    sentence.classList.remove('winningComment');
+    sentence.classList.add('loosingComment');
   }
 }
 
