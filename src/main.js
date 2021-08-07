@@ -575,6 +575,7 @@ function createMonsterImg(src, alt, id) {
 }
 
 function monsterGrowth() {
+  const sentence = document.getElementById('monsterComments');
   if (winAnswers === 5) {
     // Here is where we ould preload the next level's background
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
@@ -939,6 +940,49 @@ const timer = {
 //   );
 // }
 
+// create randomly generated sentence for the monster
+// depending on win or loose
+
+const monsterSentencesWin = [
+  'Easy peasy!',
+  'I feel my power raising...',
+  "I'm unstoppable!",
+  'The wiser the stronger!',
+  "I'll find my way out of here!",
+  'Game on!',
+  "That's all they got?!",
+  'No wizard can stop me!',
+  "I'm just starting!"
+];
+
+const monsterSentencesLoose = [
+  'I was sure that was the answer!',
+  'Got to focus more',
+  'My power is decreasing',
+  'My brain is still growing...',
+  'The harder the better when I get it',
+  'Ouch! It hurts!',
+  'Let me out!',
+  "I think I'm not feeling well...",
+  "That doesn't look good..."
+];
+
+let declareCorrect = true;
+
+function monsterTalks() {
+  const sentence = document.getElementById('monsterComments');
+  const usedSentence = sentence.textContent;
+  if (declareCorrect === true && sentence !== usedSentence) {
+    sentence.textContent = monsterSentencesWin[getRandomDigit(monsterSentencesLoose.length)];
+    sentence.classList.remove('loosingComment');
+    sentence.classList.add('winningComment')
+  } else if (declareCorrect === false && sentence !== usedSentence) {
+    sentence.textContent = monsterSentencesLoose[getRandomDigit(monsterSentencesLoose.length)];
+    sentence.classList.remove('winningComment');
+    sentence.classList.add('loosingComment');
+  }
+}
+
 function checkIfAnswerIsCorrect() {
   const userInputField = document.getElementById('answer');
   const userAnswer = parseInt(userInputField.value, 10);
@@ -949,6 +993,8 @@ function checkIfAnswerIsCorrect() {
     powers.timeFreeze.description.innerHTML = 'Freeze time until the next time you enter an answer. Click to activate.';
   }
   if (userAnswer === correctAnswer) {
+    declareCorrect = true;
+    monsterTalks();
     winAnswers += 1;
     if (winAnswers % ANSWERS_PER_LEVEL === 0) {
       level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
@@ -981,6 +1027,8 @@ function checkIfAnswerIsCorrect() {
     } else {
       audioHandler.playNoise('incorrect');
       timer.timerAnswerHandling('wrong');
+      declareCorrect = false;
+      monsterTalks();
     }
     // console.log(
     //  `Ouch! ${userAnswer} was not the correct answer.\n Try again! (correct : ${correctAnswer})`,
