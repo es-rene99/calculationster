@@ -282,15 +282,22 @@ img.egg {
   height: 100%;
 }
 
+.items__header {
+  color: thistle;
+  font-family: "Press Start 2P";
+  text-shadow: 4px 4px rgba(81, 49, 49, 0.905);
+}
+
 .game-left-panel,
 .game-right-panel {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
 }
 
-.game-left-panel {
+#timer-and-score-container {
+  display: flex;
+  justify-content: space-between;
 }
 
 .game-right-panel {
@@ -300,6 +307,8 @@ img.egg {
 
 #level__container {
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
 /* .sidebar-colors {
@@ -312,7 +321,7 @@ img.egg {
   background-color: rgba(59, 27, 102, 0.6);
   display: inline-block;
   min-height: 20%;
-  padding-left: 20px;
+  margin: 20px;
 }
 
 .main__game {
