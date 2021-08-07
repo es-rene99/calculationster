@@ -1223,7 +1223,7 @@ function sceneControl() {
     sceneDiv.removeChild(calculationsterMagicAttack);
     sceneDiv.removeChild(wizard);
     const ancientCalculationster = document.createElement('img');
-    ancientCalculationster.src = '../assets/monster/Extras/ancient-calculationster.png';
+    ancientCalculationster.src = './assets/monster/Extras/ancient-calculationster.png';
     ancientCalculationster.id = 'ancient-calculationster';
     ancientCalculationster.className = 'ancient-calculationster';
     sceneDiv.appendChild(ancientCalculationster);
