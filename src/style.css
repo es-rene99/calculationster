@@ -371,9 +371,8 @@ img.egg {
 }
 
 .shadow-color {
-  -webkit-text-stroke: 1px #23430c;
-  text-shadow: -1px 1px 2px #23430c, 1px 1px 2px #23430c, 1px -1px 0 #23430c,
-    -1px -1px 0 #23430c;
+  text-shadow: -3px 3px 3px #23430c, 3px 3px 3px #23430c, 3px -3px 0 #23430c,
+    -3px -3px 0 #23430c;
 }
 
 #enter-answer-btn {
