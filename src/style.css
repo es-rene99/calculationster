@@ -648,8 +648,7 @@ img.egg {
 
 @keyframes fade-in {
   0% {
-    /* TODO need to set as 0 added as testing */
-    opacity: 1;
+    opacity: 0;
   }
   100% {
     opacity: 1;
