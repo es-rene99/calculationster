@@ -498,13 +498,13 @@ const monsters = [
     alt3: 'lizard man',
     growth4: 'assets/monster/Dragon/5.png',
     alt4: 'dragon',
-    transformation1: 'assets/monsterTransformation/dragon/dragonT01.gif',
+    transformation1: 'assets/monsterTransformationFixed/dragon/dragonT01.gif',
     altTransform1: 'egg to worm',
-    transformation2: 'assets/monsterTransformation/dragon/dragonT02.gif',
+    transformation2: 'assets/monsterTransformationFixed/dragon/dragonT02.gif',
     altTransform2: 'worm to snake',
-    transformation3: 'assets/monsterTransformation/dragon/dragonT03.gif',
+    transformation3: 'assets/monsterTransformationFixed/dragon/dragonT03.gif',
     altTransform3: 'snake to lizard man',
-    transformation4: 'assets/monsterTransformation/dragon/dragonT04.gif',
+    transformation4: 'assets/monsterTransformationFixed/dragon/dragonT04.gif',
     altTransform4: 'lzard man to dragon',
   },
   {
@@ -517,13 +517,13 @@ const monsters = [
     alt3: 'imp',
     growth4: 'assets/monster/Flying/05.png',
     alt4: 'vampire',
-    transformation1: 'assets/monsterTransformation/flying/flyingT01.gif',
+    transformation1: 'assets/monsterTransformationFixed/flying/flyingT01.gif',
     altTransform1: 'egg to bat',
-    transformation2: 'assets/monsterTransformation/flying/flyingT02.gif',
+    transformation2: 'assets/monsterTransformationFixed/flying/flyingT02.gif',
     altTransform2: 'bat to gargoyle',
-    transformation3: 'assets/monsterTransformation/flying/flyingT03.gif',
+    transformation3: 'assets/monsterTransformationFixed/flying/flyingT03.gif',
     altTransform3: 'gargoyle to imp',
-    transformation4: 'assets/monsterTransformation/flying/flyingT04.gif',
+    transformation4: 'assets/monsterTransformationFixed/flying/flyingT04.gif',
     altTransform4: 'imp tovampire',
   },
   {
@@ -536,13 +536,13 @@ const monsters = [
     alt3: 'big ghost',
     growth4: 'assets/monster/Ghost/05.png',
     alt4: 'pumpkin ghost',
-    transformation1: 'assets/monsterTransformation/ghost/ghostT01.gif',
+    transformation1: 'assets/monsterTransformationFixed/ghost/ghostT01.gif',
     altTransform1: 'egg to cloud',
-    transformation2: 'assets/monsterTransformation/ghost/ghostT02.gif',
+    transformation2: 'assets/monsterTransformationFixed/ghost/ghostT02.gif',
     altTransform2: 'cloud to ghost',
-    transformation3: 'assets/monsterTransformation/ghost/ghostT03.gif',
+    transformation3: 'assets/monsterTransformationFixed/ghost/ghostT03.gif',
     altTransform3: 'small ghost to big ghost',
-    transformation4: 'assets/monsterTransformation/ghost/ghostT04.gif',
+    transformation4: 'assets/monsterTransformationFixed/ghost/ghostT04.gif',
     altTransform4: 'ghost to pumpkin ghostt',
   },
   {
@@ -555,13 +555,13 @@ const monsters = [
     alt3: 'grumpy ogre',
     growth4: 'assets/monster/Humanoid/05.png',
     alt4: 'dark knight',
-    transformation1: 'assets/monsterTransformation/humanoid/humt01.gif',
+    transformation1: 'assets/monsterTransformationFixed/humanoid/humt01.gif',
     altTransform1: 'egg to baby cyclope',
-    transformation2: 'assets/monsterTransformation/humanoid/humt02.gif',
+    transformation2: 'assets/monsterTransformationFixed/humanoid/humt02.gif',
     altTransform2: 'baby cyclope to zombie',
-    transformation3: 'assets/monsterTransformation/humanoid/humt03.gif',
+    transformation3: 'assets/monsterTransformationFixed/humanoid/humt03.gif',
     altTransform3: 'zombie to grumpy ogre',
-    transformation4: 'assets/monsterTransformation/humanoid/humt04.gif',
+    transformation4: 'assets/monsterTransformationFixed/humanoid/humt04.gif',
     altTransform4: 'ogre ot dark knight',
   },
 ];
@@ -581,20 +581,12 @@ function monsterGrowth() {
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
     changeToPreloadedBackground();
     createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1, 'monster');
-  } else if (winAnswers === 6) {
-    createMonsterImg(monsterSelected.growth1, monsterSelected.alt1, 'monster');
   } else if (winAnswers === 15) {
     createMonsterImg(monsterSelected.transformation2, monsterSelected.altTransform2, 'monster');
-  } else if (winAnswers === 16) {
-    createMonsterImg(monsterSelected.growth2, monsterSelected.alt2, 'monster');
   } else if (winAnswers === 25) {
     createMonsterImg(monsterSelected.transformation3, monsterSelected.altTransform3, 'monster');
-  } else if (winAnswers === 26) {
-    createMonsterImg(monsterSelected.growth3, monsterSelected.alt3, 'monster');
   } else if (winAnswers === 35) {
     createMonsterImg(monsterSelected.transformation4, monsterSelected.altTransform4, 'monster');
-  } else if (winAnswers === 36) {
-    createMonsterImg(monsterSelected.growth4, monsterSelected.alt4, 'monster');
   }
 }
 
