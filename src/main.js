@@ -975,7 +975,7 @@ function monsterTalks() {
   if (declareCorrect === true && sentence !== usedSentence) {
     sentence.textContent = monsterSentencesWin[getRandomDigit(monsterSentencesLoose.length)];
     sentence.classList.remove('loosingComment');
-    sentence.classList.add('winningComment')
+    sentence.classList.add('winningComment');
   } else if (declareCorrect === false && sentence !== usedSentence) {
     sentence.textContent = monsterSentencesLoose[getRandomDigit(monsterSentencesLoose.length)];
     sentence.classList.remove('winningComment');
@@ -1071,7 +1071,7 @@ storyContent[1] = 'there lived an evil wizard ';
 storyContent[2] = 'who dreamt of conquering the world';
 storyContent[3] = 'and forcing everyone to serve him...';
 
-const iSpeed = 18; // time delay of print out
+const iSpeed = 40; // time delay of print out
 let iIndex = 0; // start printing array at this posision
 let iArrLength = storyContent[0].length; // the length of the text array
 const iScrollAt = 20; // start scrolling up at this many lines
