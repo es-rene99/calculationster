@@ -299,7 +299,6 @@ img.egg {
   margin-right: 20px;
 }
 
-
 #level__container {
   margin-bottom: 20px;
 }
@@ -415,20 +414,19 @@ img.egg {
 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 /* monster messages */
 
- .winningComment{
+.winningComment {
   position: absolute;
   bottom: 80%;
   left: 7%;
-  color : red;
-  /* font-family: "Just Another Hand", cursive; */
+  color: red;
   font-family: "Metal Mania";
   font-size: 1.8rem;
-  color: rgb(89, 146, 55);
+  color: rgb(95, 255, 55);
   transform: rotate(-5deg);
-  text-shadow: 1.5px 1.5px rgba(252, 252, 252, 0.905);
-} 
+  text-shadow: 1.5px 1.5px rgba(0, 0, 0, 0.91);
+}
 
- .loosingComment{
+.loosingComment {
   position: absolute;
   bottom: 80%;
   right: 7%;
@@ -438,7 +436,7 @@ img.egg {
   color: rgb(146, 55, 55);
   transform: rotate(5deg);
   text-shadow: 1.5px 1.5px rgba(252, 252, 252, 0.905);
-} 
+}
 
 /* special effects */
 
