@@ -111,6 +111,7 @@ body {
   position: absolute;
   right: 3rem;
   bottom: 2rem;
+  min-width: 18rem;
 }
 .title-screen-btn {
   background-color: Transparent;
