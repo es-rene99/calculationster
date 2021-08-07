@@ -1180,17 +1180,17 @@ function sceneControl() {
     sceneDiv.style.display = 'block';
     storyContent[0] = 'Your final transformation caused destruction all around you.';
     storyContent[1] = 'You have learned and grown so much!';
-    storyContent[2] = "While you're getting used to your full power ";
-    storyContent[3] = 'you feel someone approaching...';
+    storyContent[2] = 'While getting used to your full power';
+    storyContent[3] = 'you hear someone approaching...';
     storyContent[4] = '';
     storyContent[5] = '';
     endSceneActions();
   } else if (scene === 9) {
     wizard.style.display = 'block';
-    storyContent[0] = '"That sound, my monster! Said the wizard"';
-    storyContent[1] = '"You have more power that I had imagined"';
-    storyContent[2] = '"Now come forth as my soldier';
-    storyContent[3] = 'you will allow me to conquer the world!"';
+    storyContent[0] = '"That sound, my monster!" Said the wizard';
+    storyContent[1] = '"You have more power than I had imagined"';
+    storyContent[2] = '"Now come forth as my soldier,';
+    storyContent[3] = 'and help me conquer the world!"';
     storyContent[4] = '...';
     storyContent[5] = '...';
     endSceneActions();
@@ -1212,7 +1212,7 @@ function sceneControl() {
     sceneDiv.appendChild(calculationsterMagicAttack);
     storyContent[0] = '"AAAH-"';
     storyContent[1] = 'You defeated the wizard easily';
-    storyContent[2] = 'and decided to finally escape from this castle.';
+    storyContent[2] = 'and decided to finally escape from the castle.';
     storyContent[3] = '';
     storyContent[4] = '';
     storyContent[5] = '';
@@ -1230,27 +1230,27 @@ function sceneControl() {
     ancientCalculationster.className = 'ancient-calculationster';
     sceneDiv.appendChild(ancientCalculationster);
     changeToPreloadedBackground();
-    storyContent[0] = '"Outside the castle you found another strange creature speaking in a very strong tone."';
-    storyContent[1] = '"I didn\'t know wizards already found ways to fly..."';
-    storyContent[2] = 'said the creature.';
-    storyContent[3] = '"Hey it\'s you! I was looking all over for you,';
-    storyContent[4] = 'you look different but I can feel your presence."';
+    storyContent[0] = 'Outside the castle you saw a strange creature watching the wizard you knocked into the sky.';
+    storyContent[1] = '"I didn\'t know wizards already figured out how to fly..."';
+    storyContent[2] = 'said the creature as it turned its eyes on you.';
+    storyContent[3] = '"Hey it\'s you! I was looking all over for you!';
+    storyContent[4] = 'you look different from before but I can feel your essence."';
     storyContent[5] = '';
     audioHandler.gameOver();
     endSceneActions();
   } else if (scene === 13) {
-    storyContent[0] = 'You did not understand what was the creature talking about...';
-    storyContent[1] = '"My voice familiar? Oh of course"';
-    storyContent[2] = '"I was the voice you heard to free yourself"';
-    storyContent[3] = '"I knew how to awaken your powers, my brother!"';
-    storyContent[4] = '';
+    storyContent[0] = '';
+    storyContent[1] = '..................................';
+    storyContent[2] = '"Isn\'t my voice familiar?"';
+    storyContent[3] = '"I was the voice you heard telling you how to free yourself"';
+    storyContent[4] = '"I told you how to awaken your powers through calculation!"';
     storyContent[5] = '';
     endSceneActions();
   } else if (scene === 14) {
-    storyContent[0] = 'What a surprise! Brother?!';
-    storyContent[1] = '"Yeah, I\'m a calculationster just like you! "';
-    storyContent[2] = '"The most ancient one, that I\'m aware of, "';
-    storyContent[3] = '"Nice to finally meet you for real!"';
+    storyContent[0] = 'What a surprise!';
+    storyContent[1] = '"Yeah, I\'m a calculationster just like you!"';
+    storyContent[2] = '"The most ancient one, that I\'m aware of, ';
+    storyContent[3] = 'Nice to finally meet you for real!"';
     storyContent[4] = '';
     storyContent[5] = '';
     endSceneActions();
@@ -1265,9 +1265,9 @@ function sceneControl() {
   } else if (scene === 16) {
     const endingFadeOutAnimation = 'fade-out 4s forwards';
     storyContent[0] = '"Yeah you must have many questions,"';
-    storyContent[1] = '"do not worry Pythagosaurus gives some of the best explanations about our existence,"';
-    storyContent[2] = '"else may be Einstartarus will give you more simple explanations, "';
-    storyContent[3] = '"there was this one time were..."';
+    storyContent[1] = '"do not worry, Pythagosaurus gives some of the best explanations about our existence,"';
+    storyContent[2] = '"Although maybe Einstartarus will give you more simple explanations, "';
+    storyContent[3] = '"there was this one time where..."';
     storyContent[4] = '';
     storyContent[5] = '';
     const ancientCalculationster = document.getElementById('ancient-calculationster');
