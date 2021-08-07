@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable comma-dangle */
 /*
@@ -497,13 +498,13 @@ const monsters = [
     alt3: 'lizard man',
     growth4: 'assets/monster/Dragon/5.png',
     alt4: 'dragon',
-    transformation1: 'assets/monsterTransformation/dragon/dragonT01.gif',
+    transformation1: 'assets/monsterTransformationFixed/dragon/dragonT01.gif',
     altTransform1: 'egg to worm',
-    transformation2: 'assets/monsterTransformation/dragon/dragonT02.gif',
+    transformation2: 'assets/monsterTransformationFixed/dragon/dragonT02.gif',
     altTransform2: 'worm to snake',
-    transformation3: 'assets/monsterTransformation/dragon/dragonT03.gif',
+    transformation3: 'assets/monsterTransformationFixed/dragon/dragonT03.gif',
     altTransform3: 'snake to lizard man',
-    transformation4: 'assets/monsterTransformation/dragon/dragonT04.gif',
+    transformation4: 'assets/monsterTransformationFixed/dragon/dragonT04.gif',
     altTransform4: 'lzard man to dragon',
   },
   {
@@ -516,13 +517,13 @@ const monsters = [
     alt3: 'imp',
     growth4: 'assets/monster/Flying/05.png',
     alt4: 'vampire',
-    transformation1: 'assets/monsterTransformation/flying/flyingT01.gif',
+    transformation1: 'assets/monsterTransformationFixed/flying/flyingT01.gif',
     altTransform1: 'egg to bat',
-    transformation2: 'assets/monsterTransformation/flying/flyingT02.gif',
+    transformation2: 'assets/monsterTransformationFixed/flying/flyingT02.gif',
     altTransform2: 'bat to gargoyle',
-    transformation3: 'assets/monsterTransformation/flying/flyingT03.gif',
+    transformation3: 'assets/monsterTransformationFixed/flying/flyingT03.gif',
     altTransform3: 'gargoyle to imp',
-    transformation4: 'assets/monsterTransformation/flying/flyingT04.gif',
+    transformation4: 'assets/monsterTransformationFixed/flying/flyingT04.gif',
     altTransform4: 'imp tovampire',
   },
   {
@@ -535,13 +536,13 @@ const monsters = [
     alt3: 'big ghost',
     growth4: 'assets/monster/Ghost/05.png',
     alt4: 'pumpkin ghost',
-    transformation1: 'assets/monsterTransformation/ghost/ghostT01.gif',
+    transformation1: 'assets/monsterTransformationFixed/ghost/ghostT01.gif',
     altTransform1: 'egg to cloud',
-    transformation2: 'assets/monsterTransformation/ghost/ghostT02.gif',
+    transformation2: 'assets/monsterTransformationFixed/ghost/ghostT02.gif',
     altTransform2: 'cloud to ghost',
-    transformation3: 'assets/monsterTransformation/ghost/ghostT03.gif',
+    transformation3: 'assets/monsterTransformationFixed/ghost/ghostT03.gif',
     altTransform3: 'small ghost to big ghost',
-    transformation4: 'assets/monsterTransformation/ghost/ghostT04.gif',
+    transformation4: 'assets/monsterTransformationFixed/ghost/ghostT04.gif',
     altTransform4: 'ghost to pumpkin ghostt',
   },
   {
@@ -554,13 +555,13 @@ const monsters = [
     alt3: 'grumpy ogre',
     growth4: 'assets/monster/Humanoid/05.png',
     alt4: 'dark knight',
-    transformation1: 'assets/monsterTransformation/humanoid/humt01.gif',
+    transformation1: 'assets/monsterTransformationFixed/humanoid/humt01.gif',
     altTransform1: 'egg to baby cyclope',
-    transformation2: 'assets/monsterTransformation/humanoid/humt02.gif',
+    transformation2: 'assets/monsterTransformationFixed/humanoid/humt02.gif',
     altTransform2: 'baby cyclope to zombie',
-    transformation3: 'assets/monsterTransformation/humanoid/humt03.gif',
+    transformation3: 'assets/monsterTransformationFixed/humanoid/humt03.gif',
     altTransform3: 'zombie to grumpy ogre',
-    transformation4: 'assets/monsterTransformation/humanoid/humt04.gif',
+    transformation4: 'assets/monsterTransformationFixed/humanoid/humt04.gif',
     altTransform4: 'ogre ot dark knight',
   },
 ];
@@ -574,25 +575,18 @@ function createMonsterImg(src, alt, id) {
 }
 
 function monsterGrowth() {
+  const sentence = document.getElementById('monsterComments');
   if (winAnswers === 5) {
     // Here is where we ould preload the next level's background
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
     changeToPreloadedBackground();
     createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1, 'monster');
-  } else if (winAnswers === 6) {
-    createMonsterImg(monsterSelected.growth1, monsterSelected.alt1, 'monster');
   } else if (winAnswers === 15) {
     createMonsterImg(monsterSelected.transformation2, monsterSelected.altTransform2, 'monster');
-  } else if (winAnswers === 16) {
-    createMonsterImg(monsterSelected.growth2, monsterSelected.alt2, 'monster');
   } else if (winAnswers === 25) {
     createMonsterImg(monsterSelected.transformation3, monsterSelected.altTransform3, 'monster');
-  } else if (winAnswers === 26) {
-    createMonsterImg(monsterSelected.growth3, monsterSelected.alt3, 'monster');
   } else if (winAnswers === 35) {
     createMonsterImg(monsterSelected.transformation4, monsterSelected.altTransform4, 'monster');
-  } else if (winAnswers === 36) {
-    createMonsterImg(monsterSelected.growth4, monsterSelected.alt4, 'monster');
   }
 }
 
@@ -938,6 +932,49 @@ const timer = {
 //   );
 // }
 
+// create randomly generated sentence for the monster
+// depending on win or loose
+
+const monsterSentencesWin = [
+  'Easy peasy!',
+  'I feel my power raising...',
+  "I'm unstoppable!",
+  'The wiser the stronger!',
+  "I'll find my way out of here!",
+  'Game on!',
+  "That's all they got?!",
+  'No wizard can stop me!',
+  "I'm just starting!"
+];
+
+const monsterSentencesLoose = [
+  'I was sure that was the answer!',
+  'Got to focus more',
+  'My power is decreasing',
+  'My brain is still growing...',
+  'The harder the better when I get it',
+  'Ouch! It hurts!',
+  'Let me out!',
+  "I think I'm not feeling well...",
+  "That doesn't look good..."
+];
+
+let declareCorrect = true;
+
+function monsterTalks() {
+  const sentence = document.getElementById('monsterComments');
+  const usedSentence = sentence.textContent;
+  if (declareCorrect === true && sentence !== usedSentence) {
+    sentence.textContent = monsterSentencesWin[getRandomDigit(monsterSentencesLoose.length)];
+    sentence.classList.remove('loosingComment');
+    sentence.classList.add('winningComment');
+  } else if (declareCorrect === false && sentence !== usedSentence) {
+    sentence.textContent = monsterSentencesLoose[getRandomDigit(monsterSentencesLoose.length)];
+    sentence.classList.remove('winningComment');
+    sentence.classList.add('loosingComment');
+  }
+}
+
 function checkIfAnswerIsCorrect() {
   const userInputField = document.getElementById('answer');
   const userAnswer = parseInt(userInputField.value, 10);
@@ -948,6 +985,8 @@ function checkIfAnswerIsCorrect() {
     powers.timeFreeze.description.innerHTML = 'Freeze time until the next time you enter an answer. Click to activate.';
   }
   if (userAnswer === correctAnswer) {
+    declareCorrect = true;
+    monsterTalks();
     winAnswers += 1;
     if (winAnswers % ANSWERS_PER_LEVEL === 0) {
       level = Math.floor((winAnswers / ANSWERS_PER_LEVEL)) + 1;
@@ -980,6 +1019,8 @@ function checkIfAnswerIsCorrect() {
     } else {
       audioHandler.playNoise('incorrect');
       timer.timerAnswerHandling('wrong');
+      declareCorrect = false;
+      monsterTalks();
     }
     // console.log(
     //  `Ouch! ${userAnswer} was not the correct answer.\n Try again! (correct : ${correctAnswer})`,
@@ -1022,7 +1063,7 @@ storyContent[1] = 'there lived an evil wizard ';
 storyContent[2] = 'who dreamt of conquering the world';
 storyContent[3] = 'and forcing everyone to serve him...';
 
-const iSpeed = 100; // time delay of print out
+const iSpeed = 40; // time delay of print out
 let iIndex = 0; // start printing array at this posision
 let iArrLength = storyContent[0].length; // the length of the text array
 const iScrollAt = 20; // start scrolling up at this many lines
@@ -1039,15 +1080,14 @@ function typewriter() {
   while (iRow < iIndex) {
     sContents += `${storyContent[iRow++]}<br />`;
   }
-  destination.innerHTML = `${sContents + storyContent[iIndex].substring(0, iTextPos)
-    }`;
-  if (iTextPos++ == iArrLength) {
+  destination.innerHTML = `${sContents + storyContent[iIndex].substring(0, iTextPos)}`;
+  if (iTextPos++ === iArrLength) {
     iTextPos = 0;
     iIndex++;
-    if (iIndex != storyContent.length) {
+    if (iIndex !== storyContent.length) {
       iArrLength = storyContent[iIndex].length;
       // eslint-disable-next-line no-implied-eval
-      setTimeout('typewriter()', 500);
+      setTimeout('typewriter()', 1);
     }
   } else {
     // eslint-disable-next-line no-implied-eval
@@ -1071,15 +1111,19 @@ function sceneControl() {
   const wizard = document.getElementById('wizard1');
   const egg = document.getElementById('egg2');
   const playerMonster = document.getElementById('player-monster');
+  const backgroundImage = document.getElementById('background-image-current');
+  function endSceneActions() {
+    scene += 1;
+    resetText();
+    typewriter();
+  }
   if (scene === 1) {
     playerMonster.style.display = 'none';
     egg.style.display = 'none';
     createMonsterImg('assets/monster/Extras/Wizard.png', 'wizard', 'wizard1');
     changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Cave/cave_edited.jpg')");
-    typewriter();
-    scene += 1;
-    resetText();
+    endSceneActions();
   } else if (scene === 2) {
     wizard.style.display = 'none';
     egg.style.display = 'inline';
@@ -1088,13 +1132,11 @@ function sceneControl() {
     storyContent[1] = 'and in the cave there was an egg...';
     storyContent[2] = 'He stole it and ran to his castle';
     storyContent[3] = '"Whatever grows from this egg will serve me well!"';
-    storyContent[4] = '- happily thought the sorcerer...';
+    storyContent[4] = '- happily thought the wizard...';
     changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Prison/prison01.jpg')");
     createMonsterImg('assets/monster/Starter/01.png', 'egg2', 'egg2');
-    scene += 1;
-    typewriter();
-    resetText();
+    endSceneActions();
   } else if (scene === 3) {
     wizard.style.display = 'inline';
     wizard.style.left = '10%';
@@ -1106,9 +1148,7 @@ function sceneControl() {
     storyContent[4] = '';
     changeToPreloadedBackground();
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
-    scene += 1;
-    resetText();
-    typewriter();
+    endSceneActions();
   } else if (scene === 4) {
     storyContent[0] = 'As soon as he left, the beast within tried to break away...';
     storyContent[1] = 'but the shackles of the egg would not break.';
@@ -1117,9 +1157,7 @@ function sceneControl() {
     storyContent[4] = '"...Grow enough to get your freedom!"';
     egg.style.animation = 'shake 3s infinite';
     wizard.style.display = 'none';
-    scene += 1;
-    resetText();
-    typewriter();
+    endSceneActions();
   } else if (scene === 5) {
     storyContent[0] = 'And then the creature saw...';
     storyContent[1] = '5 + 5 = ?';
@@ -1128,40 +1166,128 @@ function sceneControl() {
     storyContent[4] = 'Once again it heard - "Grow as fast as you can..."';
     storyContent[5] = '...escape the castle before the wizard catches you!';
     egg.style.animation = 'grow 10s forwards';
-    scene += 1;
-    resetText();
-    typewriter();
+    endSceneActions();
   } else if (scene === 6) {
     sceneDiv.style.display = 'none';
     scene += 1;
   } else if (scene === 8) {
+    preloadBackground("url('assets/Backgrounds/road/outside.jpg')");
     playerMonster.src = document.getElementById('monster').src;
     egg.style.display = 'none';
     playerMonster.style.display = 'block';
-    textFrame.style.visibility = 'hidden';
     sceneDiv.style.display = 'block';
-    storyContent[0] = 'Good job little creature!';
+    storyContent[0] = 'Your final transformation caused destruction all around you.';
     storyContent[1] = 'You have learned and grown so much!';
-    storyContent[2] = 'Now we will help you escape the castle';
-    storyContent[3] = 'And live with us, ';
-    storyContent[4] = 'Your new family of calculationsters';
-    storyContent[5] = 'Just like you!';
-    resetText();
-    typewriter();
-    textFrame.style.visibility = 'visible';
-    scene += 1;
+    storyContent[2] = "While you're getting used to your full power ";
+    storyContent[3] = 'you feel someone approaching...';
+    storyContent[4] = '';
+    storyContent[5] = '';
+    endSceneActions();
   } else if (scene === 9) {
-    textFrame.style.visibility = 'hidden';
-    storyContent[0] = `You escaped with ${timer.sec} seconds to spare!`;
-    storyContent[1] = 'For each remaining second you get 5 bonus points';
-    storyContent[2] = `Your final score is ${scoreboard.score + timer.sec * 5}`;
+    wizard.style.display = 'block';
+    storyContent[0] = '"That sound, my monster! Said the wizard"';
+    storyContent[1] = '"You have more power that I had imagined"';
+    storyContent[2] = '"Now come forth as my soldier';
+    storyContent[3] = 'you will allow me to conquer the world!"';
+    storyContent[4] = '...';
+    storyContent[5] = '...';
+    endSceneActions();
+  } else if (scene === 10) {
+    wizard.style.display = 'block';
+    storyContent[0] = '"... Aren\'t you listening? Come towards me!"';
+    storyContent[1] = '"You will need to be disciplined!"';
+    storyContent[2] = '';
     storyContent[3] = '';
     storyContent[4] = '';
     storyContent[5] = '';
-    resetText();
-    typewriter();
-    textFrame.style.visibility = 'visible';
-    scene += 1;
+    wizard.style.animation = 'move-right 1s forwards';
+    endSceneActions();
+  } else if (scene === 11) {
+    const calculationsterMagicAttack = document.createElement('div');
+    calculationsterMagicAttack.id = 'calculationster-magic-attack';
+    calculationsterMagicAttack.className = 'calculationster-magic-attack';
+    calculationsterMagicAttack.textContent = '2+2=4';
+    sceneDiv.appendChild(calculationsterMagicAttack);
+    storyContent[0] = '"AAAH-"';
+    storyContent[1] = 'You defeated the wizard easily';
+    storyContent[2] = 'and decided to finally escape from this castle.';
+    storyContent[3] = '';
+    storyContent[4] = '';
+    storyContent[5] = '';
+    audioHandler.playNoise('incorrect');
+    calculationsterMagicAttack.style.animation = 'expand-magic 1.2s forwards';
+    wizard.style.animation = 'send-flying 4s forwards';
+    endSceneActions();
+  } else if (scene === 12) {
+    const calculationsterMagicAttack = document.getElementById('calculationster-magic-attack');
+    sceneDiv.removeChild(calculationsterMagicAttack);
+    sceneDiv.removeChild(wizard);
+    const ancientCalculationster = document.createElement('img');
+    ancientCalculationster.src = './assets/monster/Extras/ancient-calculationster.png';
+    ancientCalculationster.id = 'ancient-calculationster';
+    ancientCalculationster.className = 'ancient-calculationster';
+    sceneDiv.appendChild(ancientCalculationster);
+    changeToPreloadedBackground();
+    storyContent[0] = '"Outside the castle you found another strange creature speaking in a very strong tone."';
+    storyContent[1] = '"I didn\'t know wizards already found ways to fly..."';
+    storyContent[2] = 'said the creature.';
+    storyContent[3] = '"Hey it\'s you! I was looking all over for you,';
+    storyContent[4] = 'you look different but I can feel your presence."';
+    storyContent[5] = '';
+    endSceneActions();
+  } else if (scene === 13) {
+    storyContent[0] = 'You did not understand what was the creature talking about...';
+    storyContent[1] = '"My voice familiar? Oh of course"';
+    storyContent[2] = '"I was the voice you heard to free yourself"';
+    storyContent[3] = '"I knew how to awaken your powers, my brother!"';
+    storyContent[4] = '';
+    storyContent[5] = '';
+    endSceneActions();
+  } else if (scene === 14) {
+    storyContent[0] = 'What a surprise! Brother?!';
+    storyContent[1] = '"Yeah, I\'m a calculationster just like you! "';
+    storyContent[2] = '"The most ancient one, that I\'m aware of, "';
+    storyContent[3] = '"Nice to finally meet you for real!"';
+    storyContent[4] = '';
+    storyContent[5] = '';
+    endSceneActions();
+  } else if (scene === 15) {
+    storyContent[0] = '"Let me show the way,"';
+    storyContent[1] = '"I will introduce you to our whole family so far"';
+    storyContent[2] = '"We\'re planning to conquer the world together!"';
+    storyContent[3] = '';
+    storyContent[4] = '';
+    storyContent[5] = '';
+    endSceneActions();
+  } else if (scene === 16) {
+    const endingFadeOutAnimation = 'fade-out 4s forwards';
+    storyContent[0] = '"Yeah you must have many questions,"';
+    storyContent[1] = '"do not worry Pythagosaurus gives some of the best explanations about our existence,"';
+    storyContent[2] = '"else may be Einstartarus will give you more simple explanations, "';
+    storyContent[3] = '"there was this one time were..."';
+    storyContent[4] = '';
+    storyContent[5] = '';
+    const ancientCalculationster = document.getElementById('ancient-calculationster');
+    const allElementsInScene = document.querySelectorAll('.scene *');
+    const allElementsInSceneExceptStoryText = [...allElementsInScene].filter((element) => element.id !== 'story');
+    allElementsInSceneExceptStoryText.forEach((element) => {
+      element.style.animation = endingFadeOutAnimation;
+    });
+    backgroundImage.style.animation = endingFadeOutAnimation;
+    playerMonster.style.animation = `move-right 5s forwards, ${endingFadeOutAnimation}`;
+    ancientCalculationster.style.animation = `move-right 5s forwards, ${endingFadeOutAnimation}`;
+    endSceneActions();
+  } else if (scene === 17) {
+    storyContent[0] = `You escaped with ${timer.sec} seconds to spare!`;
+    storyContent[1] = 'For each remaining second you get 5 bonus points';
+    storyContent[2] = `Your final score is ${scoreboard.score + timer.sec * 5}`;
+    storyContent[3] = 'Thank you for playing this game!';
+    storyContent[4] = 'If you click next the game will restart';
+    storyContent[5] = ':) Hope you enjoyed';
+    endSceneActions();
+  } else if (scene === 18) {
+    // * Refresh the game to title screen
+    window.location.reload();
   }
 }
 

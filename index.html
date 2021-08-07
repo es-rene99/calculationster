@@ -22,7 +22,7 @@
     <link rel="preload" as="image" href="./assets/Backgrounds/Castle/castle01.jpg">
   </head>
   <body>
-    <div class="background-image-div current"></div>
+    <div id="background-image-current"class="background-image-div current"></div>
     <div class="background-image-div preload"></div>
     <!-- welcome page -->
     <div id="start-container">
@@ -51,11 +51,8 @@
 
       <aside class="left-sidebar sidebar hidden-element">
         <div id="game-left-panel" class="game-left-panel hidden-element">
-          <h1 id="game-left-panel__title" class="game-left-panel__title">
-            Calculationster
-          </h1>
           <div class="game-left-panel__items">
-            <h1 class="items__header">Items:</h1>
+            <h1 class="items__header">Items</h1>
             <div class="items__container">
               <!-- TODO generate a list of items in JS -->
                 <div id="special-items" class="specialItem__div">
@@ -95,6 +92,8 @@
             class="player-notification-msgs"
           ></div>
           <div id="monster-container" class="monster-container">
+            <!-- monster comments here! -->
+            <p id = 'monsterComments'class='winningComment'>I'll get out of here!</p>
             <img src="" alt="" id="monster" class="monster" />
           </div>
         
