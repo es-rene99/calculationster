@@ -1186,7 +1186,7 @@ function sceneControl() {
   } else if (scene === 9) {
     wizard.style.display = 'block';
     storyContent[0] = '"That sound, my monster!" Said the wizard';
-    storyContent[1] = '"You have more power that I had imagined"';
+    storyContent[1] = '"You have more power than I had imagined"';
     storyContent[2] = '"Now come forth as my soldier,';
     storyContent[3] = 'and help me conquer the world!"';
     storyContent[4] = '...';
