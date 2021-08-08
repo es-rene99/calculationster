@@ -397,10 +397,21 @@ const specialEffects = {
     powers.armor.image.addEventListener('click', () => {
       specialEffects.armorClicked = true;
       powers.armor.description.innerHTML = `Prevents the timer from decreasing on the next ${this.maxArmorHits - this.armorHits} wrong answers. Currently active.`;
+      // returns focus to answer field after clicking on power
+      document.getElementById('answer').focus();
     });
-    powers.timeFreeze.image.addEventListener('click', () => specialEffects.useTimeFreeze());
-    powers.sharpClaw.image.addEventListener('click', () => specialEffects.useClaw());
-    powers.wingFoot.image.addEventListener('click', () => specialEffects.useWingFoot());
+    powers.timeFreeze.image.addEventListener('click', () => {
+      specialEffects.useTimeFreeze();
+      document.getElementById('answer').focus();
+    });
+    powers.sharpClaw.image.addEventListener('click', () => {
+      specialEffects.useClaw();
+      document.getElementById('answer').focus();
+    });
+    powers.wingFoot.image.addEventListener('click', () => {
+      specialEffects.useWingFoot();
+      document.getElementById('answer').focus();
+    });
   },
   addNewRandomPower() {
     const shuffledPowers = shuffle(Object.keys(powers));
