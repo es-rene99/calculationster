@@ -899,7 +899,7 @@ const monsterSentencesLoose = [
   'Got to focus more',
   'Time is short',
   'My brain is still growing...',
-  'The harder the better!',
+  'I love a challenge!',
   'Ouch! My brain!',
   'Let me out of this castle!',
   "I think I'm not feeling well...",
