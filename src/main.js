@@ -573,7 +573,7 @@ const monsters = [
   },
 ];
 
-const monsterSelected = getRandomArrayElement(monsters);
+let monsterSelected = getRandomArrayElement(monsters);
 
 function createMonsterImg(src, alt, id) {
   const monsterPlacement = document.getElementById(id);
@@ -587,6 +587,7 @@ function monsterGrowth() {
     // Here is where we ould preload the next level's background
     preloadBackground("url('assets/Backgrounds/Interior/interior04.jpg')");
     changeToPreloadedBackground();
+    monsterSelected = getRandomArrayElement(monsters);
     createMonsterImg(monsterSelected.transformation1, monsterSelected.altTransform1, 'monster');
   } else if (winAnswers === 15) {
     createMonsterImg(monsterSelected.transformation2, monsterSelected.altTransform2, 'monster');
