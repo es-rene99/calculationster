@@ -45,6 +45,22 @@ body {
   background-size: cover;
 }
 
+#mute-button {
+  height: 4rem;
+  width: 4rem;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background-color: rgba(216, 191, 216, 0.3);
+}
+
+#mute-button img {
+  height: 90%;
+  width: 90%;
+  padding: auto;
+  margin: auto;
+}
+
 /* thunder */
 .thunder {
   height: 100vh;
