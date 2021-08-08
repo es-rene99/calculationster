@@ -386,6 +386,7 @@ const specialEffects = {
   },
   init() {
     powers.armor.image.addEventListener('click', () => {
+      audioHandler.playNoise('armorHit');
       specialEffects.armorClicked = true;
       powers.armor.description.innerHTML = `Prevents the timer from decreasing on the next ${this.maxArmorHits - this.armorHits} wrong answers. Currently active.`;
       // returns focus to answer field after clicking on power
