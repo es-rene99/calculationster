@@ -1,6 +1,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable comma-dangle */
+
 /*
 getRandomDigit has been refactored to return a random integer between 0 and num
 includes 0, excludes num
@@ -213,7 +214,6 @@ let winAnswers = 0;
 let problem;
 let correctAnswer;
 let level = 1;
-const count = 0;
 const ANSWERS_PER_LEVEL = 5;
 
 function askProblem() {
@@ -278,15 +278,6 @@ function askProblem() {
   const question = document.getElementsByClassName('operation__question')[0];
   question.textContent = problem;
 }
-/*
-Here we activate the different effects
-effect1 is the armor
-*/
-
-// let effect1 = false;
-// let effect2 = false;
-// let effect4 = false;
-// let isClicked = false;
 
 function buildPower(domContainer, image, description, enabled) {
   return {
@@ -886,68 +877,6 @@ const timer = {
   },
 };
 
-// currently deprecated
-// function specialItems() {
-//   const image = document.getElementById('specialEffect1');
-//   const image1 = document.getElementById('specialEffect2');
-//   const image2 = document.getElementById('specialEffect3');
-//   const image3 = document.getElementById('specialEffect4');
-//   const image4 = document.getElementById('specialEffect5');
-// image.className = 'specialEffects__image';
-// image1.className = 'specialEffects__image';
-// image2.className = 'specialEffects__image';
-// image3.className = 'specialEffects__image';
-// image4.className = 'specialEffects__image';
-// }
-
-// currently deprecated
-// function clickedItems() {
-//   const getEffect1 = document.getElementById('specialEffect1');
-//   getEffect1.addEventListener(
-//     'click',
-//     () => {
-//       effect1 = true;
-//       const getCount = document
-//         .getElementById('enter-answer-btn')
-//         .addEventListener('click', () => {
-//           console.log((count += 1));
-//         });
-//     },
-//     { once: true }
-//   );
-//   const getEffect2 = document.getElementById('specialEffect2');
-//   getEffect2.addEventListener(
-//     'click',
-//     () => {
-//       effect2 = true;
-//       document
-//         .getElementById('enter-answer-btn')
-//         .addEventListener('click', () => {
-//           isClicked = true;
-//         });
-//     },
-//     { once: true }
-//   );
-
-//   const getEffect4 = document.getElementById('specialEffect4');
-//   getEffect4.addEventListener(
-//     'click',
-//     () => {
-//       askProblem();
-//     },
-//     { once: true }
-//   );
-
-//   const getEffect5 = document.getElementById('specialEffect5');
-//   getEffect5.addEventListener(
-//     'click',
-//     () => {
-//       timer.gainSeconds(60);
-//     },
-//     { once: true }
-//   );
-// }
-
 // create randomly generated sentence for the monster
 // depending on win or loose
 
@@ -1026,9 +955,6 @@ function checkIfAnswerIsCorrect() {
     userInputField.value = '';
     askProblem();
     monsterGrowth(level);
-    // console.log(
-    //  `${userAnswer} was the correct answer!\nGood job! Correct answers: ${winAnswers}`
-    // );
   } else {
     userInputField.value = '';
     if (specialEffects.armorEnabled()) {
@@ -1040,9 +966,6 @@ function checkIfAnswerIsCorrect() {
       declareCorrect = false;
       monsterTalks();
     }
-    // console.log(
-    //  `Ouch! ${userAnswer} was not the correct answer.\n Try again! (correct : ${correctAnswer})`,
-    // );
   }
   userInputField.focus();
 }
@@ -1363,8 +1286,6 @@ const uiHandler = {
         audioHandler.changeBGM('gameplayPhaseOneBGM', 'play');
         displayProblem();
         askProblem();
-        // specialItems();
-        // clickedItems();
         createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
       }
     };
