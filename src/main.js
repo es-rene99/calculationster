@@ -419,7 +419,7 @@ const specialEffects = {
     this.timeFrozen = false;
     this.clawsUsed = 0;
     powers.sharpClaw.description.innerHTML = `Slash away a problem you don't like! ${this.maxClawUses} more uses left. Click to activate.`;
-    powers.armor.description.innerHTML = `Prevents the timer from decreasing on the next ${this.maxArmorUses} wrong answers. Click to activate.`;
+    powers.armor.description.innerHTML = `Prevents the timer from decreasing on the next ${this.maxArmorHits} wrong answers. Click to activate.`;
     for (const power of Object.keys(powers)) {
       if (powers[power].enabled) {
         this.removePower(power);
