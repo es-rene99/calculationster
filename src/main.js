@@ -332,7 +332,6 @@ const specialEffects = {
   armorHits: 0,
   maxArmorHits: 5,
   timeFrozen: false,
-  secondLifeUsed: false,
   clawsUsed: 0,
   maxClawUses: 5,
   wingFootTimeGain: 60,
@@ -376,7 +375,7 @@ const specialEffects = {
     if (this.clawsUsed >= this.maxClawUses) {
       this.removePower('sharpClaw');
       this.clawsUsed = 0;
-      powers.sharpClaw.description.innerHTML = `Slash away a problem you don't like! ${this.maxClawUses - this.clawsUsed} more uses left. Click to activate.`;
+      powers.sharpClaw.description.innerHTML = `Slash away a problem you don't like! ${this.maxClawUses} more uses left. Click to activate.`;
     }
     askProblem();
   },
@@ -397,7 +396,7 @@ const specialEffects = {
   init() {
     powers.armor.image.addEventListener('click', () => {
       specialEffects.armorClicked = true;
-      powers.armor.description.innerHTML = `Prevents the timer from decreasing on the next ${5 - this.armorHits} wrong answers. Currently active.`;
+      powers.armor.description.innerHTML = `Prevents the timer from decreasing on the next ${this.maxArmorHits - this.armorHits} wrong answers. Currently active.`;
     });
     powers.timeFreeze.image.addEventListener('click', () => specialEffects.useTimeFreeze());
     powers.sharpClaw.image.addEventListener('click', () => specialEffects.useClaw());
@@ -413,6 +412,12 @@ const specialEffects = {
     }
   },
   removeAllPowers() {
+    this.armorClicked = false;
+    this.armorHits = 0;
+    this.timeFrozen = false;
+    this.clawsUsed = 0;
+    powers.sharpClaw.description.innerHTML = `Slash away a problem you don't like! ${this.maxClawUses} more uses left. Click to activate.`;
+    powers.armor.description.innerHTML = `Prevents the timer from decreasing on the next ${this.maxArmorUses} wrong answers. Click to activate.`;
     for (const power of Object.keys(powers)) {
       if (powers[power].enabled) {
         this.removePower(power);
