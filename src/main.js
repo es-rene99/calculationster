@@ -882,26 +882,26 @@ const timer = {
 
 const monsterSentencesWin = [
   'Easy peasy!',
-  'I feel my power raising...',
+  'My powers are growing...',
   "I'm unstoppable!",
-  'The wiser the stronger!',
-  "I'll find my way out of here!",
+  'Knowledge is my power!',
+  "I'm gonna find my way out of here!",
   'Game on!',
   "That's all they got?!",
-  'No wizard can stop me!',
-  "I'm just starting!"
+  "This wizard can't stop me!",
+  'This is just the beginning!'
 ];
 
 const monsterSentencesLoose = [
-  'I was sure that was the answer!',
+  'I really thought that was the answer!',
   'Got to focus more',
-  'My power is decreasing',
+  'Time is short',
   'My brain is still growing...',
-  'The harder the better when I get it',
-  'Ouch! It hurts!',
-  'Let me out!',
+  'The harder the better!',
+  'Ouch! My brain!',
+  'Let me out of this castle!',
   "I think I'm not feeling well...",
-  "That doesn't look good..."
+  "This doesn't look good..."
 ];
 
 let declareCorrect = true;
