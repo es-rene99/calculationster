@@ -625,6 +625,7 @@ Here's an object to handle our audio stuff
 */
 
 const audioHandler = {
+  muted: false,
   init() {
     this.noises = {
       button: new Sound('./assets/sounds/noises/button-input.ogg'),
@@ -671,7 +672,9 @@ const audioHandler = {
     this.bgm = this.loops.introBGM;
   },
   startBGM() {
-    this.bgm.play();
+    if (!this.muted) {
+      this.bgm.play();
+    }
   },
   stopBGM() {
     this.bgm.stop();
@@ -679,7 +682,7 @@ const audioHandler = {
   changeBGM(bgmTrack, startPausedOrPlay = 'paused') {
     this.bgm.stop();
     this.bgm = this.loops[bgmTrack];
-    if (startPausedOrPlay === 'play') {
+    if (startPausedOrPlay === 'play' && !this.muted) {
       this.bgm.play();
     }
   },
@@ -691,34 +694,41 @@ const audioHandler = {
     this.bgm.sound.playbackRate = 1;
   },
   playNoise(noiseName) {
-    this.noises[noiseName].play();
+    if (!this.muted) {
+      this.noises[noiseName].play();
+    }
   },
   startTimeWarning() {
-    this.loops.timeWarning.play();
+    if (!this.muted) {
+      this.loops.timeWarning.play();
+    }
   },
   stopTimeWarning() {
     this.loops.timeWarning.stop();
   },
   levelUpHandling() {
     this.playNoise('reward');
-    let bgmChanged = true;
     if (level === 3) {
-      this.changeBGM('gameplayPhaseTwoBGM');
+      this.changeBGM('gameplayPhaseTwoBGM', 'play');
     } else if (level === 5) {
-      this.changeBGM('gameplayPhaseThreeBGM');
+      this.changeBGM('gameplayPhaseThreeBGM', 'play');
     } else if (level === 6) {
-      this.changeBGM('gameplayPhaseFourBGM');
-    } else {
-      bgmChanged = false;
-    }
-    if (bgmChanged) {
-      this.startBGM();
+      this.changeBGM('gameplayPhaseFourBGM', 'play');
     }
   },
   gameOver() {
     this.changeBGM('gameOverBGM', 'play');
     this.loops.timeWarning.stop();
   },
+  toggleMute() {
+    this.muted = !this.muted;
+    if (this.muted) {
+      this.stopTimeWarning();
+      this.stopBGM();
+    } else {
+      this.startBGM();
+    }
+  }
 };
 
 const timer = {
@@ -1251,6 +1261,7 @@ const uiHandler = {
   cutScene: document.getElementById('cut-scene'),
   nextBtn: document.getElementsByClassName('next-scene')[0],
   creditsBtn: document.getElementById('game__credits-btn'),
+  muteBtn: document.getElementById('mute-button'),
 
   toggleColorInSideBars(elements) {
     [...elements].forEach((element) => {
@@ -1269,6 +1280,7 @@ const uiHandler = {
       this.toggleHiddenElement(this.gameCreditsBtn);
       this.toggleHiddenElement(this.gameStartBtn);
       this.toggleHiddenElement(this.thunder);
+      this.toggleHiddenElement(this.muteBtn);
       sceneControl();
       audioHandler.startBGM();
     };
@@ -1289,6 +1301,14 @@ const uiHandler = {
         displayProblem();
         askProblem();
         createMonsterImg('assets/monster/Starter/01.png', 'egg', 'monster');
+      }
+    };
+    this.muteBtn.onclick = () => {
+      audioHandler.toggleMute();
+      if (audioHandler.muted) {
+        document.getElementById('mute-button-img').src = './assets/icons/Mute_Icon.svg';
+      } else {
+        document.getElementById('mute-button-img').src = './assets/icons/Speaker_Icon.svg';
       }
     };
   },
