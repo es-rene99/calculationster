@@ -956,10 +956,10 @@ const monsterSentencesWin = [
   'My powers are growing...',
   "I'm unstoppable!",
   'Knowledge is my power!',
-  "I know I'll find my way out of here!",
+  "I'm gonna find my way out of here!",
   'Game on!',
   "That's all they got?!",
-  'No wizard can stop me!',
+  "This wizard can't stop me!",
   'This is just the beginning!'
 ];
 
@@ -968,7 +968,7 @@ const monsterSentencesLoose = [
   'Got to focus more',
   'Time is short',
   'My brain is still growing...',
-  'The challenge makes it more fun!',
+  'The harder the better!',
   'Ouch! My brain!',
   'Let me out of this castle!',
   "I think I'm not feeling well...",
